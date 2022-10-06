@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 // Error: expected declaration, found name
 // name := "Dmitry"
 
@@ -16,10 +14,8 @@ func newCard() string {
 }
 
 func main() {
-	cards := []string{"Ace of Spades", newCard()}
+	cards := deck{"Ace of Spades", newCard()}
 	cards = append(cards, "Five of Diamonds")
 
-	for i, card := range cards {
-		fmt.Println(i, card)
-	}
+	cards.print()
 }
