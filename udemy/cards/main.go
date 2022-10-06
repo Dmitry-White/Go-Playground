@@ -14,8 +14,7 @@ func newCard() string {
 }
 
 func main() {
-	cards := deck{"Ace of Spades", newCard()}
-	cards = append(cards, "Five of Diamonds")
+	cards := newDeck()
 
 	cards.print()
 }
