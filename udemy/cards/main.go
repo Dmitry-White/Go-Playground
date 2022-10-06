@@ -17,4 +17,9 @@ func main() {
 	cards := newDeck()
 
 	cards.print()
+
+	hand, remainingDeck := cards.deal(3)
+
+	hand.print()
+	remainingDeck.print()
 }
