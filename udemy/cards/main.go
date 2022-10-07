@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 // Error: expected declaration, found name
 // name := "Dmitry"
 
@@ -22,4 +24,6 @@ func main() {
 
 	hand.print()
 	remainingDeck.print()
+
+	fmt.Printf("hand.toString(): %v\n", hand.toString())
 }
