@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // Error: expected declaration, found name
 // name := "Dmitry"
@@ -11,6 +13,8 @@ func newCard() string {
 	// var card string = "Ace of Spades"
 	card := "Ace of Spades"
 	card = "Ace of Hearts"
+
+	fmt.Println("Author: ", name)
 
 	return card
 }
