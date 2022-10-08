@@ -26,4 +26,6 @@ func main() {
 	remainingDeck.print()
 
 	fmt.Printf("hand.toString(): %v\n", hand.toString())
+
+	hand.saveToFile("hand.txt")
 }
