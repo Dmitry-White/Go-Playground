@@ -22,16 +22,17 @@ func main() {
 	fmt.Println("----------------")
 
 	hand, remainingDeck := cards.deal(3)
-
 	hand.print()
 	fmt.Println("----------------")
 	remainingDeck.print()
 	fmt.Println("----------------")
 
 	hand.saveToFile("hand.txt")
-
 	newCards := newDeckFromFile("hand.txt")
+	newCards.print()
+	fmt.Println("----------------")
 
+	newCards.shuffle()
 	newCards.print()
 	fmt.Println("----------------")
 }

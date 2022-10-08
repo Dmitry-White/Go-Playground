@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"math/rand"
 	"strings"
 )
 
@@ -64,4 +65,11 @@ func newDeckFromFile(filename string) deck {
 	cards := deck(parsedData)
 
 	return cards
+}
+
+func (d deck) shuffle() {
+	for index := range d {
+		newPosition := rand.Intn(len(d) - 1)
+		d[index], d[newPosition] = d[newPosition], d[index]
+	}
 }
