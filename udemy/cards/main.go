@@ -19,13 +19,19 @@ func main() {
 	cards := newDeck()
 
 	cards.print()
+	fmt.Println("----------------")
 
 	hand, remainingDeck := cards.deal(3)
 
 	hand.print()
+	fmt.Println("----------------")
 	remainingDeck.print()
-
-	fmt.Printf("hand.toString(): %v\n", hand.toString())
+	fmt.Println("----------------")
 
 	hand.saveToFile("hand.txt")
+
+	newCards := newDeckFromFile("hand.txt")
+
+	newCards.print()
+	fmt.Println("----------------")
 }
