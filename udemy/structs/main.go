@@ -7,7 +7,18 @@ type person struct {
 	lastName  string
 }
 
-func main() {
+type contactInfo struct {
+	email   string
+	zipCode int
+}
+
+type employee struct {
+	firstName string
+	lastName  string
+	contact   contactInfo
+}
+
+func createAlex() {
 	// A struct could be declared and initialized with ordered values
 	// alex := person{"Alex", "Anderson"}
 
@@ -27,4 +38,23 @@ func main() {
 	fmt.Println(alex)
 	fmt.Printf("%+v\n", alex)
 	fmt.Println("------------------")
+}
+
+func createJim() {
+	jim := employee{
+		firstName: "Jim",
+		lastName:  "Party",
+		contact: contactInfo{
+			email:   "jim@gmail.com",
+			zipCode: 94000,
+		},
+	}
+
+	fmt.Printf("%+v\n", jim)
+	fmt.Println("------------------")
+}
+
+func main() {
+	createAlex()
+	createJim()
 }
