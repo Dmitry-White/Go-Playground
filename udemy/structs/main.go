@@ -8,11 +8,15 @@ type person struct {
 }
 
 func main() {
-	// A struct could be declared with ordered values
+	// A struct could be declared and initialized with ordered values
 	// alex := person{"Alex", "Anderson"}
 
-	// A struct could be declared with field names
-	alex := person{firstName: "Alex", lastName: "Anderson"}
+	// A struct could be declared and initialized with field names
+	// alex := person{firstName: "Alex", lastName: "Anderson"}
+
+	// A struct could be declared with zero values
+	var alex person
 
 	fmt.Println(alex)
+	fmt.Printf("%+v", alex)
 }
