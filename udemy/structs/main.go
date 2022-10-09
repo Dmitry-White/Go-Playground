@@ -15,7 +15,9 @@ type contactInfo struct {
 type employee struct {
 	firstName string
 	lastName  string
-	contact   contactInfo
+	// contactInfo contactInfo
+	// OR simply
+	contactInfo
 }
 
 func createAlex() {
@@ -40,18 +42,22 @@ func createAlex() {
 	fmt.Println("------------------")
 }
 
+func (e employee) print() {
+	fmt.Printf("%+v\n", e)
+	fmt.Println("------------------")
+}
+
 func createJim() {
 	jim := employee{
 		firstName: "Jim",
 		lastName:  "Party",
-		contact: contactInfo{
+		contactInfo: contactInfo{
 			email:   "jim@gmail.com",
 			zipCode: 94000,
 		},
 	}
 
-	fmt.Printf("%+v\n", jim)
-	fmt.Println("------------------")
+	jim.print()
 }
 
 func main() {
