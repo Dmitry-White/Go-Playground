@@ -26,7 +26,24 @@ func createDeclaredMap() {
 	fmt.Println(colours)
 }
 
+func printMap(colours map[string]string) {
+	for colour, hex := range colours {
+		fmt.Printf("Key: %v, Value: %v\n", colour, hex)
+	}
+}
+
+func iterateMap() {
+	colours := map[string]string{
+		"red":   "#ff0000",
+		"green": "#4bf745",
+		"white": "#ffffff",
+	}
+
+	printMap(colours)
+}
+
 func main() {
 	createLiteralMap()
 	createDeclaredMap()
+	iterateMap()
 }
