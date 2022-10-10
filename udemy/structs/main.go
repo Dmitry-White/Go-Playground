@@ -47,7 +47,11 @@ func (e employee) print() {
 	fmt.Println("------------------")
 }
 
-func createJim() {
+func (employeePointer *employee) updateName(newFirstName string) {
+	(*employeePointer).firstName = newFirstName
+}
+
+func createJim() employee {
 	jim := employee{
 		firstName: "Jim",
 		lastName:  "Party",
@@ -57,10 +61,15 @@ func createJim() {
 		},
 	}
 
-	jim.print()
+	return jim
 }
 
 func main() {
 	createAlex()
-	createJim()
+	jim := createJim()
+	jim.print()
+
+	(&jim).updateName("Jimmy")
+
+	jim.print()
 }
