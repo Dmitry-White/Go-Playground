@@ -69,7 +69,15 @@ func main() {
 	jim := createJim()
 	jim.print()
 
-	(&jim).updateName("Jimmy")
+	// Go passes stuff by value
+	// Therefore, when working with mutations,
+	// we need to take care of converting values to references (pointers)
+	// to enable passing stuff by reference.
+	// "value.smth()"" is a syntactic sugar
+	// for the actual usage with pointers of "(&value).smth()"
+	// Therefore the following 2 lines are equivalent in action
+	// (&jim).updateName("Jimmy")
+	jim.updateName("Jimmy")
 
 	jim.print()
 }
