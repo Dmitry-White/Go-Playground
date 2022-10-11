@@ -2,10 +2,20 @@ package main
 
 import "fmt"
 
+// Bot Interface - an Interface Type
+// Interface Type ~= Abstract Class
+// i.e. can't be instantiated.
+// Interface Type != Generic Type
+// i.e. it doesn't imply that it will "accept" different types
+// A link from Concrete Type to Interface Type is implicit
+// i.e. we don't need to explicitly specify that
+// some Interface Type works with some Concrete Types or vice versa
 type bot interface {
 	getGreeting() string
 }
 
+// English/Spanish Bot Struct - a Concrete Type
+// i.e. can be instantiated
 type englishBot struct{}
 type spanishBot struct{}
 
