@@ -2,6 +2,10 @@ package main
 
 import "fmt"
 
+type bot interface {
+	getGreeting() string
+}
+
 type englishBot struct{}
 type spanishBot struct{}
 
@@ -10,7 +14,7 @@ func main() {
 	sb := spanishBot{}
 
 	printGreeting(eb)
-	// printGreeting(sb)
+	printGreeting(sb)
 }
 
 // Since the receiver value is not used,
@@ -25,14 +29,18 @@ func (spanishBot) getGreeting() string {
 	return "Hola!"
 }
 
-func printGreeting(eb englishBot) {
-	fmt.Println(eb.getGreeting())
-}
-
 // Go does not support function overloading
 // therefor we can't use the same function name
 // albeit with diffferet parameters
 
+// func printGreeting(eb englishBot) {
+// 	fmt.Println(eb.getGreeting())
+// }
+
 // func printGreeting(sb spanishBot) {
 // 	fmt.Println(sb.getGreeting())
 // }
+
+func printGreeting(b bot) {
+	fmt.Println(b.getGreeting())
+}
