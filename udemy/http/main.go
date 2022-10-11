@@ -1,8 +1,10 @@
 package main
 
 import (
+	"io"
 	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
@@ -18,8 +20,10 @@ func main() {
 	// resize the slice if it's already full
 	// therefore if passed an empty slice
 	// it won't be able to fill it with data
-	data := make([]byte, 99999)
-	resp.Body.Read(data)
+	// data := make([]byte, 99999)
+	// resp.Body.Read(data)
 
-	log.Println(string(data))
+	// log.Println(string(data))
+
+	io.Copy(os.Stdout, resp.Body)
 }
