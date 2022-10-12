@@ -1,9 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"net/http"
+)
 
-func makeRequest(link string) bool {
-	fmt.Println(link)
+func checkLink(link string) bool {
+	_, err := http.Get(link)
+	if err != nil {
+		fmt.Println(link, "might be down!")
+		return false
+	}
+	fmt.Println(link, "is up!")
 	return true
 }
 
@@ -17,6 +25,6 @@ func main() {
 	}
 
 	for _, link := range links {
-		makeRequest(link)
+		checkLink(link)
 	}
 }
