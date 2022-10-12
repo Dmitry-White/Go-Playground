@@ -5,15 +5,15 @@ import (
 	"net/http"
 )
 
-func checkLink(channel chan bool, link string) bool {
+func checkLink(channel chan string, link string) bool {
 	_, err := http.Get(link)
 	if err != nil {
 		fmt.Println(link, "might be down!")
-		channel <- false
+		channel <- link
 		return false
 	}
 	fmt.Println(link, "is up!")
-	channel <- true
+	channel <- link
 	return true
 }
 
@@ -26,13 +26,29 @@ func main() {
 		"http://amazon.com",
 	}
 
-	channel := make(chan bool)
+	channel := make(chan string)
 
 	for _, link := range links {
 		go checkLink(channel, link)
 	}
 
-	for i := 0; i < len(links); i++ {
-		fmt.Printf("Status is %v\n", <-channel)
+	// Naive loop to wait for a message from a channel
+	// number of time a goroutine was created
+	// for i := 0; i < len(links); i++ {
+	// 	fmt.Printf("Status is %v\n", <-channel)
+	// }
+
+	// Infinite loop with Message Syntax
+	// to kick off a new goroutine each time
+	// a channel receives a message from the completed goroutine
+	// for {
+	// 	go checkLink(channel, <-channel)
+	// }
+
+	// Infinite loop with Range Syntax
+	// to kick off a new goroutine each time
+	// a channel receives a message from the completed goroutine
+	for link := range channel {
+		go checkLink(channel, link)
 	}
 }
