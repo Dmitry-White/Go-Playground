@@ -5,13 +5,15 @@ import (
 	"net/http"
 )
 
-func checkLink(link string) bool {
+func checkLink(channel chan bool, link string) bool {
 	_, err := http.Get(link)
 	if err != nil {
 		fmt.Println(link, "might be down!")
+		channel <- false
 		return false
 	}
 	fmt.Println(link, "is up!")
+	channel <- true
 	return true
 }
 
@@ -24,7 +26,10 @@ func main() {
 		"http://amazon.com",
 	}
 
+	channel := make(chan bool)
+
 	for _, link := range links {
-		checkLink(link)
+		go checkLink(channel, link)
 	}
+	fmt.Printf("Status is %v\n", <-channel)
 }
