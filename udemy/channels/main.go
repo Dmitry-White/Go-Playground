@@ -31,5 +31,8 @@ func main() {
 	for _, link := range links {
 		go checkLink(channel, link)
 	}
-	fmt.Printf("Status is %v\n", <-channel)
+
+	for i := 0; i < len(links); i++ {
+		fmt.Printf("Status is %v\n", <-channel)
+	}
 }
