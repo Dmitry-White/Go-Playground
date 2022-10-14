@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"sync"
 	"time"
 )
 
@@ -31,7 +32,19 @@ func fetchSerial(urls []string) {
 func fetchConcurrent(urls []string) {
 	fmt.Println("----------------")
 	fmt.Println("Fetch Concurrent")
-	fmt.Println(urls)
+
+	var waitGroup sync.WaitGroup
+
+	for _, url := range urls {
+		waitGroup.Add(1)
+		go func(url string) {
+			fetchContentType(url)
+			waitGroup.Done()
+		}(url)
+	}
+
+	waitGroup.Wait()
+
 	fmt.Println("----------------")
 }
 
