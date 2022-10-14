@@ -2,13 +2,29 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"time"
 )
+
+func fetchContentType(url string) {
+	resp, err := http.Get(url)
+	if err != nil {
+		fmt.Printf("Error: %v", err)
+		return
+	}
+
+	contentType := resp.Header.Get("Content-Type")
+	fmt.Printf("%s -> %s\n", url, contentType)
+}
 
 func fetchSerial(urls []string) {
 	fmt.Println("----------------")
 	fmt.Println("Fetch Serial")
-	fmt.Println(urls)
+
+	for _, url := range urls {
+		fetchContentType(url)
+	}
+
 	fmt.Println("----------------")
 }
 
@@ -23,10 +39,24 @@ func main() {
 	fmt.Println("Wait Groups")
 
 	urls := []string{
-		"https://golang.org",
+		"https://go.dev",
 		"https://api.github.com",
 		"https://google.com",
 		"https://amazon.com",
+		"https://youtube.com",
+		"https://nodejs.org",
+		"https://go.dev",
+		"https://api.github.com",
+		"https://google.com",
+		"https://amazon.com",
+		"https://youtube.com",
+		"https://nodejs.org",
+		"https://go.dev",
+		"https://api.github.com",
+		"https://google.com",
+		"https://amazon.com",
+		"https://youtube.com",
+		"https://nodejs.org",
 	}
 
 	startSerial := time.Now()
