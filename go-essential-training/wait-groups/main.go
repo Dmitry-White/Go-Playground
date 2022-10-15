@@ -7,15 +7,14 @@ import (
 	"time"
 )
 
-func fetchContentType(url string) {
+func fetchContentType(url string) string {
 	resp, err := http.Get(url)
 	if err != nil {
-		fmt.Printf("Error: %v", err)
-		return
+		return fmt.Sprintf("%s -> Error: %v", url, err)
 	}
 
 	contentType := resp.Header.Get("Content-Type")
-	fmt.Printf("%s -> %s\n", url, contentType)
+	return fmt.Sprintf("%s -> %s\n", url, contentType)
 }
 
 func fetchSerial(urls []string) {
@@ -23,7 +22,7 @@ func fetchSerial(urls []string) {
 	fmt.Println("Fetch Serial")
 
 	for _, url := range urls {
-		fetchContentType(url)
+		fmt.Println(fetchContentType(url))
 	}
 
 	fmt.Println("----------------")
@@ -38,7 +37,7 @@ func fetchConcurrent(urls []string) {
 	for _, url := range urls {
 		waitGroup.Add(1)
 		go func(url string) {
-			fetchContentType(url)
+			fmt.Println(fetchContentType(url))
 			waitGroup.Done()
 		}(url)
 	}
