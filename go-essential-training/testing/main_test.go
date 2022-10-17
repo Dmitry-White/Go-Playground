@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"testing"
 )
@@ -29,9 +30,7 @@ func TestExerciseWrongPattern(t *testing.T) {
 
 	expected := AAA{}
 
-	fmt.Println(err)
-
-	if err != fmt.Errorf("error: wrong pattern DRY") {
+	if errors.Is(err, fmt.Errorf("error: wrong pattern DRY")) {
 		t.Errorf("Test case error: %v", err)
 	}
 
