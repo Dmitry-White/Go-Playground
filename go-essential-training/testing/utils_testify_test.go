@@ -3,9 +3,11 @@ package main
 import (
 	"fmt"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
-func TestGetVerbs(t *testing.T) {
+func TestGetVerbsTestify(t *testing.T) {
 	testCases := []TestCase{
 		{"A_1", "Arrange"},
 		{"A_2", "Act"},
@@ -18,9 +20,7 @@ func TestGetVerbs(t *testing.T) {
 		t.Run(testName, func(t *testing.T) {
 			actual := getVerb(testCase.value)
 
-			if actual != testCase.expected {
-				t.Errorf("Actual %s; Expected %s", actual, testCase.expected)
-			}
+			assert.Equal(t, testCase.expected, actual)
 		})
 	}
 }

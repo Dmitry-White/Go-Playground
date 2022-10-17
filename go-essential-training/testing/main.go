@@ -6,18 +6,6 @@ import (
 	"time"
 )
 
-type AAA struct {
-	A_1 string
-	A_2 string
-	A_3 string
-}
-
-var PATTERN = AAA{
-	A_1: "Arrange",
-	A_2: "Act",
-	A_3: "Assert",
-}
-
 func exercisePattern(name string) (AAA, error) {
 	fmt.Println("Exercising pattern...")
 
