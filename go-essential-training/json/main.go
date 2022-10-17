@@ -9,5 +9,6 @@ package main
 // Marshal => String
 func main() {
 	decodeRequest()
+	encodeResponse(1000)
 	marshalRequest()
 }
