@@ -12,6 +12,12 @@ type AAA struct {
 	A_3 string
 }
 
+var PATTERN = AAA{
+	A_1: "Arrange",
+	A_2: "Act",
+	A_3: "Assert",
+}
+
 func exercisePattern(name string) (AAA, error) {
 	fmt.Println("Exercising pattern...")
 
@@ -22,23 +28,21 @@ func exercisePattern(name string) (AAA, error) {
 		return AAA{}, err
 	}
 
-	res := AAA{
-		A_1: "Arrange",
-		A_2: "Act",
-		A_3: "Assert",
-	}
-
 	fmt.Println("Done")
-	return res, nil
+	return PATTERN, nil
 }
 
 func main() {
-	res, err := exercisePattern("AAAA")
+	res, err := exercisePattern("AAA")
 
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
 
-	fmt.Printf("Result: %v", res)
+	fmt.Printf("Result: %v\n", res)
+
+	verb := getVerb("A_2")
+
+	fmt.Printf("Verb: %v\n", verb)
 }
