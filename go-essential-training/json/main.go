@@ -10,5 +10,5 @@ package main
 func main() {
 	decodeRequest()
 	encodeResponse(1000)
-	marshalRequest()
+	unmarshalRequest()
 }
