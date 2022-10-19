@@ -48,9 +48,17 @@ func getUser(id string) User {
 func addUser(user User) map[string]interface{} {
 	url := fmt.Sprintf("%s/%s", API["BASE_URL"], API["USERS"])
 
-	userBytes, jsonMarshalErr := json.Marshal(user)
-	if jsonMarshalErr != nil {
-		log.Fatalf("error: can't marshal - %s", jsonMarshalErr)
+	// Unlike regular variable declarations,
+	// a short variable declaration may redeclare variables
+	// provided they were originally declared earlier in the same block with the same type,
+	// and at least one of the non-blank variables is new.
+	// As a consequence, redeclaration can only appear in a multi-variable short declaration.
+	// Redeclaration does not introduce a new variable; it just assigns a new value to the original.
+	//
+	// Therefore, there are multiple "err" variables seemingly "redeclared"
+	userBytes, err := json.Marshal(user)
+	if err != nil {
+		log.Fatalf("error: can't marshal - %s", err)
 	}
 
 	bytesReader := bytes.NewReader(userBytes)
@@ -74,6 +82,28 @@ func addUser(user User) map[string]interface{} {
 	return data
 }
 
+func addPost(post Post) string {
+	url := fmt.Sprintf("%s/%s", API["BASE_URL"], API["POSTS"])
+
+	postBytes, err := json.Marshal(post)
+	if err != nil {
+		log.Fatalf("error: can't marshal - %s", err)
+	}
+
+	bytesReader := bytes.NewReader(postBytes)
+
+	response, err := http.Post(url, "application/json", bytesReader)
+	if err != nil {
+		log.Fatalf("Error: can't call %s, results in %v", API["BASE_URL"], err)
+	}
+
+	defer response.Body.Close()
+
+	result, _ := io.ReadAll(response.Body)
+
+	return string(result)
+}
+
 func main() {
 	getUsers()
 
@@ -82,5 +112,9 @@ func main() {
 
 	newUser := User{Name: "Test", Username: "TestUsername", Email: "test@test.com"}
 	data := addUser(newUser)
-	log.Printf("Data: %+v", data)
+	log.Printf("User Data: %+v", data)
+
+	newPost := Post{Title: "Test", UserId: "1", Body: "Test Body"}
+	result := addPost(newPost)
+	log.Printf("Post Data: %+v", result)
 }
