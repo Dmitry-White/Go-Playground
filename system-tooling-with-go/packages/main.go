@@ -2,11 +2,13 @@ package main
 
 import "fmt"
 
-func greeting() string {
-	return fmt.Sprint("Not Implemented")
+func greeting(name, message string) (salutation string) {
+	// The variable name specified in the return type is implicitely declared
+	salutation = fmt.Sprintf("%s, %s.", message, name)
+	return salutation
 }
 
 func main() {
-	message := greeting()
+	message := greeting("General Kenobi", "Hello there")
 	fmt.Println(message)
 }
