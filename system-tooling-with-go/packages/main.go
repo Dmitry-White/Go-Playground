@@ -1,14 +1,17 @@
 package main
 
-import "fmt"
-
-func greeting(name, message string) (salutation string) {
-	// The variable name specified in the return type is implicitely declared
-	salutation = fmt.Sprintf("%s, %s.", message, name)
-	return salutation
-}
+import (
+	"fmt"
+	"packages/core"
+	"packages/utils"
+)
 
 func main() {
-	message := greeting("General Kenobi", "Hello there")
-	fmt.Println(message)
+	friendName := core.Names["friend"]
+	friendSays := utils.Greeting(friendName, "Oh hello there!")
+	fmt.Println(friendSays)
+
+	enemyName := core.Names["enemy"]
+	enemySays := utils.Greeting(enemyName, friendName)
+	fmt.Println(enemySays)
 }
