@@ -32,5 +32,12 @@ func RecordLine(line string) {
 }
 
 func PullRecords() {
-	fmt.Println("Not Implemented")
+	data, err := os.ReadFile(core.FILE_NAME)
+	if err != nil {
+		log.Fatalf("Error: Failed to open %s, %v", core.FILE_NAME, err)
+	}
+
+	lines := string(data)
+
+	fmt.Print(lines)
 }
