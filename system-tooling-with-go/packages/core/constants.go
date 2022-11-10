@@ -9,3 +9,5 @@ var Messages = map[string]string{
 	"friend": "Oh hello there!",
 	"enemy":  "General Kenobi.",
 }
+
+const FILE_NAME = "conversation.txt"
