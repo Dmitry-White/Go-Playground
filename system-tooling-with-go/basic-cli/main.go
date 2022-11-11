@@ -33,8 +33,13 @@ func showUsage(f *Flags) {
 	}
 }
 
-func handleDebug(*Flags) {
-	fmt.Println("Not Implemented")
+func handleDebug(f *Flags) {
+	if os.Getenv("DEBUG") != "" {
+		fmt.Println("Name: ", f.name)
+		fmt.Println("Greeting: ", f.greeting)
+		fmt.Println("Prompt: ", f.promt)
+		fmt.Println("Preview: ", f.preview)
+	}
 }
 
 func handlePrompt(f *Flags) {
