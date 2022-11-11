@@ -1,9 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"flag"
 	"fmt"
 	"os"
+	"strings"
 )
 
 type Flags struct {
@@ -43,7 +45,15 @@ func handleDebug(f *Flags) {
 }
 
 func handlePrompt(f *Flags) {
-	fmt.Println("Not Implemented")
+	reader := bufio.NewReader(os.Stdin)
+
+	fmt.Print("Your Name: ")
+	inputName, _ := reader.ReadString('\n')
+	f.name = strings.TrimSpace(inputName)
+
+	fmt.Print("Your Greeting: ")
+	inputGreeting, _ := reader.ReadString('\n')
+	f.greeting = strings.TrimSpace(inputGreeting)
 }
 
 func handlePreview(message string) {
@@ -71,9 +81,9 @@ func main() {
 
 	showUsage(&flags)
 
-	handleDebug(&flags)
-
 	handlePrompt(&flags)
+
+	handleDebug(&flags)
 
 	handleMessage(&flags)
 }
