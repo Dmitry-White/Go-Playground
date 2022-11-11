@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
 )
 
 type Flags struct {
@@ -22,7 +23,14 @@ func parseFlags(f *Flags) {
 }
 
 func showUsage(f *Flags) {
-	fmt.Println("Not Implemented")
+	// Note:
+	// f.promt is a syntactic sugar for
+	// (*f).name
+	// to reduce typing
+	if !f.promt && (f.name == "" || f.greeting == "") {
+		flag.Usage()
+		os.Exit(1)
+	}
 }
 
 func handleDebug(*Flags) {
