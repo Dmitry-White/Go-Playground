@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type Flags struct {
 	name     string
 	greeting string
@@ -8,23 +10,37 @@ type Flags struct {
 }
 
 func parseFlags(*Flags) {
-	println("Not Implemented")
+	fmt.Println("Not Implemented")
 }
 
 func showUsage(*Flags) {
-	println("Not Implemented")
+	fmt.Println("Not Implemented")
 }
 
 func handleDebug(*Flags) {
-	println("Not Implemented")
+	fmt.Println("Not Implemented")
 }
 
-func handlePrompt(*Flags) {
-	println("Not Implemented")
+func handlePrompt(f *Flags) {
+	fmt.Println("Not Implemented")
 }
 
-func handleMessage(*Flags) {
-	println("Not Implemented")
+func handlePreview(message string) {
+	fmt.Println(message)
+}
+
+func handleWrite(message string) {
+	fmt.Println("Not Implemented")
+}
+
+func handleMessage(f *Flags) {
+	message := ""
+
+	if f.preview {
+		handlePreview(message)
+	} else {
+		handleWrite(message)
+	}
 }
 
 func main() {
