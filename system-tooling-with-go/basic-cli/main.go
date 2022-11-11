@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"flag"
+	"fmt"
+)
 
 type Flags struct {
 	name     string
@@ -9,11 +12,16 @@ type Flags struct {
 	preview  bool
 }
 
-func parseFlags(*Flags) {
-	fmt.Println("Not Implemented")
+func parseFlags(f *Flags) {
+	flag.StringVar(&f.name, "name", "123", "name to use within the message")
+	flag.StringVar(&f.greeting, "greeting", "", "phrase to use within the message")
+	flag.BoolVar(&f.promt, "promt", false, "use prompt to input name and greeting")
+	flag.BoolVar(&f.preview, "preview", false, "use preview to output message without writing to conversation.txt")
+
+	flag.Parse()
 }
 
-func showUsage(*Flags) {
+func showUsage(f *Flags) {
 	fmt.Println("Not Implemented")
 }
 
