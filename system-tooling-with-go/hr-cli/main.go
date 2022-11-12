@@ -32,17 +32,23 @@ func handleJSONFormat(output *io.Writer, users []User) {
 	(*output).Write(data)
 }
 
-func handleCSVFormat() {
-	fmt.Println("[handleCSVFormat] Not Implemented")
-	err := errors.New("sample error")
-	handleError(err)
+func handleCSVFormat(output *io.Writer, users []User) {
+	(*output).Write([]byte("name,id,home,shell\n"))
+
+	writer := csv.NewWriter((*output))
+	for _, user := range users {
+		err := writer.Write([]string{user.Name, strconv.Itoa(user.Id), user.Home, user.Shell})
+		handleError(err)
+	}
+
+	writer.Flush()
 }
 
 func handleOutputFormat(output *io.Writer, format string, users []User) {
 	if format == "json" {
 		handleJSONFormat(output, users)
 	} else if format == "csv" {
-		handleCSVFormat()
+		handleCSVFormat(output, users)
 	}
 }
 
@@ -79,7 +85,7 @@ func parseFlags() (path, format string) {
 }
 
 func collectUsers() []User {
-	file, err := os.Open("/etc/passwd")
+	file, err := os.Open("passwd")
 	handleError(err)
 	defer file.Close()
 
