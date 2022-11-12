@@ -3,9 +3,11 @@ package main
 import (
 	"encoding/csv"
 	"errors"
+	"flag"
 	"fmt"
 	"os"
 	"strconv"
+	"strings"
 )
 
 type User struct {
@@ -44,9 +46,20 @@ func handleOutputPath() {
 	handleError(nil)
 }
 
-func parseFlags() {
-	fmt.Println("[parseFlags] Not Implemented")
-	handleError(nil)
+func parseFlags() (path, format string) {
+	flag.StringVar(&path, "path", "", "the path to export file.")
+	flag.StringVar(&format, "format", "json", "the output format for the user information. Available options are 'csv' and 'json'. The default option is 'json'.")
+	flag.Parse()
+
+	format = strings.ToLower(format)
+
+	if format != "csv" && format != "json" {
+		flag.Usage()
+		err := errors.New("ivalid format. Use 'json' or 'csv' instead")
+		handleError(err)
+	}
+
+	return
 }
 
 func collectUsers() []User {
@@ -84,7 +97,9 @@ func collectUsers() []User {
 }
 
 func main() {
-	parseFlags()
+	path, format := parseFlags()
+	fmt.Println(path, format)
+
 	users := collectUsers()
 	fmt.Println(users)
 
