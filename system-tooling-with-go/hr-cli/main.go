@@ -1,9 +1,11 @@
 package main
 
 import (
+	"encoding/csv"
 	"errors"
 	"fmt"
 	"os"
+	"strconv"
 )
 
 type User struct {
@@ -47,14 +49,44 @@ func parseFlags() {
 	handleError(nil)
 }
 
-func collectUsers() {
-	fmt.Println("[collectUsers] Not Implemented")
-	handleError(nil)
+func collectUsers() []User {
+	file, err := os.Open("/etc/passwd")
+	handleError(err)
+	defer file.Close()
+
+	reader := csv.NewReader(file)
+	reader.Comma = ':'
+
+	lines, err := reader.ReadAll()
+	handleError(err)
+
+	var users []User
+
+	for _, line := range lines {
+		id, err := strconv.ParseInt(line[2], 10, 64)
+		handleError(err)
+
+		if id < 1000 {
+			continue
+		}
+
+		user := User{
+			Name:  line[0],
+			Id:    int(id),
+			Home:  line[5],
+			Shell: line[6],
+		}
+
+		users = append(users, user)
+	}
+
+	return users
 }
 
 func main() {
 	parseFlags()
-	collectUsers()
+	users := collectUsers()
+	fmt.Println(users)
 
 	handleOutputPath()
 	handleOutputFormat()
