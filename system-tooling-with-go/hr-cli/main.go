@@ -6,7 +6,6 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"io"
 	"os"
 	"strconv"
 	"strings"
@@ -26,25 +25,27 @@ func handleError(err error) {
 	}
 }
 
-func handleJSONFormat(output *io.Writer, users []User) {
+func handleJSONFormat(output *os.File, users []User) {
 	data, err := json.MarshalIndent(users, "", "  ")
 	handleError(err)
-	(*output).Write(data)
+	output.Write(data)
+	output.Close()
 }
 
-func handleCSVFormat(output *io.Writer, users []User) {
-	(*output).Write([]byte("name,id,home,shell\n"))
+func handleCSVFormat(output *os.File, users []User) {
+	output.Write([]byte("name,id,home,shell\n"))
 
-	writer := csv.NewWriter((*output))
+	writer := csv.NewWriter(output)
 	for _, user := range users {
 		err := writer.Write([]string{user.Name, strconv.Itoa(user.Id), user.Home, user.Shell})
 		handleError(err)
 	}
 
 	writer.Flush()
+	output.Close()
 }
 
-func handleOutputFormat(output *io.Writer, format string, users []User) {
+func handleOutputFormat(output *os.File, format string, users []User) {
 	if format == "json" {
 		handleJSONFormat(output, users)
 	} else if format == "csv" {
@@ -52,17 +53,16 @@ func handleOutputFormat(output *io.Writer, format string, users []User) {
 	}
 }
 
-func handleOutputPath(path string) io.Writer {
-	var output io.Writer
+func handleOutputPath(path string) *os.File {
+	var output *os.File
 
 	if path != "" {
 		file, err := os.Create(path)
 		handleError(err)
-		defer file.Close()
 
 		output = file
 	} else {
-		output = os.Stdin
+		output = os.Stdout
 	}
 
 	return output
@@ -120,13 +120,11 @@ func collectUsers() []User {
 
 func main() {
 	path, format := parseFlags()
-	fmt.Println(path, format)
+	fmt.Println(format)
 
 	users := collectUsers()
-	fmt.Println(users)
 
 	output := handleOutputPath(path)
-	fmt.Println(output)
 
-	handleOutputFormat(&output, format, users)
+	handleOutputFormat(output, format, users)
 }

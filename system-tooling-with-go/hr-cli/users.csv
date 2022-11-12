@@ -1,0 +1,3 @@
+name,id,home,shell
+cloud_user,1000,/home/cloud_user,/bin/bash
+ssm-user,1002,/home/ssm-user,/bin/bash
