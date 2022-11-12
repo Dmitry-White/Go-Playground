@@ -5,6 +5,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"io"
 	"os"
 	"strconv"
 	"strings"
@@ -41,9 +42,20 @@ func handleOutputFormat() {
 	handleCSVFormat()
 }
 
-func handleOutputPath() {
-	fmt.Println("[handleOutputPath] Not Implemented")
-	handleError(nil)
+func handleOutputPath(path, format string) io.Writer {
+	var output io.Writer
+
+	if path != "" {
+		file, err := os.Create(path)
+		handleError(err)
+		defer file.Close()
+
+		output = file
+	} else {
+		output = os.Stdin
+	}
+
+	return output
 }
 
 func parseFlags() (path, format string) {
@@ -103,6 +115,8 @@ func main() {
 	users := collectUsers()
 	fmt.Println(users)
 
-	handleOutputPath()
+	output := handleOutputPath(path, format)
+	fmt.Println(output)
+
 	handleOutputFormat()
 }
