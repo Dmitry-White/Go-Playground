@@ -1,19 +1,34 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+	"os"
+)
 
-func handleError() {
-	fmt.Println("[handleError] Not Implemented")
+type User struct {
+	Id    int    `json:"id"`
+	Name  string `json:"name"`
+	Home  string `json:"home"`
+	Shell string `json:"shell"`
+}
+
+func handleError(err error) {
+	if err != nil {
+		fmt.Println("Error: ", err)
+		os.Exit(1)
+	}
 }
 
 func handleCSVFormat() {
 	fmt.Println("[handleCSVFormat] Not Implemented")
-	handleError()
+	err := errors.New("sample error")
+	handleError(err)
 }
 
 func handleJSONFormat() {
 	fmt.Println("[handleJSONFormat] Not Implemented")
-	handleError()
+	handleError(nil)
 }
 
 func handleOutputFormat() {
@@ -24,17 +39,17 @@ func handleOutputFormat() {
 
 func handleOutputPath() {
 	fmt.Println("[handleOutputPath] Not Implemented")
-	handleError()
+	handleError(nil)
 }
 
 func parseFlags() {
 	fmt.Println("[parseFlags] Not Implemented")
-	handleError()
+	handleError(nil)
 }
 
 func collectUsers() {
 	fmt.Println("[collectUsers] Not Implemented")
-	handleError()
+	handleError(nil)
 }
 
 func main() {
