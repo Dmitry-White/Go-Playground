@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/csv"
+	"encoding/json"
 	"errors"
 	"flag"
 	"fmt"
@@ -25,24 +26,27 @@ func handleError(err error) {
 	}
 }
 
+func handleJSONFormat(output *io.Writer, users []User) {
+	data, err := json.MarshalIndent(users, "", "  ")
+	handleError(err)
+	(*output).Write(data)
+}
+
 func handleCSVFormat() {
 	fmt.Println("[handleCSVFormat] Not Implemented")
 	err := errors.New("sample error")
 	handleError(err)
 }
 
-func handleJSONFormat() {
-	fmt.Println("[handleJSONFormat] Not Implemented")
-	handleError(nil)
+func handleOutputFormat(output *io.Writer, format string, users []User) {
+	if format == "json" {
+		handleJSONFormat(output, users)
+	} else if format == "csv" {
+		handleCSVFormat()
+	}
 }
 
-func handleOutputFormat() {
-	fmt.Println("[handleOutputFormat] Not Implemented")
-	handleJSONFormat()
-	handleCSVFormat()
-}
-
-func handleOutputPath(path, format string) io.Writer {
+func handleOutputPath(path string) io.Writer {
 	var output io.Writer
 
 	if path != "" {
@@ -115,8 +119,8 @@ func main() {
 	users := collectUsers()
 	fmt.Println(users)
 
-	output := handleOutputPath(path, format)
+	output := handleOutputPath(path)
 	fmt.Println(output)
 
-	handleOutputFormat()
+	handleOutputFormat(&output, format, users)
 }
