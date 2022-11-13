@@ -4,11 +4,14 @@ Copyright © 2022 COBRAED-CLI <dmitry.b.white@gmail.com>
 package cmd
 
 import (
-	"fmt"
+	"cobraed-cli/core"
+	"cobraed-cli/utils"
 	"os"
 
 	"github.com/spf13/cobra"
 )
+
+var flags = core.Flags{}
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -16,7 +19,13 @@ var rootCmd = &cobra.Command{
 	Short: "A brief description of your application",
 	Long:  `A longer description that spans multiple lines.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Not Implemented")
+		utils.ShowUsage(cmd, &flags)
+
+		utils.HandlePrompt(&flags)
+
+		utils.HandleDebug(&flags)
+
+		utils.HandleMessage(&flags)
 	},
 }
 
@@ -31,5 +40,8 @@ func Execute() {
 
 func init() {
 	// Here you will define your flags and configuration settings.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	rootCmd.Flags().StringVarP(&flags.Name, "name", "n", "123", "name to use within the message")
+	rootCmd.Flags().StringVarP(&flags.Greeting, "greeting", "g", "", "phrase to use within the message")
+	rootCmd.Flags().BoolVarP(&flags.Prompt, "prompt", "p", false, "use prompt to input name and greeting")
+	rootCmd.Flags().BoolVarP(&flags.Preview, "preview", "v", false, "use preview to output message without writing to a file")
 }
