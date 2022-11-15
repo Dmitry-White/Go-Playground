@@ -40,5 +40,5 @@ func formatting() {
 
 	// TODO: Sprintf is the same as Printf, but returns a string
 	s := fmt.Sprintf("%d %#[1]o %#[1]x\n", 52)
-	fmt.Println(s)
+	fmt.Print(s)
 }

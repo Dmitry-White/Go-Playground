@@ -14,4 +14,8 @@ func main() {
 	fmt.Println("---------- Precision ---------")
 	precision()
 	fmt.Println("------------------------------")
+
+	fmt.Println("------------ StdIn -----------")
+	stdin()
+	fmt.Println("------------------------------")
 }
