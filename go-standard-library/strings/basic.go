@@ -3,6 +3,9 @@ package main
 import (
 	"fmt"
 	"strings"
+
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 func basic() {
@@ -34,9 +37,15 @@ func basic() {
 	// TODO: ToUpper, ToLower, Title
 	s1 := strings.ToUpper(s)
 	s2 := strings.ToLower(s)
-	s3 := strings.Title(s)
+	s3 := strings.Title(s) // Deprecated
 
 	fmt.Println(s1)
 	fmt.Println(s2)
 	fmt.Println(s3)
+
+	// TODO: New Title approach using Cases and Language
+	caser := cases.Title(language.BritishEnglish)
+	s4 := caser.String(s)
+
+	fmt.Println(s4)
 }
