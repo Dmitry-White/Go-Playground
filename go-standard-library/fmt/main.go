@@ -10,4 +10,8 @@ func main() {
 	fmt.Println("--------- Formatting ---------")
 	formatting()
 	fmt.Println("------------------------------")
+
+	fmt.Println("---------- Precision ---------")
+	precision()
+	fmt.Println("------------------------------")
 }
