@@ -22,4 +22,8 @@ func main() {
 	fmt.Println("---------- Builder -----------")
 	builder()
 	fmt.Println("------------------------------")
+
+	fmt.Println("--------- Conversion ---------")
+	conversion()
+	fmt.Println("------------------------------")
 }
