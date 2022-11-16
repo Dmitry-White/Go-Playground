@@ -26,4 +26,8 @@ func main() {
 	fmt.Println("--------- Conversion ---------")
 	conversion()
 	fmt.Println("------------------------------")
+
+	fmt.Println("---------- Unicoding ---------")
+	unicoding()
+	fmt.Println("------------------------------")
 }
