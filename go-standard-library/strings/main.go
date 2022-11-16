@@ -14,4 +14,8 @@ func main() {
 	fmt.Println("-------- Manipulation --------")
 	manipulation()
 	fmt.Println("------------------------------")
+
+	fmt.Println("---------- Mapping -----------")
+	mapping()
+	fmt.Println("------------------------------")
 }
