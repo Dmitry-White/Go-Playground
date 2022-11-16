@@ -10,4 +10,8 @@ func main() {
 	fmt.Println("--------- Searching ----------")
 	searching()
 	fmt.Println("------------------------------")
+
+	fmt.Println("-------- Manipulation --------")
+	manipulation()
+	fmt.Println("------------------------------")
 }
