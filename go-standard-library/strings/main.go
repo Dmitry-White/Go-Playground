@@ -18,4 +18,8 @@ func main() {
 	fmt.Println("---------- Mapping -----------")
 	mapping()
 	fmt.Println("------------------------------")
+
+	fmt.Println("---------- Builder -----------")
+	builder()
+	fmt.Println("------------------------------")
 }
