@@ -10,4 +10,8 @@ func main() {
 	fmt.Println("------------ Calc ------------")
 	calc()
 	fmt.Println("------------------------------")
+
+	fmt.Println("----------- Random -----------")
+	random()
+	fmt.Println("------------------------------")
 }
