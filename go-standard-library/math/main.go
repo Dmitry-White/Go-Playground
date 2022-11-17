@@ -14,4 +14,8 @@ func main() {
 	fmt.Println("----------- Random -----------")
 	random()
 	fmt.Println("------------------------------")
+
+	fmt.Println("---------- useRandom ---------")
+	useRandom()
+	fmt.Println("------------------------------")
 }
