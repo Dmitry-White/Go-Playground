@@ -10,4 +10,8 @@ func main() {
 	fmt.Println("---------- Writing ----------")
 	writing()
 	fmt.Println("------------------------------")
+
+	fmt.Println("---------- Reading ----------")
+	reading()
+	fmt.Println("------------------------------")
 }

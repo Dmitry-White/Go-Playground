@@ -6,9 +6,6 @@ import (
 	"os"
 )
 
-const FILE_PATH_1 = "datafile.txt"
-const FILE_PATH_2 = "testfile.txt"
-
 func wirteFileData() {
 	// TODO: Create a new file
 	file, err := os.Create(FILE_PATH_2)
