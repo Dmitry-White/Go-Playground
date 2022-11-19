@@ -5,14 +5,6 @@ import (
 	"os"
 )
 
-func checkFileExists(filePath string) bool {
-	_, err := os.Stat(filePath)
-	if err != nil && os.IsNotExist(err) {
-		return false
-	}
-	return true
-}
-
 const VALID_FILE_PATH = "sample.txt"
 const INVALID_FILE_PATH = "sample2.txt"
 
