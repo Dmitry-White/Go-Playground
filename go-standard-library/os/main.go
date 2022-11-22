@@ -14,4 +14,8 @@ func main() {
 	fmt.Println("---------- Reading ----------")
 	reading()
 	fmt.Println("------------------------------")
+
+	fmt.Println("--------- Directory ----------")
+	directory()
+	fmt.Println("------------------------------")
 }
