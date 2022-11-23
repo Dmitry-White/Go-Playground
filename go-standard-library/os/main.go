@@ -7,15 +7,19 @@ func main() {
 	info()
 	fmt.Println("------------------------------")
 
-	fmt.Println("---------- Writing ----------")
+	fmt.Println("---------- Writing -----------")
 	writing()
 	fmt.Println("------------------------------")
 
-	fmt.Println("---------- Reading ----------")
+	fmt.Println("---------- Reading -----------")
 	reading()
 	fmt.Println("------------------------------")
 
 	fmt.Println("--------- Directory ----------")
 	directory()
+	fmt.Println("------------------------------")
+
+	fmt.Println("--------- Temporary ----------")
+	temporary()
 	fmt.Println("------------------------------")
 }
