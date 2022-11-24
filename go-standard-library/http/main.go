@@ -14,4 +14,8 @@ func main() {
 	fmt.Println("------------ POST ------------")
 	post()
 	fmt.Println("------------------------------")
+
+	fmt.Println("---------- Encoding ----------")
+	encoding()
+	fmt.Println("------------------------------")
 }
