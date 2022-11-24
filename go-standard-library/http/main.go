@@ -18,4 +18,8 @@ func main() {
 	fmt.Println("---------- Encoding ----------")
 	encoding()
 	fmt.Println("------------------------------")
+
+	fmt.Println("---------- Decoding ----------")
+	decoding()
+	fmt.Println("------------------------------")
 }
