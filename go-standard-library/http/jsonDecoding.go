@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func decoding() {
+func jsonDecoding() {
 	// TODO: Declare some sample JSON data to decode
 	data := []byte(`
 		{

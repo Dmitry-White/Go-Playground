@@ -15,11 +15,11 @@ func main() {
 	post()
 	fmt.Println("------------------------------")
 
-	fmt.Println("---------- Encoding ----------")
-	encoding()
+	fmt.Println("-------- JSON Encoding -------")
+	jsonEncoding()
 	fmt.Println("------------------------------")
 
-	fmt.Println("---------- Decoding ----------")
-	decoding()
+	fmt.Println("-------- JSON Decoding -------")
+	jsonDecoding()
 	fmt.Println("------------------------------")
 }

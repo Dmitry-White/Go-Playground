@@ -12,7 +12,7 @@ type person struct {
 	FaveColors []string `json:"favs,omitempty"`
 }
 
-func encoding() {
+func jsonEncoding() {
 	// TODO: Create some people data
 	people := []person{
 		{"John Doe", "123 Anywhere street", 36, nil},
