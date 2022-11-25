@@ -26,4 +26,8 @@ func main() {
 	fmt.Println("-------- XML Encoding --------")
 	xmlEncoding()
 	fmt.Println("------------------------------")
+
+	fmt.Println("-------- XML Decoding --------")
+	xmlDecoding()
+	fmt.Println("------------------------------")
 }
