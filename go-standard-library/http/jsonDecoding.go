@@ -16,8 +16,8 @@ func jsonDecoding() {
 		}
 	`)
 
-	// TODO: JSON will be decoded into a person struct
-	var p person
+	// TODO: JSON will be decoded into a Person struct
+	var p Person
 
 	// TODO: Test to see if the JSON is valid and the decode
 	valid := json.Valid(data)

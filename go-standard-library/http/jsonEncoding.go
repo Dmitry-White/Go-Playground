@@ -5,16 +5,9 @@ import (
 	"fmt"
 )
 
-type person struct {
-	Name       string   `json:"name"`
-	Address    string   `json:"addr"`
-	Age        int      `json:"-"`
-	FaveColors []string `json:"favs,omitempty"`
-}
-
 func jsonEncoding() {
 	// TODO: Create some people data
-	people := []person{
+	people := []Person{
 		{"John Doe", "123 Anywhere street", 36, nil},
 		{"Jane Doe", "456 Elsewhere Blvd", 31, []string{"Purple", "Yellow"}},
 	}

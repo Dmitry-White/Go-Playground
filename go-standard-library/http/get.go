@@ -2,16 +2,16 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strings"
 )
 
 func get() {
-	const httpbin = "https://httpbin.org/get"
+	endpoint := fmt.Sprintf("%s/get", BASE_URL)
 
 	// TODO: Perform a GET operation
-	resp, err := http.Get(httpbin)
+	resp, err := http.Get(endpoint)
 	if err != nil {
 		panic(err)
 	}
@@ -29,7 +29,7 @@ func get() {
 	var sb strings.Builder
 
 	// TODO: Read the content and write it to the Builder
-	content, _ := ioutil.ReadAll(resp.Body)
+	content, _ := io.ReadAll(resp.Body)
 
 	bytecount, _ := sb.Write(content)
 

@@ -2,14 +2,14 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
 func post() {
-	const httpbin = "https://httpbin.org/post"
+	endpoint := fmt.Sprintf("%s/post", BASE_URL)
 
 	// TODO: POST operation using Post
 	reqBody := strings.NewReader(`
@@ -19,14 +19,14 @@ func post() {
 	}
 	`)
 
-	resp, err := http.Post(httpbin, "application/json", reqBody)
+	resp, err := http.Post(endpoint, "application/json", reqBody)
 	if err != nil {
 		panic(err)
 	}
 
 	defer resp.Body.Close()
 
-	content, _ := ioutil.ReadAll(resp.Body)
+	content, _ := io.ReadAll(resp.Body)
 	fmt.Println("Result: ", string(content))
 
 	// TODO: POST operation using PostForm
@@ -34,13 +34,13 @@ func post() {
 		"x": []string{"100"},
 		"y": []string{"200", "300"},
 	}
-	respForm, err := http.PostForm(httpbin, data)
+	respForm, err := http.PostForm(endpoint, data)
 	if err != nil {
 		panic(err)
 	}
 
 	defer respForm.Body.Close()
 
-	contentForm, _ := ioutil.ReadAll(respForm.Body)
+	contentForm, _ := io.ReadAll(respForm.Body)
 	fmt.Println("Result: ", string(contentForm))
 }
