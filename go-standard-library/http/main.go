@@ -22,4 +22,8 @@ func main() {
 	fmt.Println("-------- JSON Decoding -------")
 	jsonDecoding()
 	fmt.Println("------------------------------")
+
+	fmt.Println("-------- XML Encoding --------")
+	xmlEncoding()
+	fmt.Println("------------------------------")
 }
