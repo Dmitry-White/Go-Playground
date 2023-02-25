@@ -1,3 +1,19 @@
 go 1.19
 
-use ./go-rest-api/helloworld
+use (
+	./complete-developers-guide/cards
+	./go-essential-training/http-client
+	./go-essential-training/http-server
+	./go-essential-training/json
+	./go-essential-training/testing
+	./go-rest-api/helloworld
+	./go-standard-library/fmt
+	./go-standard-library/http
+	./go-standard-library/math
+	./go-standard-library/os
+	./go-standard-library/strings
+	./system-tooling-with-go/basic-cli
+	./system-tooling-with-go/cobraed-cli
+	./system-tooling-with-go/hr-cli
+	./system-tooling-with-go/packages
+)
