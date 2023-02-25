@@ -7,3 +7,5 @@
 3. [System Tooling with Go](https://acloudguru.com/course/system-tooling-with-go)
 
 4. [Learning the Go Standard Library](https://www.linkedin.com/learning/learning-the-go-standard-library)
+
+5. [Practice It: Go REST API Server](https://www.linkedin.com/learning/practice-it-go-rest-api-server)
