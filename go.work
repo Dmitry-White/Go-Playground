@@ -6,6 +6,7 @@ use (
 	./go-essential-training/http-server
 	./go-essential-training/json
 	./go-essential-training/testing
+	./go-rest-api/functions
 	./go-rest-api/helloworld
 	./go-rest-api/practice
 	./go-rest-api/tester
