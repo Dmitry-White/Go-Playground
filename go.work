@@ -7,6 +7,7 @@ use (
 	./go-essential-training/json
 	./go-essential-training/testing
 	./go-rest-api/helloworld
+	./go-rest-api/practice
 	./go-standard-library/fmt
 	./go-standard-library/http
 	./go-standard-library/math
