@@ -8,6 +8,7 @@ use (
 	./go-essential-training/testing
 	./go-rest-api/helloworld
 	./go-rest-api/practice
+	./go-rest-api/tester
 	./go-standard-library/fmt
 	./go-standard-library/http
 	./go-standard-library/math

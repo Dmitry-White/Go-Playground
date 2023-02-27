@@ -9,7 +9,7 @@ import (
 const PORT = ":8000"
 
 func helloWorld(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Hello World")
+	fmt.Fprint(w, "Hello World\n")
 }
 
 func main() {
