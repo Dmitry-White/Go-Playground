@@ -6,10 +6,11 @@ use (
 	./go-essential-training/http-server
 	./go-essential-training/json
 	./go-essential-training/testing
-	./go-rest-api/functions
-	./go-rest-api/helloworld
-	./go-rest-api/practice
-	./go-rest-api/tester
+	./go-rest-api/api
+	./go-rest-api/misc/functions
+	./go-rest-api/misc/helloworld
+	./go-rest-api/misc/practice
+	./go-rest-api/misc/tester
 	./go-standard-library/fmt
 	./go-standard-library/http
 	./go-standard-library/math
