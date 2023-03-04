@@ -1,7 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"database/sql"
+	"fmt"
+	"log"
+
+	_ "github.com/mattn/go-sqlite3"
+)
 
 func main() {
-	fmt.Println("Api")
+	db, err := sql.Open("sqlite3", "./practiceit.db")
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	fmt.Println("DB: ", db)
 }
