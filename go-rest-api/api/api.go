@@ -2,7 +2,6 @@ package api
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"net/http"
 
@@ -18,8 +17,9 @@ type Product struct {
 }
 
 type App struct {
-	DB   *sql.DB
-	Port string
+	DB     *sql.DB
+	Port   string
+	Router *mux.Router
 }
 
 func (app *App) Init() {
@@ -27,22 +27,26 @@ func (app *App) Init() {
 	if err != nil {
 		log.Fatal(err.Error())
 	}
+	log.Printf("DB: %+v\n", db)
 
-	fmt.Printf("DB: %+v\n", db)
+	router := mux.NewRouter()
+	log.Printf("Router: %+v\n", router)
+
 	app.DB = db
+	app.Router = router
+	app.initRoutes()
+}
+
+func (app *App) initRoutes() {
+	app.Router.HandleFunc("/handle", app.Handle).Methods("GET")
+	app.Router.HandleFunc("/", getRequest).Methods("GET")
+	app.Router.HandleFunc("/", postRequest).Methods("POST")
+	app.Router.HandleFunc("/", deleteRequest).Methods("DELETE")
 }
 
 func (app *App) Run() {
-	router := mux.NewRouter()
-	fmt.Printf("Router: %+v\n", router)
-
-	router.HandleFunc("/handle", app.Handle).Methods("GET")
-	router.HandleFunc("/", getRequest).Methods("GET")
-	router.HandleFunc("/", postRequest).Methods("POST")
-	router.HandleFunc("/", deleteRequest).Methods("DELETE")
-
-	http.Handle("/", router)
-	fmt.Printf("Server started and listening on localhost%s\n", app.Port)
+	http.Handle("/", app.Router)
+	log.Printf("Server started and listening on localhost%s\n", app.Port)
 
 	err := http.ListenAndServe(app.Port, nil)
 	if err != nil {

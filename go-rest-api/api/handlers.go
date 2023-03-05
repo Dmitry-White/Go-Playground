@@ -7,7 +7,7 @@ import (
 )
 
 func (app *App) Handle(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("DB: %+v\n", app.DB)
+	log.Printf("DB: %+v\n", app.DB)
 	rows, err := app.DB.Query("SELECT id, name,inventory, price FROM products")
 	if err != nil {
 		log.Fatal(err.Error())
@@ -15,12 +15,12 @@ func (app *App) Handle(w http.ResponseWriter, r *http.Request) {
 	defer rows.Close()
 
 	columns, _ := rows.Columns()
-	fmt.Printf("Columns: %+v\n", columns)
+	log.Printf("Columns: %+v\n", columns)
 
 	for rows.Next() {
 		var p Product
 		rows.Scan(&p.id, &p.name, &p.inventory, &p.price)
-		fmt.Printf("Product: %+v\n", p)
+		log.Printf("Product: %+v\n", p)
 	}
 }
 
