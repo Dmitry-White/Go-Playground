@@ -15,9 +15,7 @@ type product struct {
 }
 
 func GetProducts(db *sql.DB) ([]product, error) {
-	log.Printf("DB: %+v\n", db)
-
-	rows, err := db.Query("SELECT id, name,inventory, price FROM products")
+	rows, err := db.Query("SELECT * FROM products")
 	if err != nil {
 		return nil, err
 	}
@@ -37,4 +35,15 @@ func GetProducts(db *sql.DB) ([]product, error) {
 	}
 
 	return products, err
+}
+
+func (p *product) GetProduct(db *sql.DB) error {
+	row := db.QueryRow("SELECT name, productCode, inventory, price, status FROM products WHERE id =?", p.ID)
+	err := row.Scan(&p.Name, &p.ProductCode, &p.Inventory, &p.Price, &p.Status)
+	if err != nil {
+		return err
+	}
+	log.Printf("Product: %+v\n", p)
+
+	return nil
 }

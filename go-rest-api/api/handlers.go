@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
+
+	"github.com/gorilla/mux"
 )
 
 func (app *App) Handle(w http.ResponseWriter, r *http.Request) {
@@ -34,4 +37,31 @@ func postRequest(w http.ResponseWriter, r *http.Request) {
 
 func deleteRequest(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "This is DELETE")
+}
+
+func (app *App) AllProducts(w http.ResponseWriter, r *http.Request) {
+	log.Printf("AllProducts Request: %+v\n", r)
+
+	products, err := GetProducts(app.DB)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	fmt.Fprintln(w, products)
+}
+
+func (app *App) FetchProduct(w http.ResponseWriter, r *http.Request) {
+	log.Printf("FetchProduct Request: %+v\n", r)
+	params := mux.Vars(r)
+	id, _ := strconv.Atoi(params["id"])
+
+	p := product{
+		ID: id,
+	}
+	err := p.GetProduct(app.DB)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	fmt.Fprintln(w, p)
 }
