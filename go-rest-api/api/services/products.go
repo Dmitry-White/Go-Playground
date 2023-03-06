@@ -16,7 +16,7 @@ func GetProducts(db *sql.DB) (*[]data.Product, error) {
 	products := []data.Product{}
 
 	for rows.Next() {
-		var product data.Product
+		product := data.Product{}
 		err := rows.Scan(&product.ID, &product.ProductCode, &product.Name, &product.Inventory, &product.Price, &product.Status)
 		if err != nil {
 			return nil, err
