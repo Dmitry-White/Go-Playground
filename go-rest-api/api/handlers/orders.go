@@ -69,6 +69,17 @@ func NewOrder(app *data.App) func(http.ResponseWriter, *http.Request) {
 			return
 		}
 
+		for _, item := range order.Items {
+			orderItem := data.OrderItem{}
+			orderItem = item
+			orderItem.OrderId = order.Id
+			err = services.CreateOrderItem(app.DB, &orderItem)
+			if err != nil {
+				utils.RespondWithError(w, http.StatusInternalServerError, err)
+				return
+			}
+		}
+
 		utils.RespondWithJSON(w, http.StatusOK, order)
 	}
 }

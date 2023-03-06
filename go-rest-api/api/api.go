@@ -37,13 +37,13 @@ func (app *App) initRoutes() {
 	app.Router.HandleFunc("/", handlers.DeleteRequest).Methods("DELETE")
 
 	app.Router.HandleFunc("/products", handlers.AllProducts(app.App)).Methods("GET")
-	app.Router.HandleFunc("/products/{id}", handlers.FetchProduct(app.App)).Methods("GET")
 	app.Router.HandleFunc("/products", handlers.NewProduct(app.App)).Methods("POST")
+	app.Router.HandleFunc("/products/{id}", handlers.FetchProduct(app.App)).Methods("GET")
 
 	app.Router.HandleFunc("/orders", handlers.AllOrders(app.App)).Methods("GET")
+	app.Router.HandleFunc("/orders", handlers.NewOrder(app.App)).Methods("POST")
 	app.Router.HandleFunc("/orders/{id}", handlers.FetchOrder(app.App)).Methods("GET")
 	app.Router.HandleFunc("/orders/{id}/items", handlers.FetchOrderItems(app.App)).Methods("GET")
-	app.Router.HandleFunc("/orders", handlers.NewOrder(app.App)).Methods("POST")
 
 	app.Router.HandleFunc("/order-items", handlers.AllOrderItems(app.App)).Methods("GET")
 	app.Router.HandleFunc("/order-items", handlers.NewOrderItem(app.App)).Methods("POST")
