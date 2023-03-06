@@ -45,6 +45,7 @@ func (app *App) initRoutes() {
 
 	app.Router.HandleFunc("/products", app.AllProducts).Methods("GET")
 	app.Router.HandleFunc("/products/{id}", app.FetchProduct).Methods("GET")
+	app.Router.HandleFunc("/products", app.NewProducts).Methods("POST")
 }
 
 func (app *App) Run() {

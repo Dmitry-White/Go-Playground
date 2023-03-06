@@ -17,7 +17,8 @@ func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 	w.Write(response)
 }
 
-func respondWithError(w http.ResponseWriter, code int, message string) {
-	errPayload := map[string]string{"error": message}
+func respondWithError(w http.ResponseWriter, code int, err error) {
+	log.Println(err.Error())
+	errPayload := map[string]string{"error": err.Error()}
 	respondWithJSON(w, code, errPayload)
 }

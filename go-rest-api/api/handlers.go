@@ -1,7 +1,9 @@
 package api
 
 import (
+	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 	"strconv"
@@ -44,8 +46,7 @@ func (app *App) AllProducts(w http.ResponseWriter, r *http.Request) {
 
 	products, err := GetProducts(app.DB)
 	if err != nil {
-		log.Println(err.Error())
-		respondWithError(w, http.StatusInternalServerError, err.Error())
+		respondWithError(w, http.StatusInternalServerError, err)
 		return
 	}
 
@@ -62,8 +63,32 @@ func (app *App) FetchProduct(w http.ResponseWriter, r *http.Request) {
 	}
 	err := p.GetProduct(app.DB)
 	if err != nil {
-		log.Fatal(err.Error())
-		respondWithError(w, http.StatusInternalServerError, err.Error())
+		respondWithError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	respondWithJSON(w, http.StatusOK, p)
+}
+
+func (app *App) NewProducts(w http.ResponseWriter, r *http.Request) {
+	log.Printf("NewProducts Request: %+v\n", r)
+
+	reqBody, err := io.ReadAll(r.Body)
+	if err != nil {
+		respondWithError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	var p product
+	err = json.Unmarshal(reqBody, &p)
+	if err != nil {
+		respondWithError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	err = p.CreateProduct(app.DB)
+	if err != nil {
+		respondWithError(w, http.StatusInternalServerError, err)
 		return
 	}
 
