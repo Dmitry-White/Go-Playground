@@ -44,10 +44,12 @@ func (app *App) AllProducts(w http.ResponseWriter, r *http.Request) {
 
 	products, err := GetProducts(app.DB)
 	if err != nil {
-		log.Fatal(err.Error())
+		log.Println(err.Error())
+		respondWithError(w, http.StatusInternalServerError, err.Error())
+		return
 	}
 
-	fmt.Fprintln(w, products)
+	respondWithJSON(w, http.StatusOK, products)
 }
 
 func (app *App) FetchProduct(w http.ResponseWriter, r *http.Request) {
@@ -61,7 +63,9 @@ func (app *App) FetchProduct(w http.ResponseWriter, r *http.Request) {
 	err := p.GetProduct(app.DB)
 	if err != nil {
 		log.Fatal(err.Error())
+		respondWithError(w, http.StatusInternalServerError, err.Error())
+		return
 	}
 
-	fmt.Fprintln(w, p)
+	respondWithJSON(w, http.StatusOK, p)
 }

@@ -29,10 +29,10 @@ func GetProducts(db *sql.DB) ([]product, error) {
 		if err != nil {
 			return nil, err
 		}
-		log.Printf("Product: %+v\n", p)
 
 		products = append(products, p)
 	}
+	log.Printf("Products: %+v\n", products)
 
 	return products, err
 }
