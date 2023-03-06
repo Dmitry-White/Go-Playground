@@ -16,11 +16,18 @@ func GetOrders(db *sql.DB) (*[]data.Order, error) {
 	orders := []data.Order{}
 
 	for rows.Next() {
-		var order data.Order
+		order := data.Order{}
 		err := rows.Scan(&order.Id, &order.CustomerName, &order.Total, &order.Status)
 		if err != nil {
 			return nil, err
 		}
+
+		orderItems, err := GetOrderItems(db, &order)
+		if err != nil {
+			return nil, err
+		}
+
+		order.Items = *orderItems
 
 		orders = append(orders, order)
 	}
@@ -31,13 +38,21 @@ func GetOrders(db *sql.DB) (*[]data.Order, error) {
 
 func GetOrder(db *sql.DB, order *data.Order) error {
 	row := db.QueryRow(
-		"SELECT customerName, total, status FROM orders WHERE id =?",
+		"SELECT id, customerName, total, status FROM orders WHERE id =?",
 		order.Id,
 	)
-	err := row.Scan(&order.CustomerName, &order.Total, &order.Status)
+	err := row.Scan(&order.Id, &order.CustomerName, &order.Total, &order.Status)
 	if err != nil {
 		return err
 	}
+
+	orderItems, err := GetOrderItems(db, order)
+	if err != nil {
+		return err
+	}
+
+	order.Items = *orderItems
+
 	log.Printf("Order: %+v\n", order)
 
 	return nil

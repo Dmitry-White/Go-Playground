@@ -33,8 +33,9 @@ func FetchOrder(app *data.App) func(http.ResponseWriter, *http.Request) {
 		params := mux.Vars(r)
 		id, _ := strconv.Atoi(params["id"])
 
-		order := data.Order{}
-		order.Id = id
+		order := data.Order{
+			Id: id,
+		}
 		err := services.GetOrder(app.DB, &order)
 		if err != nil {
 			utils.RespondWithError(w, http.StatusInternalServerError, err)
@@ -55,7 +56,7 @@ func NewOrder(app *data.App) func(http.ResponseWriter, *http.Request) {
 			return
 		}
 
-		var order data.Order
+		order := data.Order{}
 		err = json.Unmarshal(reqBody, &order)
 		if err != nil {
 			utils.RespondWithError(w, http.StatusBadRequest, err)

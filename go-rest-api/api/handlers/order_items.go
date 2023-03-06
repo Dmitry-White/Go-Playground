@@ -17,7 +17,7 @@ func AllOrderItems(app *data.App) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		log.Printf("AllOrderItems Request: %+v\n", r)
 
-		orderItems, err := services.GetOrderItems(app.DB)
+		orderItems, err := services.GetItems(app.DB)
 		if err != nil {
 			utils.RespondWithError(w, http.StatusInternalServerError, err)
 			return
@@ -27,19 +27,17 @@ func AllOrderItems(app *data.App) func(http.ResponseWriter, *http.Request) {
 	}
 }
 
-func FetchOrderItem(app *data.App) func(http.ResponseWriter, *http.Request) {
+func FetchOrderItems(app *data.App) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		log.Printf("FetchOrderItem Request: %+v\n", r)
 		params := mux.Vars(r)
-		query := r.URL.Query()
 
-		orderId, _ := strconv.Atoi(params["orderId"])
-		productId, _ := strconv.Atoi(query.Get("productId"))
+		id, _ := strconv.Atoi(params["id"])
 
-		orderItems := data.OrderItem{}
-		orderItems.OrderId = orderId
-		orderItems.ProductId = productId
-		err := services.GetOrderItem(app.DB, &orderItems)
+		order := data.Order{
+			Id: id,
+		}
+		orderItems, err := services.GetOrderItems(app.DB, &order)
 		if err != nil {
 			utils.RespondWithError(w, http.StatusInternalServerError, err)
 			return
