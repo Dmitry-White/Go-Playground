@@ -43,6 +43,10 @@ func (app *App) initRoutes() {
 	app.Router.HandleFunc("/orders", handlers.AllOrders(app.App)).Methods("GET")
 	app.Router.HandleFunc("/orders/{id}", handlers.FetchOrder(app.App)).Methods("GET")
 	app.Router.HandleFunc("/orders", handlers.NewOrder(app.App)).Methods("POST")
+
+	app.Router.HandleFunc("/order-items", handlers.AllOrderItems(app.App)).Methods("GET")
+	app.Router.HandleFunc("/order-items/{orderId}", handlers.FetchOrderItem(app.App)).Methods("GET")
+	app.Router.HandleFunc("/order-items", handlers.NewOrderItem(app.App)).Methods("POST")
 }
 
 func (app *App) Run() {
