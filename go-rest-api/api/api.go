@@ -2,6 +2,8 @@ package api
 
 import (
 	"database/sql"
+	"go-rest-api/api/data"
+	"go-rest-api/api/handlers"
 	"log"
 	"net/http"
 
@@ -9,17 +11,8 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-type Product struct {
-	id        int
-	name      string
-	inventory int
-	price     int
-}
-
 type App struct {
-	DB     *sql.DB
-	Port   string
-	Router *mux.Router
+	*data.App
 }
 
 func (app *App) Init() {
@@ -38,14 +31,14 @@ func (app *App) Init() {
 }
 
 func (app *App) initRoutes() {
-	app.Router.HandleFunc("/handle", app.Handle).Methods("GET")
-	app.Router.HandleFunc("/", getRequest).Methods("GET")
-	app.Router.HandleFunc("/", postRequest).Methods("POST")
-	app.Router.HandleFunc("/", deleteRequest).Methods("DELETE")
+	app.Router.HandleFunc("/handle", handlers.Handle(app.App)).Methods("GET")
+	app.Router.HandleFunc("/", handlers.GetRequest).Methods("GET")
+	app.Router.HandleFunc("/", handlers.PostRequest).Methods("POST")
+	app.Router.HandleFunc("/", handlers.DeleteRequest).Methods("DELETE")
 
-	app.Router.HandleFunc("/products", app.AllProducts).Methods("GET")
-	app.Router.HandleFunc("/products/{id}", app.FetchProduct).Methods("GET")
-	app.Router.HandleFunc("/products", app.NewProducts).Methods("POST")
+	app.Router.HandleFunc("/products", handlers.AllProducts(app.App)).Methods("GET")
+	app.Router.HandleFunc("/products/{id}", handlers.FetchProduct(app.App)).Methods("GET")
+	app.Router.HandleFunc("/products", handlers.NewProducts(app.App)).Methods("POST")
 }
 
 func (app *App) Run() {

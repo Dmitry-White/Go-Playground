@@ -1,4 +1,4 @@
-package api
+package utils
 
 import (
 	"encoding/json"
@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
+func RespondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 	response, err := json.Marshal(payload)
 	if err != nil {
 		log.Println(err.Error())
@@ -17,8 +17,8 @@ func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 	w.Write(response)
 }
 
-func respondWithError(w http.ResponseWriter, code int, err error) {
+func RespondWithError(w http.ResponseWriter, code int, err error) {
 	log.Println(err.Error())
 	errPayload := map[string]string{"error": err.Error()}
-	respondWithJSON(w, code, errPayload)
+	RespondWithJSON(w, code, errPayload)
 }

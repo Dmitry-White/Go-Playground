@@ -1,30 +1,22 @@
-package api
+package services
 
 import (
 	"database/sql"
+	"go-rest-api/api/data"
 	"log"
 )
 
-type product struct {
-	ID          int    `json:"id"`
-	ProductCode string `json:"productCode"`
-	Name        string `json:"name"`
-	Inventory   int    `json:"inventory"`
-	Price       int    `json:"price"`
-	Status      string `json:"status"`
-}
-
-func GetProducts(db *sql.DB) ([]product, error) {
+func GetProducts(db *sql.DB) (*[]data.Product, error) {
 	rows, err := db.Query("SELECT * FROM products")
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
 
-	products := []product{}
+	products := []data.Product{}
 
 	for rows.Next() {
-		var p product
+		var p data.Product
 		err := rows.Scan(&p.ID, &p.ProductCode, &p.Name, &p.Inventory, &p.Price, &p.Status)
 		if err != nil {
 			return nil, err
@@ -34,10 +26,10 @@ func GetProducts(db *sql.DB) ([]product, error) {
 	}
 	log.Printf("Products: %+v\n", products)
 
-	return products, err
+	return &products, err
 }
 
-func (p *product) GetProduct(db *sql.DB) error {
+func GetProduct(db *sql.DB, p *data.Product) error {
 	row := db.QueryRow(
 		"SELECT name, productCode, inventory, price, status FROM products WHERE id =?",
 		p.ID,
@@ -51,7 +43,7 @@ func (p *product) GetProduct(db *sql.DB) error {
 	return nil
 }
 
-func (p *product) CreateProduct(db *sql.DB) error {
+func CreateProduct(db *sql.DB, p *data.Product) error {
 	res, err := db.Exec(
 		"INSERT INTO products (name, productCode, inventory, price, status) VALUES(?, ?, ?, ?, ?)",
 		p.Name,
