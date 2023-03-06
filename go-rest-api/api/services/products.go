@@ -16,41 +16,41 @@ func GetProducts(db *sql.DB) (*[]data.Product, error) {
 	products := []data.Product{}
 
 	for rows.Next() {
-		var p data.Product
-		err := rows.Scan(&p.ID, &p.ProductCode, &p.Name, &p.Inventory, &p.Price, &p.Status)
+		var product data.Product
+		err := rows.Scan(&product.ID, &product.ProductCode, &product.Name, &product.Inventory, &product.Price, &product.Status)
 		if err != nil {
 			return nil, err
 		}
 
-		products = append(products, p)
+		products = append(products, product)
 	}
 	log.Printf("Products: %+v\n", products)
 
 	return &products, err
 }
 
-func GetProduct(db *sql.DB, p *data.Product) error {
+func GetProduct(db *sql.DB, product *data.Product) error {
 	row := db.QueryRow(
 		"SELECT name, productCode, inventory, price, status FROM products WHERE id =?",
-		p.ID,
+		product.ID,
 	)
-	err := row.Scan(&p.Name, &p.ProductCode, &p.Inventory, &p.Price, &p.Status)
+	err := row.Scan(&product.Name, &product.ProductCode, &product.Inventory, &product.Price, &product.Status)
 	if err != nil {
 		return err
 	}
-	log.Printf("Product: %+v\n", p)
+	log.Printf("Product: %+v\n", product)
 
 	return nil
 }
 
-func CreateProduct(db *sql.DB, p *data.Product) error {
+func CreateProduct(db *sql.DB, product *data.Product) error {
 	res, err := db.Exec(
 		"INSERT INTO products (name, productCode, inventory, price, status) VALUES(?, ?, ?, ?, ?)",
-		p.Name,
-		p.ProductCode,
-		p.Inventory,
-		p.Price,
-		p.Status,
+		product.Name,
+		product.ProductCode,
+		product.Inventory,
+		product.Price,
+		product.Status,
 	)
 	if err != nil {
 		return err
@@ -61,7 +61,7 @@ func CreateProduct(db *sql.DB, p *data.Product) error {
 	if err != nil {
 		return err
 	}
-	p.ID = int(id)
+	product.ID = int(id)
 
 	return nil
 }

@@ -33,21 +33,22 @@ func FetchProduct(app *data.App) func(http.ResponseWriter, *http.Request) {
 		params := mux.Vars(r)
 		id, _ := strconv.Atoi(params["id"])
 
-		p := data.Product{}
-		p.ID = id
-		err := services.GetProduct(app.DB, &p)
+		product := data.Product{
+			ID: id,
+		}
+		err := services.GetProduct(app.DB, &product)
 		if err != nil {
 			utils.RespondWithError(w, http.StatusInternalServerError, err)
 			return
 		}
 
-		utils.RespondWithJSON(w, http.StatusOK, p)
+		utils.RespondWithJSON(w, http.StatusOK, product)
 	}
 }
 
-func NewProducts(app *data.App) func(http.ResponseWriter, *http.Request) {
+func NewProduct(app *data.App) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("NewProducts Request: %+v\n", r)
+		log.Printf("NewProduct Request: %+v\n", r)
 
 		reqBody, err := io.ReadAll(r.Body)
 		if err != nil {
@@ -55,19 +56,19 @@ func NewProducts(app *data.App) func(http.ResponseWriter, *http.Request) {
 			return
 		}
 
-		var p data.Product
-		err = json.Unmarshal(reqBody, &p)
+		product := data.Product{}
+		err = json.Unmarshal(reqBody, &product)
 		if err != nil {
 			utils.RespondWithError(w, http.StatusBadRequest, err)
 			return
 		}
 
-		err = services.CreateProduct(app.DB, &p)
+		err = services.CreateProduct(app.DB, &product)
 		if err != nil {
 			utils.RespondWithError(w, http.StatusInternalServerError, err)
 			return
 		}
 
-		utils.RespondWithJSON(w, http.StatusOK, p)
+		utils.RespondWithJSON(w, http.StatusOK, product)
 	}
 }
