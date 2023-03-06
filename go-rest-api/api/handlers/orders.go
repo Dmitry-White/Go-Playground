@@ -17,13 +17,13 @@ func AllOrders(app *data.App) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		log.Printf("AllOrders Request: %+v\n", r)
 
-		products, err := services.GetOrders(app.DB)
+		orders, err := services.GetOrders(app.DB)
 		if err != nil {
 			utils.RespondWithError(w, http.StatusInternalServerError, err)
 			return
 		}
 
-		utils.RespondWithJSON(w, http.StatusOK, products)
+		utils.RespondWithJSON(w, http.StatusOK, orders)
 	}
 }
 
