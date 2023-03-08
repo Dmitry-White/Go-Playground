@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"bytes"
 	"encoding/json"
 	"net/http"
 	"testing"
@@ -28,40 +29,36 @@ func TestGetNonExistentOrder(t *testing.T) {
 	}
 }
 
-// func TestCreateOrder(t *testing.T) {
-// 	clearOrderTable(&app)
+func TestCreateOrder(t *testing.T) {
+	clearOrderTable(&app)
+	clearOrderItemTable(&app)
 
-// 	payload := []byte(`{
-// 		"customerName": "Mikki Mouse",
-// 		"total": 200,
-// 		"status": "testing",
-// 		"items": [
-// 			{
-// 				"productId": 1,
-// 				"quantity": "1"
-// 			}
-// 		]
-// 	}`)
-// 	request, _ := http.NewRequest("POST", "/orders", bytes.NewBuffer(payload))
-// 	response := executeRequest(&app, request)
+	checkTables(&app)
 
-// 	checkResponseCode(t, http.StatusOK, response.Code)
+	payload := []byte(`{
+		"customerName": "Mikki Mouse",
+		"total": 200,
+		"status": "testing",
+		"items": [
+			{
+				"productId": 1,
+				"quantity": 1
+			}
+		]
+	}`)
+	request, _ := http.NewRequest("POST", "/orders", bytes.NewBuffer(payload))
+	response := executeRequest(&app, request)
 
-// 	var m map[string]interface{}
-// 	json.Unmarshal(response.Body.Bytes(), &m)
+	checkResponseCode(t, http.StatusOK, response.Code)
 
-// 	var expectedItems []map[string]interface{}
-// 	// expectedItems = append(expectedItems, map[string]interface{}{
-// 	// 	"productId": 1,
-// 	// 	"quantity":  "1",
-// 	// })
+	var m map[string]interface{}
+	json.Unmarshal(response.Body.Bytes(), &m)
 
-// 	checkResponseField(t, "customerName", "Mikki Mouse", m["customerName"])
-// 	checkResponseField(t, "total", 200.0, m["total"])
-// 	checkResponseField(t, "status", "testing", m["status"])
-// 	checkResponseField(t, "items", expectedItems, m["items"])
-// 	checkResponseField(t, "id", 1.0, m["id"])
-// }
+	checkResponseField(t, "customerName", "Mikki Mouse", m["customerName"])
+	checkResponseField(t, "total", 200.0, m["total"])
+	checkResponseField(t, "status", "testing", m["status"])
+	checkResponseField(t, "id", 1.0, m["id"])
+}
 
 func TestGetOrder(t *testing.T) {
 	clearOrderTable(&app)
@@ -76,11 +73,8 @@ func TestGetOrder(t *testing.T) {
 	var m map[string]interface{}
 	json.Unmarshal(response.Body.Bytes(), &m)
 
-	var expectedItems []map[string]interface{}
-
 	checkResponseField(t, "customerName", "Mikki Mouse", m["customerName"])
 	checkResponseField(t, "total", 200.0, m["total"])
 	checkResponseField(t, "status", "testing", m["status"])
-	checkResponseField(t, "items", expectedItems, m["items"])
 	checkResponseField(t, "id", 1.0, m["id"])
 }

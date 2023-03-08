@@ -32,6 +32,8 @@ func TestGetNonExistentProduct(t *testing.T) {
 func TestCreateProduct(t *testing.T) {
 	clearProductTable(&app)
 
+	checkTables(&app)
+
 	payload := []byte(`{
 		"productCode": "TEST12345",
 		"name": "ProductTest",
