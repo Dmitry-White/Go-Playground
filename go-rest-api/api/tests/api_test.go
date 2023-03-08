@@ -7,9 +7,11 @@ import (
 
 func TestMain(m *testing.M) {
 	app.Init()
-	ensureTableExists(&app)
+	ensureProductTableExists(&app)
+	ensureOrderTableExists(&app)
 	code := m.Run()
 
 	clearProductTable(&app)
+	clearOrderTable(&app)
 	os.Exit(code)
 }

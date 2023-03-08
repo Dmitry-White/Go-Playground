@@ -2,33 +2,68 @@ package tests
 
 import (
 	"go-rest-api/api"
+	"go-rest-api/api/data"
 	"log"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 )
 
-func ensureTableExists(app *api.App) {
-	if _, err := app.DB.Exec(tableCreationQuery); err != nil {
-		log.Fatalln(err.Error())
+func ensureTableExists(tableCreationQuery string) func(*api.App) {
+	return func(app *api.App) {
+		if _, err := app.DB.Exec(tableCreationQuery); err != nil {
+			log.Fatalln(err.Error())
+		}
 	}
 }
 
-func ensureProductExists(app *api.App) {
-	if _, err := app.DB.Exec(productCreationQuery); err != nil {
-		log.Fatalln(err.Error())
+var ensureProductTableExists = ensureTableExists(productTableCreationQuery)
+var ensureOrderTableExists = ensureTableExists(orderTableCreationQuery)
+
+func ensureItemExists(creationQuery string) func(*api.App) {
+	return func(app *api.App) {
+		if _, err := app.DB.Exec(creationQuery); err != nil {
+			log.Fatalln(err.Error())
+		}
+
+		rows, err := app.DB.Query("SELECT * FROM orders")
+		if err != nil {
+			log.Fatalln(err.Error())
+		}
+		defer rows.Close()
+
+		orders := []data.Order{}
+
+		for rows.Next() {
+			order := data.Order{}
+			err := rows.Scan(&order.Id, &order.CustomerName, &order.Total, &order.Status)
+			if err != nil {
+				log.Fatalln(err.Error())
+			}
+
+			orders = append(orders, order)
+		}
+		log.Printf("Orders: %+v\n", orders)
 	}
 }
 
-func clearProductTable(app *api.App) {
-	if _, err := app.DB.Exec(tableClearingQuery); err != nil {
-		log.Fatalln(err.Error())
-	}
+var ensureProductExists = ensureItemExists(productCreationQuery)
+var ensureOrderExists = ensureItemExists(orderCreationQuery)
 
-	if _, err := app.DB.Exec(tableDeletionQuery); err != nil {
-		log.Fatalln(err.Error())
+func clearTable(tableClearingQuery, tableDeletionQuery string) func(*api.App) {
+	return func(app *api.App) {
+		if _, err := app.DB.Exec(tableClearingQuery); err != nil {
+			log.Fatalln(err.Error())
+		}
+
+		if _, err := app.DB.Exec(tableDeletionQuery); err != nil {
+			log.Fatalln(err.Error())
+		}
 	}
 }
+
+var clearProductTable = clearTable(productTableClearingQuery, productTableDeletionQuery)
+var clearOrderTable = clearTable(orderTableClearingQuery, orderTableDeletionQuery)
 
 func executeRequest(app *api.App, req *http.Request) *httptest.ResponseRecorder {
 	recorder := httptest.NewRecorder()
