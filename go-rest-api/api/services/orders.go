@@ -68,7 +68,6 @@ func CreateOrder(db *sql.DB, order *data.Order) error {
 	if err != nil {
 		return err
 	}
-	log.Printf("Response: %+v\n", res)
 
 	id, err := res.LastInsertId()
 	if err != nil {

@@ -55,7 +55,6 @@ func CreateProduct(db *sql.DB, product *data.Product) error {
 	if err != nil {
 		return err
 	}
-	log.Printf("Response: %+v\n", res)
 
 	id, err := res.LastInsertId()
 	if err != nil {

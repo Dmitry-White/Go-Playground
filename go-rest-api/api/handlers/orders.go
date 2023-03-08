@@ -6,7 +6,6 @@ import (
 	"go-rest-api/api/services"
 	"go-rest-api/api/utils"
 	"io"
-	"log"
 	"net/http"
 	"strconv"
 
@@ -15,8 +14,6 @@ import (
 
 func AllOrders(app *data.App) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("AllOrders Request: %+v\n", r)
-
 		orders, err := services.GetOrders(app.DB)
 		if err != nil {
 			utils.RespondWithError(w, http.StatusInternalServerError, err)
@@ -29,7 +26,6 @@ func AllOrders(app *data.App) func(http.ResponseWriter, *http.Request) {
 
 func FetchOrder(app *data.App) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("FetchOrder Request: %+v\n", r)
 		params := mux.Vars(r)
 		id, _ := strconv.Atoi(params["id"])
 
@@ -48,8 +44,6 @@ func FetchOrder(app *data.App) func(http.ResponseWriter, *http.Request) {
 
 func NewOrder(app *data.App) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("NewOrder Request: %+v\n", r)
-
 		reqBody, err := io.ReadAll(r.Body)
 		if err != nil {
 			utils.RespondWithError(w, http.StatusBadRequest, err)

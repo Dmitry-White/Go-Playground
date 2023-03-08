@@ -9,7 +9,6 @@ import (
 
 func Handle(app *data.App) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("DB: %+v\n", app.DB)
 		rows, err := app.DB.Query("SELECT id, name,inventory, price FROM products")
 		if err != nil {
 			log.Fatal(err.Error())
