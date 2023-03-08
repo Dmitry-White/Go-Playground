@@ -9,17 +9,23 @@ import (
 )
 
 func ensureTableExists(app *api.App) {
-	if _, err := app.DB.Exec(tableProductCreationQuery); err != nil {
+	if _, err := app.DB.Exec(tableCreationQuery); err != nil {
+		log.Fatalln(err.Error())
+	}
+}
+
+func ensureProductExists(app *api.App) {
+	if _, err := app.DB.Exec(productCreationQuery); err != nil {
 		log.Fatalln(err.Error())
 	}
 }
 
 func clearProductTable(app *api.App) {
-	if _, err := app.DB.Exec(tableProductClearingQuery); err != nil {
+	if _, err := app.DB.Exec(tableClearingQuery); err != nil {
 		log.Fatalln(err.Error())
 	}
 
-	if _, err := app.DB.Exec(tableProductDeletionQuery); err != nil {
+	if _, err := app.DB.Exec(tableDeletionQuery); err != nil {
 		log.Fatalln(err.Error())
 	}
 }

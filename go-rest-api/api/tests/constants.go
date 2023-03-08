@@ -12,7 +12,7 @@ var app api.App = api.App{
 	},
 }
 
-const tableProductCreationQuery = `CREATE TABLE IF NOT EXISTS products
+const tableCreationQuery = `CREATE TABLE IF NOT EXISTS products
 (
 	id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
 	productCode VARCHAR(25) NOT NULL,
@@ -21,5 +21,20 @@ const tableProductCreationQuery = `CREATE TABLE IF NOT EXISTS products
 	price INT NOT NULL,
 	status VARCHAR(64) NOT NULL
 )`
-const tableProductClearingQuery = "DELETE FROM products"
-const tableProductDeletionQuery = "DELETE FROM sqlite_sequence WHERE name = 'products'"
+const tableClearingQuery = "DELETE FROM products"
+const tableDeletionQuery = "DELETE FROM sqlite_sequence WHERE name = 'products'"
+
+const productCreationQuery = `INSERT INTO products 
+(
+	name,
+	productCode,
+	inventory,
+	price,
+	status
+) VALUES(
+	"ProductTest",
+	"TEST12345",
+	1,
+	1,
+	"testing"
+)`

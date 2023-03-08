@@ -29,7 +29,7 @@ func TestGetNonExistentProduct(t *testing.T) {
 	}
 }
 
-func TestGetCreateProduct(t *testing.T) {
+func TestCreateProduct(t *testing.T) {
 	clearProductTable(&app)
 
 	payload := []byte(`{
@@ -40,6 +40,27 @@ func TestGetCreateProduct(t *testing.T) {
 		"status": "testing"
 	}`)
 	request, _ := http.NewRequest("POST", "/products", bytes.NewBuffer(payload))
+	response := executeRequest(&app, request)
+
+	checkResponseCode(t, http.StatusOK, response.Code)
+
+	var m map[string]interface{}
+	json.Unmarshal(response.Body.Bytes(), &m)
+
+	checkResponseField(t, "productCode", "TEST12345", m["productCode"])
+	checkResponseField(t, "name", "ProductTest", m["name"])
+	checkResponseField(t, "inventory", 1.0, m["inventory"])
+	checkResponseField(t, "price", 1.0, m["price"])
+	checkResponseField(t, "status", "testing", m["status"])
+	checkResponseField(t, "id", 1.0, m["id"])
+}
+
+func TestGetProduct(t *testing.T) {
+	clearProductTable(&app)
+
+	ensureProductExists(&app)
+
+	request, _ := http.NewRequest("GET", "/products/1", nil)
 	response := executeRequest(&app, request)
 
 	checkResponseCode(t, http.StatusOK, response.Code)
