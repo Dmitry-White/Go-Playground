@@ -1,6 +1,6 @@
 package tests
 
-const tableProductCreationQuery = `CREATE TABLE IF NOT EXISTS product
+const tableProductCreationQuery = `CREATE TABLE IF NOT EXISTS products
 (
 	id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
 	productCode VARCHAR(25) NOT NULL,
