@@ -1,5 +1,17 @@
 package tests
 
+import (
+	"go-rest-api/api"
+	"go-rest-api/api/data"
+)
+
+var app api.App = api.App{
+	App: &data.App{
+		Port:           ":8000",
+		DataSourceName: "../practiceit.db",
+	},
+}
+
 const tableProductCreationQuery = `CREATE TABLE IF NOT EXISTS products
 (
 	id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
