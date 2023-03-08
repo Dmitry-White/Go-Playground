@@ -2,7 +2,7 @@ package tests
 
 import (
 	"go-rest-api/api"
-	"go-rest-api/api/data"
+	"go-rest-api/api/services"
 	"log"
 	"net/http"
 	"net/http/httptest"
@@ -19,36 +19,19 @@ func ensureTableExists(tableCreationQuery string) func(*api.App) {
 
 var ensureProductTableExists = ensureTableExists(productTableCreationQuery)
 var ensureOrderTableExists = ensureTableExists(orderTableCreationQuery)
+var ensureOrderItemTableExists = ensureTableExists(orderItemTableCreationQuery)
 
 func ensureItemExists(creationQuery string) func(*api.App) {
 	return func(app *api.App) {
 		if _, err := app.DB.Exec(creationQuery); err != nil {
 			log.Fatalln(err.Error())
 		}
-
-		rows, err := app.DB.Query("SELECT * FROM orders")
-		if err != nil {
-			log.Fatalln(err.Error())
-		}
-		defer rows.Close()
-
-		orders := []data.Order{}
-
-		for rows.Next() {
-			order := data.Order{}
-			err := rows.Scan(&order.Id, &order.CustomerName, &order.Total, &order.Status)
-			if err != nil {
-				log.Fatalln(err.Error())
-			}
-
-			orders = append(orders, order)
-		}
-		log.Printf("Orders: %+v\n", orders)
 	}
 }
 
 var ensureProductExists = ensureItemExists(productCreationQuery)
 var ensureOrderExists = ensureItemExists(orderCreationQuery)
+var ensureOrderItemExists = ensureItemExists(orderItemCreationQuery)
 
 func clearTable(tableClearingQuery, tableDeletionQuery string) func(*api.App) {
 	return func(app *api.App) {
@@ -64,6 +47,7 @@ func clearTable(tableClearingQuery, tableDeletionQuery string) func(*api.App) {
 
 var clearProductTable = clearTable(productTableClearingQuery, productTableDeletionQuery)
 var clearOrderTable = clearTable(orderTableClearingQuery, orderTableDeletionQuery)
+var clearOrderItemTable = clearTable(orderItemTableClearingQuery, orderItemTableDeletionQuery)
 
 func executeRequest(app *api.App, req *http.Request) *httptest.ResponseRecorder {
 	recorder := httptest.NewRecorder()
@@ -87,4 +71,10 @@ func checkResponseField(t *testing.T, field, expected, actual interface{}) {
 			actual,
 		)
 	}
+}
+
+func checkTables(app *api.App) {
+	services.GetProducts(app.DB)
+	services.GetOrders(app.DB)
+	services.GetItems(app.DB)
 }

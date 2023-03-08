@@ -57,3 +57,25 @@ const orderCreationQuery = `INSERT INTO orders
 	200,
 	"testing"
 )`
+
+const orderItemTableCreationQuery = `CREATE TABLE IF NOT EXISTS order_items
+(
+	order_id INT,
+	product_id INT,
+	quantity INT NOT NULL,
+	FOREIGN KEY (order_id) REFERENCES orders (id)
+	FOREIGN KEY (product_id) REFERENCES products (id)
+	PRIMARY KEY (order_id, product_id)
+)`
+const orderItemTableClearingQuery = "DELETE FROM order_items"
+const orderItemTableDeletionQuery = "DELETE FROM sqlite_sequence WHERE name = 'order_items'"
+const orderItemCreationQuery = `INSERT INTO order_items 
+(
+	order_id,
+	product_id,
+	quantity
+) VALUES(
+	1,
+	1,
+	1
+)`
