@@ -7,7 +7,8 @@ import (
 )
 
 type App struct {
-	DB     *sql.DB
-	Port   string
-	Router *mux.Router
+	DB             *sql.DB
+	DataSourceName string
+	Port           string
+	Router         *mux.Router
 }

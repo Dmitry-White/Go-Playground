@@ -16,14 +16,12 @@ type App struct {
 }
 
 func (app *App) Init() {
-	db, err := sql.Open("sqlite3", "./api/practiceit.db")
+	db, err := sql.Open("sqlite3", app.DataSourceName)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
-	log.Printf("DB: %+v\n", db)
 
 	router := mux.NewRouter()
-	log.Printf("Router: %+v\n", router)
 
 	app.DB = db
 	app.Router = router
@@ -55,6 +53,6 @@ func (app *App) Run() {
 
 	err := http.ListenAndServe(app.Port, nil)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal(err.Error())
 	}
 }

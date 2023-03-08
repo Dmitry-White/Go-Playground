@@ -8,7 +8,8 @@ import (
 func main() {
 	app := api.App{
 		App: &data.App{
-			Port: ":8000",
+			Port:           ":8000",
+			DataSourceName: "./api/practiceit.db",
 		},
 	}
 	app.Init()
