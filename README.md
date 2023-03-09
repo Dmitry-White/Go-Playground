@@ -9,3 +9,5 @@
 4. [Learning the Go Standard Library](https://www.linkedin.com/learning/learning-the-go-standard-library)
 
 5. [Practice It: Go REST API Server](https://www.linkedin.com/learning/practice-it-go-rest-api-server)
+
+6. [Applied Concurrency in Go](https://www.linkedin.com/learning/applied-concurrency-in-go)
