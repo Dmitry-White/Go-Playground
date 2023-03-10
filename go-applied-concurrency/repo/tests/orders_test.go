@@ -1,30 +1,11 @@
 package repo_test
 
 import (
-	"os"
-	"testing"
-
 	"go-applied-concurrency/models"
-	"go-applied-concurrency/repo"
+	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
-
-const existingProduct = "MWBLU"
-
-func initRepo(t *testing.T) repo.Repo {
-	rp, err := repo.New()
-	assert.Nil(t, err)
-	return rp
-}
-
-func TestMain(m *testing.M) {
-	if err := os.Chdir(".."); err != nil {
-		panic(err)
-	}
-	code := m.Run()
-	os.Exit(code)
-}
 
 func Test_CreateOrder(t *testing.T) {
 	t.Run("create & complete order", func(t *testing.T) {
@@ -114,14 +95,5 @@ func Test_GetOrder(t *testing.T) {
 		_, err = rp.GetOrder("blablabla")
 		assert.NotNil(t, err)
 		assert.Contains(t, err.Error(), "no order found")
-	})
-}
-
-func Test_GetAllProducts(t *testing.T) {
-	t.Run("get products", func(t *testing.T) {
-		rp := initRepo(t)
-		products := rp.GetAllProducts()
-		assert.Greater(t, len(products), 0)
-		assert.Equal(t, existingProduct, products[0].ID)
 	})
 }

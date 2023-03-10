@@ -3,46 +3,11 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
-	"net/http"
-
 	"go-applied-concurrency/models"
-	"go-applied-concurrency/repo"
+	"net/http"
 
 	"github.com/gorilla/mux"
 )
-
-type handler struct {
-	repo repo.Repo
-}
-
-type Handler interface {
-	Index(w http.ResponseWriter, r *http.Request)
-	ProductIndex(w http.ResponseWriter, r *http.Request)
-	OrderShow(w http.ResponseWriter, r *http.Request)
-	OrderInsert(w http.ResponseWriter, r *http.Request)
-}
-
-func New() (Handler, error) {
-	r, err := repo.New()
-	if err != nil {
-		return nil, err
-	}
-	h := handler{repo: r}
-	return &h, nil
-}
-
-// Index returns a simple hello response for the homepage
-func (h *handler) Index(w http.ResponseWriter, r *http.Request) {
-	// Send an HTTP status & a hardcoded message
-	writeResponse(w, http.StatusOK, "Welcome to the Orders App!", nil)
-}
-
-// ProductIndex displays all products in the system
-func (h *handler) ProductIndex(w http.ResponseWriter, r *http.Request) {
-	p := h.repo.GetAllProducts()
-	// Send an HTTP status & send the slice
-	writeResponse(w, http.StatusOK, p, nil)
-}
 
 // OrderShow fetches and displays one selected product
 func (h *handler) OrderShow(w http.ResponseWriter, r *http.Request) {
