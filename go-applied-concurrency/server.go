@@ -15,7 +15,7 @@ func main() {
 		log.Fatal(err)
 	}
 	// start server
-	router := handlers.ConfigureHandler(handler)
+	router := handlers.InitRoutes(handler)
 	fmt.Println("Listening on localhost:3000...")
 	log.Fatal(http.ListenAndServe(":3000", router))
 }

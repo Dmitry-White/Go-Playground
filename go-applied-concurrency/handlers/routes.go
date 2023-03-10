@@ -6,8 +6,8 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// ConfigureHandler configures the routes of this handler and binds handler functions to them
-func ConfigureHandler(handler Handler) *mux.Router {
+// InitRoutes configures the routes of this handler and binds handler functions to them
+func InitRoutes(handler Handler) *mux.Router {
 	router := mux.NewRouter().StrictSlash(true)
 
 	router.Methods("GET").Path("/").

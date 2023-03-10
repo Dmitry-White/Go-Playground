@@ -12,6 +12,12 @@ import (
 
 const existingProduct = "MWBLU"
 
+func initRepo(t *testing.T) repo.Repo {
+	rp, err := repo.New()
+	assert.Nil(t, err)
+	return rp
+}
+
 func TestMain(m *testing.M) {
 	if err := os.Chdir(".."); err != nil {
 		panic(err)
@@ -74,8 +80,8 @@ func Test_CreateOrder(t *testing.T) {
 		assert.NotNil(t, err)
 		assert.Contains(t, err.Error(), "order amount must be at least 1")
 	})
-
 }
+
 func Test_GetOrder(t *testing.T) {
 	t.Run("existing order", func(t *testing.T) {
 		rp := initRepo(t)
@@ -118,10 +124,4 @@ func Test_GetAllProducts(t *testing.T) {
 		assert.Greater(t, len(products), 0)
 		assert.Equal(t, existingProduct, products[0].ID)
 	})
-}
-
-func initRepo(t *testing.T) repo.Repo {
-	rp, err := repo.New()
-	assert.Nil(t, err)
-	return rp
 }

@@ -1,4 +1,4 @@
-package utils
+package db
 
 import (
 	"encoding/csv"
@@ -9,7 +9,7 @@ import (
 	"go-applied-concurrency/models"
 )
 
-const productInputPath string = "./input/products.csv"
+const productInputPath string = "./db/data/products.csv"
 
 // importProducts imports the start position of the products DB
 func ImportProducts(products map[string]models.Product) error {

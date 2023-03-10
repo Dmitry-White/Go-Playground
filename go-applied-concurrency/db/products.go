@@ -5,7 +5,6 @@ import (
 	"sort"
 
 	"go-applied-concurrency/models"
-	"go-applied-concurrency/utils"
 )
 
 type ProductDB struct {
@@ -18,7 +17,7 @@ func NewProducts() (*ProductDB, error) {
 		products: make(map[string]models.Product),
 	}
 	// load start position
-	if err := utils.ImportProducts(p.products); err != nil {
+	if err := ImportProducts(p.products); err != nil {
 		return nil, err
 	}
 
