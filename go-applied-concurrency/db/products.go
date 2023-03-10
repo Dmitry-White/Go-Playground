@@ -12,12 +12,12 @@ type ProductDB struct {
 }
 
 // NewProducts creates a new empty product DB
-func NewProducts() (*ProductDB, error) {
+func NewProducts(dbPath string) (*ProductDB, error) {
 	p := &ProductDB{
 		products: make(map[string]models.Product),
 	}
 	// load start position
-	if err := ImportProducts(p.products); err != nil {
+	if err := ImportProducts(p.products, dbPath); err != nil {
 		return nil, err
 	}
 

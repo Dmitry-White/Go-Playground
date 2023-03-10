@@ -19,8 +19,8 @@ type Repo interface {
 }
 
 // New creates a new Order&Products repo with the correct database dependencies
-func New() (Repo, error) {
-	p, err := db.NewProducts()
+func New(dbPath string) (Repo, error) {
+	p, err := db.NewProducts(dbPath)
 	if err != nil {
 		return nil, err
 	}

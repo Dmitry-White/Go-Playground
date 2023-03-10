@@ -9,11 +9,12 @@ import (
 	"go-applied-concurrency/models"
 )
 
-const productInputPath string = "./db/data/products.csv"
+const ProductInputPath string = "./db/data/products.csv"
+const ProductInputPathTest string = "../db/data/products.csv"
 
 // importProducts imports the start position of the products DB
-func ImportProducts(products map[string]models.Product) error {
-	input, err := readCsv(productInputPath)
+func ImportProducts(products map[string]models.Product, dbPath string) error {
+	input, err := readCsv(dbPath)
 	if err != nil {
 		return err
 	}

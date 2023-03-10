@@ -3,6 +3,7 @@ package handlers
 import (
 	"net/http"
 
+	"go-applied-concurrency/db"
 	"go-applied-concurrency/repo"
 
 	"github.com/gorilla/mux"
@@ -20,7 +21,7 @@ type Handler interface {
 }
 
 func New() (Handler, error) {
-	r, err := repo.New()
+	r, err := repo.New(db.ProductInputPath)
 	if err != nil {
 		return nil, err
 	}
