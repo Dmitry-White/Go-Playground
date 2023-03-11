@@ -10,7 +10,7 @@ import (
 )
 
 // OrderShow fetches and displays one selected product
-func (h *handler) OrderShow(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) OrderShow(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	orderId := vars["orderId"]
 	// Call the repository method corresponding to the operation
@@ -25,7 +25,7 @@ func (h *handler) OrderShow(w http.ResponseWriter, r *http.Request) {
 }
 
 // OrderInsert creates a new order with the given parameters
-func (h *handler) OrderInsert(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) OrderInsert(w http.ResponseWriter, r *http.Request) {
 	var item models.Item
 	// Read the request body
 	if err := json.NewDecoder(r.Body).Decode(&item); err != nil {

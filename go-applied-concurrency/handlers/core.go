@@ -9,28 +9,34 @@ import (
 	"github.com/gorilla/mux"
 )
 
-type handler struct {
-	repo repo.Repo
+type Handler struct {
+	repo repo.IRepo
 }
 
-type Handler interface {
+type IHandler interface {
 	Index(w http.ResponseWriter, r *http.Request)
 	ProductIndex(w http.ResponseWriter, r *http.Request)
 	OrderShow(w http.ResponseWriter, r *http.Request)
 	OrderInsert(w http.ResponseWriter, r *http.Request)
 }
 
-func New() (Handler, error) {
+func New() (IHandler, error) {
 	r, err := repo.New(db.ProductInputPath)
 	if err != nil {
 		return nil, err
 	}
-	h := handler{repo: r}
+	h := Handler{repo: r}
 	return &h, nil
 }
 
+// Index returns a simple hello response for the homepage
+func (h *Handler) Index(w http.ResponseWriter, r *http.Request) {
+	// Send an HTTP status & a hardcoded message
+	writeResponse(w, http.StatusOK, "Welcome to the Orders App!", nil)
+}
+
 // InitRoutes configures the routes of this handler and binds handler functions to them
-func InitRoutes(handler Handler) *mux.Router {
+func InitRoutes(handler IHandler) *mux.Router {
 	router := mux.NewRouter().StrictSlash(true)
 
 	router.Methods("GET").Path("/").
@@ -43,10 +49,4 @@ func InitRoutes(handler Handler) *mux.Router {
 		Handler(http.HandlerFunc(handler.OrderInsert))
 
 	return router
-}
-
-// Index returns a simple hello response for the homepage
-func (h *handler) Index(w http.ResponseWriter, r *http.Request) {
-	// Send an HTTP status & a hardcoded message
-	writeResponse(w, http.StatusOK, "Welcome to the Orders App!", nil)
 }
