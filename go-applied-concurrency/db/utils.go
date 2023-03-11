@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"sync"
 
 	"go-applied-concurrency/models"
 )
@@ -13,7 +14,8 @@ const ProductInputPath string = "./db/data/products.csv"
 const ProductInputPathTest string = "../db/data/products.csv"
 
 // importProducts imports the start position of the products DB
-func ImportProducts(products map[string]models.Product, dbPath string) error {
+// Naive approach using built-in Map
+func ImportProducts( /*products map[string]models.Product*/ products *sync.Map, dbPath string) error {
 	input, err := readCsv(dbPath)
 	if err != nil {
 		return err
@@ -36,12 +38,20 @@ func ImportProducts(products map[string]models.Product, dbPath string) error {
 		if err != nil {
 			continue
 		}
-		products[id] = models.Product{
+		// Naive approach using built-in Map
+		// products[id] = models.Product{
+		// 	ID:    id,
+		// 	Name:  fmt.Sprintf("%s(%s)", line[1], line[3]),
+		// 	Stock: stock,
+		// 	Price: price,
+		// }
+		productValue := models.Product{
 			ID:    id,
 			Name:  fmt.Sprintf("%s(%s)", line[1], line[3]),
 			Stock: stock,
 			Price: price,
 		}
+		products.Store(id, productValue)
 	}
 	return nil
 }
@@ -61,4 +71,24 @@ func readCsv(filename string) ([][]string, error) {
 	}
 
 	return lines, nil
+}
+
+// toOrder attempts to convert an interface to an order
+// panics if this is not possible
+func toOrder(po interface{}) models.Order {
+	order, ok := po.(models.Order)
+	if !ok {
+		panic(fmt.Errorf("error casting %v to order", po))
+	}
+	return order
+}
+
+// toProduct attempts to convert an interface to an product
+// panics if this is not possible
+func toProduct(po interface{}) models.Product {
+	product, ok := po.(models.Product)
+	if !ok {
+		panic(fmt.Errorf("error casting %v to product", po))
+	}
+	return product
 }

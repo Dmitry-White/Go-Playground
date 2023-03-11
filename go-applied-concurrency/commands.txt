@@ -1,0 +1,10 @@
+# Remove test caching
+# https://pkg.go.dev/cmd/go#hdr-Build_and_test_caching
+go clean -testcache
+
+# Test All
+go test ./...
+
+# Run with Race Detector
+# https://go.dev/blog/race-detector
+go run -race server.go
