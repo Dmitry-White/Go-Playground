@@ -3,17 +3,17 @@ package repo
 import "go-applied-concurrency/models"
 
 // GetProduct returns the given order if one exists
-func (r *repo) GetOrder(id string) (models.Order, error) {
-	return r.orders.Find(id)
+func (r *Repo) GetOrder(id string) (models.Order, error) {
+	return r.Orders.Find(id)
 }
 
 // CreateOrder creates a new order for the given item
-func (r *repo) CreateOrder(item models.Item) (*models.Order, error) {
+func (r *Repo) CreateOrder(item models.Item) (*models.Order, error) {
 	if err := r.validateItem(item); err != nil {
 		return nil, err
 	}
 	order := models.NewOrder(item)
-	r.orders.Upsert(order)
-	r.processOrders(&order)
+	r.Orders.Upsert(order)
+	ProcessOrders(r, &order)
 	return &order, nil
 }

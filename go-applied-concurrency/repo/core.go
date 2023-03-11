@@ -5,28 +5,28 @@ import (
 	"go-applied-concurrency/models"
 )
 
-// repo holds all the dependencies required for repo operations
-type repo struct {
-	products *db.ProductDB
-	orders   *db.OrderDB
+// Repo holds all the dependencies required for Repo operations
+type Repo struct {
+	Products *db.ProductDB
+	Orders   *db.OrderDB
 }
 
-// Repo is the interface we expose to outside packages
-type Repo interface {
+// IRepo is the interface we expose to outside packages
+type IRepo interface {
 	CreateOrder(item models.Item) (*models.Order, error)
 	GetAllProducts() []models.Product
 	GetOrder(id string) (models.Order, error)
 }
 
-// New creates a new Order&Products repo with the correct database dependencies
-func New(dbPath string) (Repo, error) {
+// New creates a new Order&Products Repo with the correct database dependencies
+func New(dbPath string) (IRepo, error) {
 	p, err := db.NewProducts(dbPath)
 	if err != nil {
 		return nil, err
 	}
-	o := repo{
-		products: p,
-		orders:   db.NewOrders(),
+	o := Repo{
+		Products: p,
+		Orders:   db.NewOrders(),
 	}
 	return &o, nil
 }
