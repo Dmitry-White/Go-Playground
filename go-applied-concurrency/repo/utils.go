@@ -41,7 +41,9 @@ func processOrder(r *Repo, order *models.Order) {
 }
 
 func ProcessOrders(r *Repo, order *models.Order) {
+	r.Mutex.Lock()
 	processOrder(r, order)
 	r.Orders.Upsert(*order)
+	r.Mutex.Unlock()
 	fmt.Printf("Processing order %s completed\n", order.ID)
 }

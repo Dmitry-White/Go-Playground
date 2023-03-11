@@ -3,12 +3,14 @@ package repo
 import (
 	"go-applied-concurrency/db"
 	"go-applied-concurrency/models"
+	"sync"
 )
 
 // Repo holds all the dependencies required for Repo operations
 type Repo struct {
 	Products *db.ProductDB
 	Orders   *db.OrderDB
+	Mutex    sync.Mutex
 }
 
 // IRepo is the interface we expose to outside packages
