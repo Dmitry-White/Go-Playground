@@ -12,7 +12,7 @@ import (
 
 const existingProduct = "MWBLU"
 
-func initRepo(t *testing.T) repo.Repo {
+func initRepo(t *testing.T) repo.IRepo {
 	rp, err := repo.New(db.ProductInputPathTest)
 	assert.Nil(t, err)
 	return rp
