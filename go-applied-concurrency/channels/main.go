@@ -3,5 +3,7 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println("Initial Setup")
+	fmt.Println("----------- Unbuffered -----------")
+	unbuffered()
+	fmt.Println("----------------------------------")
 }
