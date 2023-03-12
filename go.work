@@ -3,6 +3,7 @@ go 1.19
 use (
 	./complete-developers-guide/cards
 	./go-applied-concurrency/api
+	./go-applied-concurrency/channels
 	./go-essential-training/http-client
 	./go-essential-training/http-server
 	./go-essential-training/json
