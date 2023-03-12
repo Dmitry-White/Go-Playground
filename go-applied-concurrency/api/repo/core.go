@@ -1,8 +1,8 @@
 package repo
 
 import (
-	"go-applied-concurrency/db"
-	"go-applied-concurrency/models"
+	"go-applied-concurrency/api/db"
+	"go-applied-concurrency/api/models"
 	"sync"
 )
 

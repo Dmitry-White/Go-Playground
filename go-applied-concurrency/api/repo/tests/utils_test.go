@@ -2,9 +2,9 @@ package repo_test
 
 import (
 	"fmt"
-	"go-applied-concurrency/db"
-	"go-applied-concurrency/models"
-	"go-applied-concurrency/repo"
+	"go-applied-concurrency/api/db"
+	"go-applied-concurrency/api/models"
+	"go-applied-concurrency/api/repo"
 	"sync"
 	"testing"
 

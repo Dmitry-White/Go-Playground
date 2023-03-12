@@ -1,6 +1,6 @@
 package repo
 
-import "go-applied-concurrency/models"
+import "go-applied-concurrency/api/models"
 
 // GetProduct returns the given order if one exists
 func (r *Repo) GetOrder(id string) (models.Order, error) {

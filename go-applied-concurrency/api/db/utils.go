@@ -7,10 +7,10 @@ import (
 	"strconv"
 	"sync"
 
-	"go-applied-concurrency/models"
+	"go-applied-concurrency/api/models"
 )
 
-const ProductInputPath string = "./db/data/products.csv"
+const ProductInputPath string = "./api/db/data/products.csv"
 const ProductInputPathTest string = "../db/data/products.csv"
 
 // importProducts imports the start position of the products DB

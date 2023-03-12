@@ -3,7 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
-	"go-applied-concurrency/models"
+	"go-applied-concurrency/api/models"
 	"net/http"
 
 	"github.com/gorilla/mux"

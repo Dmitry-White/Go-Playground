@@ -3,8 +3,8 @@ package handlers
 import (
 	"net/http"
 
-	"go-applied-concurrency/db"
-	"go-applied-concurrency/repo"
+	"go-applied-concurrency/api/db"
+	"go-applied-concurrency/api/repo"
 
 	"github.com/gorilla/mux"
 )

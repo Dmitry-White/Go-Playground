@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sync"
 
-	"go-applied-concurrency/models"
+	"go-applied-concurrency/api/models"
 )
 
 type OrderDB struct {

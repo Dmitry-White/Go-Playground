@@ -2,7 +2,7 @@ package repo
 
 import (
 	"fmt"
-	"go-applied-concurrency/models"
+	"go-applied-concurrency/api/models"
 	"math"
 )
 

@@ -1,4 +1,4 @@
-module go-applied-concurrency
+module go-applied-concurrency/api
 
 go 1.19
 

@@ -1,7 +1,7 @@
 package repo_test
 
 import (
-	"go-applied-concurrency/models"
+	"go-applied-concurrency/api/models"
 	"testing"
 
 	"github.com/stretchr/testify/assert"

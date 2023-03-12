@@ -1,14 +1,14 @@
-package main
+package api
 
 import (
 	"fmt"
 	"log"
 	"net/http"
 
-	"go-applied-concurrency/handlers"
+	"go-applied-concurrency/api/handlers"
 )
 
-func main() {
+func Server() {
 	fmt.Println("Welcome to the Orders App!")
 	handler, err := handlers.New()
 	if err != nil {
