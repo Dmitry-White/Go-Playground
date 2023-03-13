@@ -10,4 +10,8 @@ func main() {
 	fmt.Println("------------ Buffered ------------")
 	buffered()
 	fmt.Println("----------------------------------")
+
+	fmt.Println("--------- Unidirectional ---------")
+	unidirectional()
+	fmt.Println("----------------------------------")
 }

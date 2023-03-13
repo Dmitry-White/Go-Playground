@@ -5,12 +5,12 @@ import (
 	"time"
 )
 
-func buffered() {
-	// Create an buffered channel
-	ch := make(chan string, 1)
+func unidirectional() {
+	// Create a bidirectional channel
+	ch := make(chan string)
 
 	// start the greeter to provide a greeting
-	go greet(ch)
+	go greetUni(ch)
 
 	// sleep for a long time
 	time.Sleep(5 * time.Second)
