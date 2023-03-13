@@ -1,8 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 var greetings = []string{"Hello!", "你好！", "Привет!"}
+var goodbyes = []string{"Bye!", "再见！", "Пока!"}
 
 func greet(ch chan string) {
 	fmt.Println("Greeter ready!")
@@ -24,6 +28,7 @@ func greetRange(ch chan<- string) {
 	for _, greeting := range greetings {
 		ch <- greeting
 	}
+
 	fmt.Println("Greeter completed!")
 }
 
@@ -35,5 +40,22 @@ func greetRangeClosed(ch chan<- string) {
 		ch <- greeting
 	}
 	close(ch)
+
 	fmt.Println("Greeter completed!")
+}
+
+func greetSelected(sayings []string, ch chan<- string) {
+	fmt.Println("Greeter ready!")
+
+	for _, saying := range sayings {
+		ch <- saying
+	}
+	close(ch)
+
+	fmt.Println("Greeter completed!")
+}
+
+func printSaying(saying string) {
+	time.Sleep(time.Second)
+	fmt.Println("Greeting received!", saying)
 }

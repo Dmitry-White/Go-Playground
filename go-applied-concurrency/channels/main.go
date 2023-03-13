@@ -19,8 +19,8 @@ func main() {
 	// ranged()
 	// fmt.Println("----------------------------------")
 
-	// fmt.Println("------------- Closed -------------")
-	// closed()
+	// fmt.Println("--------- Ranged Closed ----------")
+	// rangedClosed()
 	// fmt.Println("----------------------------------")
 
 	fmt.Println("------------- Checked -------------")
@@ -29,5 +29,9 @@ func main() {
 
 	fmt.Println("------------- Auto -------------")
 	auto()
+	fmt.Println("----------------------------------")
+
+	fmt.Println("------------ Selected ------------")
+	selected()
 	fmt.Println("----------------------------------")
 }

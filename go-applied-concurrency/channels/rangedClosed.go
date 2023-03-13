@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-func closed() {
+func rangedClosed() {
 	// Create a bidirectional channel
 	ch := make(chan string, 1)
 
