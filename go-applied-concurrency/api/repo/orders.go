@@ -14,6 +14,8 @@ func (r *Repo) CreateOrder(item models.Item) (*models.Order, error) {
 	}
 	order := models.NewOrder(item)
 	r.Orders.Upsert(order)
-	ProcessOrders(r, &order)
+
+	// ProcessOrders(r, &order)
+	r.Incomming <- order
 	return &order, nil
 }

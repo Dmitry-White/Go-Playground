@@ -42,6 +42,8 @@ func Test_ProcessOrder(t *testing.T) {
 		Amount:    1,
 	}
 
+	go repo.ProcessOrders(r)
+
 	t.Run(fmt.Sprintf("%d concurrent orders", concurrentOrders), func(t *testing.T) {
 		var wg sync.WaitGroup
 		wg.Add(concurrentOrders)
@@ -49,7 +51,8 @@ func Test_ProcessOrder(t *testing.T) {
 			go func(wg *sync.WaitGroup) {
 				defer wg.Done()
 				order := models.NewOrder(item)
-				repo.ProcessOrders(r, &order)
+				// repo.ProcessOrders(r, &order)
+				r.Incomming <- order
 			}(&wg)
 		}
 		wg.Wait()

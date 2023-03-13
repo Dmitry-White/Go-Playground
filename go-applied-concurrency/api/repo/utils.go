@@ -40,10 +40,22 @@ func processOrder(r *Repo, order *models.Order) {
 	order.Complete()
 }
 
-func ProcessOrders(r *Repo, order *models.Order) {
-	r.Mutex.Lock()
-	processOrder(r, order)
-	r.Orders.Upsert(*order)
-	r.Mutex.Unlock()
-	fmt.Printf("Processing order %s completed\n", order.ID)
+// Mutex essentially adds state to an API
+// which is inherently flawed.
+// func ProcessOrders(r *Repo, order *models.Order) {
+// 	r.Mutex.Lock()
+// 	processOrder(r, order)
+// 	r.Orders.Upsert(*order)
+// 	r.Mutex.Unlock()
+// 	fmt.Printf("Processing order %s completed\n", order.ID)
+// }
+
+func ProcessOrders(r *Repo /*order *models.Order*/) {
+	fmt.Println("Order processing started!")
+	for order := range r.Incomming {
+		processOrder(r, &order)
+		r.Orders.Upsert(order)
+		fmt.Printf("Processing order %s completed\n", order.ID)
+	}
+	fmt.Println("Order processing stopped!")
 }

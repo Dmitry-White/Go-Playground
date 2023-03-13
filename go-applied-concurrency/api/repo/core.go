@@ -8,9 +8,10 @@ import (
 
 // Repo holds all the dependencies required for Repo operations
 type Repo struct {
-	Products *db.ProductDB
-	Orders   *db.OrderDB
-	Mutex    sync.Mutex
+	Products  *db.ProductDB
+	Orders    *db.OrderDB
+	Mutex     sync.Mutex
+	Incomming chan models.Order
 }
 
 // IRepo is the interface we expose to outside packages
@@ -27,8 +28,12 @@ func New(dbPath string) (IRepo, error) {
 		return nil, err
 	}
 	o := Repo{
-		Products: p,
-		Orders:   db.NewOrders(),
+		Products:  p,
+		Orders:    db.NewOrders(),
+		Incomming: make(chan models.Order),
 	}
+
+	go ProcessOrders(&o)
+
 	return &o, nil
 }
