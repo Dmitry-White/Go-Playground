@@ -26,3 +26,14 @@ func greetRange(ch chan<- string) {
 	}
 	fmt.Println("Greeter completed!")
 }
+
+// Unidirectional send-only channels will be closed upon completion
+func greetRangeClosed(ch chan<- string) {
+	fmt.Println("Greeter ready!")
+
+	for _, greeting := range greetings {
+		ch <- greeting
+	}
+	close(ch)
+	fmt.Println("Greeter completed!")
+}

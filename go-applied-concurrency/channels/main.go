@@ -15,7 +15,11 @@ func main() {
 	unidirectional()
 	fmt.Println("----------------------------------")
 
-	fmt.Println("------------- Ranged -------------")
-	ranged()
+	// fmt.Println("------------- Ranged -------------")
+	// ranged()
+	// fmt.Println("----------------------------------")
+
+	fmt.Println("------------- Closed -------------")
+	closed()
 	fmt.Println("----------------------------------")
 }
