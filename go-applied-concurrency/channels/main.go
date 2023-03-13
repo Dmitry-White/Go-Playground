@@ -14,4 +14,8 @@ func main() {
 	fmt.Println("--------- Unidirectional ---------")
 	unidirectional()
 	fmt.Println("----------------------------------")
+
+	fmt.Println("------------- Ranged -------------")
+	ranged()
+	fmt.Println("----------------------------------")
 }
