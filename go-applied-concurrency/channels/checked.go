@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-func closed() {
+func checked() {
 	// Create a bidirectional channel
 	ch := make(chan string, 1)
 
@@ -16,13 +16,15 @@ func closed() {
 	time.Sleep(5 * time.Second)
 	fmt.Println("Main ready!")
 
-	// Main goroutine will end up forever printing empty line
-	// since receiving from a closed channel
-	// will immediately complete with a zero value
-	// of the channel type
+	// Channels have a optional second return value
+	// to check whether a received value came from a closed channel or not
+	// If it's false, then the channel is closed.
 	for {
 		// Receive greetings
-		greeting := <-ch
+		greeting, ok := <-ch
+		if !ok {
+			return
+		}
 
 		// Sleep and print
 		time.Sleep(time.Second)

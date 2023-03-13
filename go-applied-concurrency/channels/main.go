@@ -19,7 +19,11 @@ func main() {
 	// ranged()
 	// fmt.Println("----------------------------------")
 
-	fmt.Println("------------- Closed -------------")
-	closed()
+	// fmt.Println("------------- Closed -------------")
+	// closed()
+	// fmt.Println("----------------------------------")
+
+	fmt.Println("------------- Checked -------------")
+	checked()
 	fmt.Println("----------------------------------")
 }
