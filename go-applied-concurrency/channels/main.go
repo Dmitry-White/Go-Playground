@@ -31,7 +31,11 @@ func main() {
 	auto()
 	fmt.Println("----------------------------------")
 
-	fmt.Println("------------ Selected ------------")
-	selected()
+	// fmt.Println("------------ Selected ------------")
+	// selected()
+	// fmt.Println("----------------------------------")
+
+	fmt.Println("--------- Selected Checked --------")
+	selectedChecked()
 	fmt.Println("----------------------------------")
 }
