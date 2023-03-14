@@ -15,6 +15,7 @@ type Handler struct {
 
 type IHandler interface {
 	Index(w http.ResponseWriter, r *http.Request)
+	Close(w http.ResponseWriter, r *http.Request)
 	ProductIndex(w http.ResponseWriter, r *http.Request)
 	OrderShow(w http.ResponseWriter, r *http.Request)
 	OrderInsert(w http.ResponseWriter, r *http.Request)
@@ -32,7 +33,13 @@ func New() (IHandler, error) {
 // Index returns a simple hello response for the homepage
 func (h *Handler) Index(w http.ResponseWriter, r *http.Request) {
 	// Send an HTTP status & a hardcoded message
+	h.repo.Index()
 	writeResponse(w, http.StatusOK, "Welcome to the Orders App!", nil)
+}
+
+func (h *Handler) Close(w http.ResponseWriter, r *http.Request) {
+	h.repo.Close()
+	writeResponse(w, http.StatusOK, "The Orders App is now closed!", nil)
 }
 
 // InitRoutes configures the routes of this handler and binds handler functions to them
@@ -47,6 +54,8 @@ func InitRoutes(handler IHandler) *mux.Router {
 		Handler(http.HandlerFunc(handler.OrderShow))
 	router.Methods("POST").Path("/orders").
 		Handler(http.HandlerFunc(handler.OrderInsert))
+	router.Methods("POST").Path("/close").
+		Handler(http.HandlerFunc(handler.Close))
 
 	return router
 }

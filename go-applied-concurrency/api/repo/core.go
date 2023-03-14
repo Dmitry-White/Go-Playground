@@ -1,6 +1,7 @@
 package repo
 
 import (
+	"fmt"
 	"go-applied-concurrency/api/db"
 	"go-applied-concurrency/api/models"
 	"sync"
@@ -16,6 +17,8 @@ type Repo struct {
 
 // IRepo is the interface we expose to outside packages
 type IRepo interface {
+	Index()
+	Close()
 	CreateOrder(item models.Item) (*models.Order, error)
 	GetAllProducts() []models.Product
 	GetOrder(id string) (models.Order, error)
@@ -36,4 +39,15 @@ func New(dbPath string) (IRepo, error) {
 	go ProcessOrders(&o)
 
 	return &o, nil
+}
+
+// Dummy index function to preserve interfaces
+func (r *Repo) Index() {
+	fmt.Println("Order App is indexed!")
+}
+
+// Close closes the orders app for incoming orders
+func (r *Repo) Close() {
+	fmt.Println("Order App channel is closing!")
+	close(r.Incomming)
 }
