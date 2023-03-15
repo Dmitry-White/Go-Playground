@@ -1,8 +1,10 @@
 package handlers
 
 import (
+	"context"
 	"net/http"
 	"sync"
+	"time"
 
 	"go-applied-concurrency/api/db"
 	"go-applied-concurrency/api/repo"
@@ -57,7 +59,18 @@ func (h *Handler) Close(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) Stats(w http.ResponseWriter, r *http.Request) {
-	writeResponse(w, http.StatusOK, h.stats.GetStats(), nil)
+	reqCtx := r.Context()
+
+	ctx, cancel := context.WithTimeout(reqCtx, 100*time.Millisecond)
+	defer cancel()
+
+	stats, err := h.stats.GetStats(ctx)
+	if err != nil {
+		writeResponse(w, http.StatusInternalServerError, nil, err)
+		return
+	}
+
+	writeResponse(w, http.StatusOK, stats, nil)
 }
 
 // InitRoutes configures the routes of this handler and binds handler functions to them

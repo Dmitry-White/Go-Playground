@@ -1,6 +1,7 @@
 package services
 
 import (
+	"context"
 	"fmt"
 	"go-applied-concurrency/api/models"
 )
@@ -13,7 +14,7 @@ type Statistics struct {
 }
 
 type IStatistics interface {
-	GetStats() models.Statistics
+	GetStats(ctx context.Context) (models.Statistics, error)
 }
 
 const WorkerCount = 3
@@ -36,8 +37,13 @@ func New(processed <-chan models.Order, done <-chan struct{}) IStatistics {
 	return &s
 }
 
-func (s *Statistics) GetStats() models.Statistics {
-	return s.Result.Get()
+func (s *Statistics) GetStats(ctx context.Context) (models.Statistics, error) {
+	select {
+	case stats := <-s.getResultStats(ctx):
+		return stats, nil
+	case <-ctx.Done():
+		return models.Statistics{}, ctx.Err()
+	}
 }
 
 // reconcile is a helper method which saves stats object
@@ -55,4 +61,23 @@ func (s *Statistics) reconcile() {
 			return
 		}
 	}
+}
+
+func (s *Statistics) getResultStats(ctx context.Context) <-chan models.Statistics {
+	stats := make(chan models.Statistics)
+
+	randomSleep()
+
+	go func() {
+		select {
+		case stats <- s.Result.Get():
+			fmt.Println("Stats fetched successfully!")
+			return
+		case <-ctx.Done():
+			fmt.Println("Context deadline exceeded!")
+			return
+		}
+	}()
+
+	return stats
 }

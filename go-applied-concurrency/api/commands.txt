@@ -1,3 +1,8 @@
+# Concurrency Patters
+# - Done channel
+# - Worker Pool
+# - Context
+
 # Remove test caching
 # https://pkg.go.dev/cmd/go#hdr-Build_and_test_caching
 go clean -testcache
