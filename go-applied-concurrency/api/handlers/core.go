@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"net/http"
+	"sync"
 
 	"go-applied-concurrency/api/db"
 	"go-applied-concurrency/api/repo"
@@ -11,6 +12,7 @@ import (
 
 type Handler struct {
 	repo repo.IRepo
+	once sync.Once
 }
 
 type IHandler interface {
@@ -38,7 +40,9 @@ func (h *Handler) Index(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) Close(w http.ResponseWriter, r *http.Request) {
-	h.repo.Close()
+	h.once.Do(func() {
+		h.repo.Close()
+	})
 	writeResponse(w, http.StatusOK, "The Orders App is now closed!", nil)
 }
 

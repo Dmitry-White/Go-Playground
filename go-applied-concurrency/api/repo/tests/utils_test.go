@@ -52,7 +52,7 @@ func Test_ProcessOrder(t *testing.T) {
 				defer wg.Done()
 				order := models.NewOrder(item)
 				// repo.ProcessOrders(r, &order)
-				r.Incomming <- order
+				r.Incoming <- order
 			}(&wg)
 		}
 		wg.Wait()

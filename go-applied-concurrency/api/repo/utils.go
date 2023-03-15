@@ -50,12 +50,30 @@ func processOrder(r *Repo, order *models.Order) {
 // 	fmt.Printf("Processing order %s completed\n", order.ID)
 // }
 
+// Simply closing Incoming channel will not be enough
+// to ensure we're not reading race conditionally
+// from an already closed channel
+// func ProcessOrders(r *Repo /*order *models.Order*/) {
+// 	fmt.Println("Order processing started!")
+// 	for order := range r.Incoming {
+// 		processOrder(r, &order)
+// 		r.Orders.Upsert(order)
+// 		fmt.Printf("Processing order %s completed\n", order.ID)
+// 	}
+// 	fmt.Println("Order processing stopped!")
+// }
+
 func ProcessOrders(r *Repo /*order *models.Order*/) {
 	fmt.Println("Order processing started!")
-	for order := range r.Incomming {
-		processOrder(r, &order)
-		r.Orders.Upsert(order)
-		fmt.Printf("Processing order %s completed\n", order.ID)
+	for {
+		select {
+		case order := <-r.Incoming:
+			processOrder(r, &order)
+			r.Orders.Upsert(order)
+			fmt.Printf("Processing order %s completed\n", order.ID)
+		case <-r.Done:
+			fmt.Println("Order processing stopped!")
+			return
+		}
 	}
-	fmt.Println("Order processing stopped!")
 }

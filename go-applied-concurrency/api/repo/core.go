@@ -9,10 +9,11 @@ import (
 
 // Repo holds all the dependencies required for Repo operations
 type Repo struct {
-	Products  *db.ProductDB
-	Orders    *db.OrderDB
-	Mutex     sync.Mutex
-	Incomming chan models.Order
+	Products *db.ProductDB
+	Orders   *db.OrderDB
+	Mutex    sync.Mutex
+	Incoming chan models.Order
+	Done     chan struct{}
 }
 
 // IRepo is the interface we expose to outside packages
@@ -31,9 +32,10 @@ func New(dbPath string) (IRepo, error) {
 		return nil, err
 	}
 	o := Repo{
-		Products:  p,
-		Orders:    db.NewOrders(),
-		Incomming: make(chan models.Order),
+		Products: p,
+		Orders:   db.NewOrders(),
+		Incoming: make(chan models.Order),
+		Done:     make(chan struct{}),
 	}
 
 	go ProcessOrders(&o)
@@ -49,5 +51,5 @@ func (r *Repo) Index() {
 // Close closes the orders app for incoming orders
 func (r *Repo) Close() {
 	fmt.Println("Order App channel is closing!")
-	close(r.Incomming)
+	close(r.Done)
 }

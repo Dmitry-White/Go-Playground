@@ -1,6 +1,9 @@
 package repo
 
-import "go-applied-concurrency/api/models"
+import (
+	"fmt"
+	"go-applied-concurrency/api/models"
+)
 
 // GetProduct returns the given order if one exists
 func (r *Repo) GetOrder(id string) (models.Order, error) {
@@ -13,9 +16,15 @@ func (r *Repo) CreateOrder(item models.Item) (*models.Order, error) {
 		return nil, err
 	}
 	order := models.NewOrder(item)
-	r.Orders.Upsert(order)
 
 	// ProcessOrders(r, &order)
-	r.Incomming <- order
-	return &order, nil
+	// r.Incoming <- order
+
+	select {
+	case r.Incoming <- order:
+		r.Orders.Upsert(order)
+		return &order, nil
+	case <-r.Done:
+		return nil, fmt.Errorf("orders app is closed, try again later")
+	}
 }
