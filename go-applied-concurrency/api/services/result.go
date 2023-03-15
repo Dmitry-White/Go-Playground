@@ -15,12 +15,14 @@ type IResult interface {
 	Combine(stats models.Statistics)
 }
 
+// Get returns the save statistics result
 func (r *Result) Get() models.Statistics {
 	r.lock.Lock()
 	defer r.lock.Unlock()
 	return r.Latest
 }
 
+// Update safely updates the statistics result
 func (r *Result) Combine(stats models.Statistics) {
 	r.lock.Lock()
 	defer r.lock.Unlock()

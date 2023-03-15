@@ -8,6 +8,7 @@ type Statistics struct {
 	Revenue         float64 `json:"revenue"`
 }
 
+// Combine adds the numbers frin a two statistics objects
 func Combine(this, that Statistics) Statistics {
 	return Statistics{
 		CompletedOrders: this.CompletedOrders + that.CompletedOrders,

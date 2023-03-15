@@ -31,16 +31,16 @@ func New(dbPath string) (IRepo, error) {
 	if err != nil {
 		return nil, err
 	}
-	o := Repo{
+	r := Repo{
 		Products: p,
 		Orders:   db.NewOrders(),
 		Incoming: make(chan models.Order),
 		Done:     make(chan struct{}),
 	}
 
-	go ProcessOrders(&o)
+	go ProcessOrders(&r)
 
-	return &o, nil
+	return &r, nil
 }
 
 // Dummy index function to preserve interfaces
