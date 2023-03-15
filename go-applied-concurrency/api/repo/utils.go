@@ -70,6 +70,7 @@ func ProcessOrders(r *Repo /*order *models.Order*/) {
 		case order := <-r.Incoming:
 			processOrder(r, &order)
 			r.Orders.Upsert(order)
+			r.Processed <- order
 			fmt.Printf("Processing order %s completed\n", order.ID)
 		case <-r.Done:
 			fmt.Println("Order processing stopped!")

@@ -6,18 +6,21 @@ import (
 
 	"go-applied-concurrency/api/db"
 	"go-applied-concurrency/api/repo"
+	"go-applied-concurrency/api/services"
 
 	"github.com/gorilla/mux"
 )
 
 type Handler struct {
-	repo repo.IRepo
-	once sync.Once
+	repo  repo.IRepo
+	stats services.IStatistics
+	once  sync.Once
 }
 
 type IHandler interface {
 	Index(w http.ResponseWriter, r *http.Request)
 	Close(w http.ResponseWriter, r *http.Request)
+	Stats(w http.ResponseWriter, r *http.Request)
 	ProductIndex(w http.ResponseWriter, r *http.Request)
 	OrderShow(w http.ResponseWriter, r *http.Request)
 	OrderInsert(w http.ResponseWriter, r *http.Request)
@@ -28,7 +31,14 @@ func New() (IHandler, error) {
 	if err != nil {
 		return nil, err
 	}
-	h := Handler{repo: r}
+
+	_, processed, done := r.Index()
+	s := services.New(processed, done)
+
+	h := Handler{
+		repo:  r,
+		stats: s,
+	}
 	return &h, nil
 }
 
@@ -46,6 +56,10 @@ func (h *Handler) Close(w http.ResponseWriter, r *http.Request) {
 	writeResponse(w, http.StatusOK, "The Orders App is now closed!", nil)
 }
 
+func (h *Handler) Stats(w http.ResponseWriter, r *http.Request) {
+	writeResponse(w, http.StatusOK, h.stats.GetStats(), nil)
+}
+
 // InitRoutes configures the routes of this handler and binds handler functions to them
 func InitRoutes(handler IHandler) *mux.Router {
 	router := mux.NewRouter().StrictSlash(true)
@@ -60,6 +74,8 @@ func InitRoutes(handler IHandler) *mux.Router {
 		Handler(http.HandlerFunc(handler.OrderInsert))
 	router.Methods("POST").Path("/close").
 		Handler(http.HandlerFunc(handler.Close))
+	router.Methods("GET").Path("/stats").
+		Handler(http.HandlerFunc(handler.Stats))
 
 	return router
 }

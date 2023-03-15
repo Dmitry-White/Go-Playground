@@ -42,7 +42,7 @@ func ProcessStats(s *Statistics) {
 		select {
 		case order := <-s.Processed:
 			processedStats := processOrder(&order)
-			s.reconcile(processedStats)
+			s.Stats <- processedStats
 			fmt.Printf("Processing Stats %s completed\n", order.ID)
 		case <-s.Done:
 			fmt.Println("Stats processing stopped!")
