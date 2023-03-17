@@ -22,12 +22,12 @@ func processOrder(r *Repo, order *models.Order) {
 	item := order.Item
 	product, err := r.Products.Find(item.ProductID)
 	if err != nil {
-		order.Status = models.OrderStatus_Rejected
+		order.Reject()
 		order.Error = err.Error()
 		return
 	}
 	if product.Stock < item.Amount {
-		order.Status = models.OrderStatus_Rejected
+		order.Reject()
 		order.Error = fmt.Sprintf("not enough stock for product %s:got %d, want %d", item.ProductID, product.Stock, item.Amount)
 		return
 	}
@@ -74,6 +74,45 @@ func ProcessOrders(r *Repo /*order *models.Order*/) {
 			fmt.Printf("Processing order %s completed\n", order.ID)
 		case <-r.Done:
 			fmt.Println("Order processing stopped!")
+			return
+		}
+	}
+}
+
+func processReversal(r *Repo, order *models.Order) {
+	// ensure the order is still request reversal
+	fetchedOrder, err := r.Orders.Find(order.ID)
+	if err != nil || fetchedOrder.Status != models.OrderStatus_ReversalRequested {
+		fmt.Println("Duplicate reversal on order ", order.ID)
+		return
+	}
+
+	item := order.Item
+	product, err := r.Products.Find(item.ProductID)
+	if err != nil {
+		order.Complete()
+		order.Error = err.Error()
+		return
+	}
+
+	newStock := product.Stock + item.Amount
+	product.Stock = newStock
+	r.Products.Upsert(product)
+
+	order.Reverse()
+}
+
+func ProcessReversals(r *Repo) {
+	fmt.Println("Reversal processing started!")
+	for {
+		select {
+		case order := <-r.Reversal:
+			processReversal(r, &order)
+			r.Orders.Upsert(order)
+			r.Processed <- order
+			fmt.Printf("Processing reversal %s completed\n", order.ID)
+		case <-r.Done:
+			fmt.Println("Reversal processing stopped!")
 			return
 		}
 	}

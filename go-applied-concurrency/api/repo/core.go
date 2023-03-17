@@ -14,6 +14,7 @@ type Repo struct {
 	Mutex     sync.Mutex
 	Incoming  chan models.Order
 	Processed chan models.Order
+	Reversal  chan models.Order
 	Done      chan struct{}
 }
 
@@ -21,9 +22,10 @@ type Repo struct {
 type IRepo interface {
 	Index() (chan models.Order, chan models.Order, chan struct{})
 	Close()
-	CreateOrder(item models.Item) (*models.Order, error)
 	GetAllProducts() []models.Product
 	GetOrder(id string) (models.Order, error)
+	CreateOrder(item models.Item) (*models.Order, error)
+	RequestReversal(id string) (*models.Order, error)
 }
 
 // New creates a new Order&Products Repo with the correct database dependencies
@@ -37,10 +39,12 @@ func New(dbPath string) (IRepo, error) {
 		Orders:    db.NewOrders(),
 		Incoming:  make(chan models.Order),
 		Processed: make(chan models.Order),
+		Reversal:  make(chan models.Order),
 		Done:      make(chan struct{}),
 	}
 
 	go ProcessOrders(&r)
+	go ProcessReversals(&r)
 
 	return &r, nil
 }

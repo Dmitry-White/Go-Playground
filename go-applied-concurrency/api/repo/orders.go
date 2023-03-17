@@ -28,3 +28,25 @@ func (r *Repo) CreateOrder(item models.Item) (*models.Order, error) {
 		return nil, fmt.Errorf("orders app is closed, try again later")
 	}
 }
+
+// RequestReversal reverses an order if one exists and completed
+func (r *Repo) RequestReversal(id string) (*models.Order, error) {
+	order, err := r.Orders.Find(id)
+	if err != nil {
+		return nil, fmt.Errorf("no order found, try a different one")
+	}
+
+	if order.Status != models.OrderStatus_Completed {
+		return nil, fmt.Errorf("only completed orders can be reversed, try a different one")
+	}
+
+	order.Request()
+
+	select {
+	case r.Reversal <- order:
+		r.Orders.Upsert(order)
+		return &order, nil
+	case <-r.Done:
+		return nil, fmt.Errorf("orders app is closed, try again later")
+	}
+}
