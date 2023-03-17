@@ -40,3 +40,18 @@ func (h *Handler) OrderInsert(w http.ResponseWriter, r *http.Request) {
 
 	writeResponse(w, http.StatusOK, order, nil)
 }
+
+// OrderReverse reverses an order with the given parameters
+func (h *Handler) OrderReverse(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	orderId := vars["orderId"]
+	// Call the repository method corresponding to the operation
+	o, err := h.repo.RequestReversal(orderId)
+	// Handle any errors & write an error HTTP status & response
+	if err != nil {
+		writeResponse(w, http.StatusNotFound, nil, err)
+		return
+	}
+	// Send an HTTP success status & the return value from the repo
+	writeResponse(w, http.StatusOK, o, nil)
+}

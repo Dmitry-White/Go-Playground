@@ -26,6 +26,7 @@ type IHandler interface {
 	ProductIndex(w http.ResponseWriter, r *http.Request)
 	OrderShow(w http.ResponseWriter, r *http.Request)
 	OrderInsert(w http.ResponseWriter, r *http.Request)
+	OrderReverse(w http.ResponseWriter, r *http.Request)
 }
 
 func New() (IHandler, error) {
@@ -61,7 +62,7 @@ func (h *Handler) Close(w http.ResponseWriter, r *http.Request) {
 func (h *Handler) Stats(w http.ResponseWriter, r *http.Request) {
 	reqCtx := r.Context()
 
-	ctx, cancel := context.WithTimeout(reqCtx, 100*time.Millisecond)
+	ctx, cancel := context.WithTimeout(reqCtx, 500*time.Millisecond)
 	defer cancel()
 
 	stats, err := h.stats.GetStats(ctx)
@@ -83,6 +84,8 @@ func InitRoutes(handler IHandler) *mux.Router {
 		Handler(http.HandlerFunc(handler.ProductIndex))
 	router.Methods("GET").Path("/orders/{orderId}").
 		Handler(http.HandlerFunc(handler.OrderShow))
+	router.Methods("DELETE").Path("/orders/{orderId}").
+		Handler(http.HandlerFunc(handler.OrderReverse))
 	router.Methods("POST").Path("/orders").
 		Handler(http.HandlerFunc(handler.OrderInsert))
 	router.Methods("POST").Path("/close").
