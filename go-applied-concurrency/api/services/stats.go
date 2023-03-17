@@ -55,7 +55,7 @@ func (s *Statistics) reconcile() {
 		select {
 		case processedStats := <-s.Stats:
 			s.Result.Combine(processedStats)
-			fmt.Printf("Processing Reconcile %v completed\n", processedStats)
+			fmt.Printf("Processing reconcile %v completed\n", processedStats)
 		case <-s.Done:
 			fmt.Println("Reconcile processing stopped!")
 			return

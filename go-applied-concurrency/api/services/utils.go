@@ -29,6 +29,14 @@ func processOrder(order *models.Order) models.Statistics {
 		}
 	}
 
+	// Reversed orders increment and substract from the revenue
+	if order.Status == models.OrderStatus_Reversed {
+		return models.Statistics{
+			ReversedOrders: 1,
+			Revenue:        -*order.Total,
+		}
+	}
+
 	// Otherwise the order is rejected
 	return models.Statistics{
 		RejectedOrders: 1,
@@ -43,7 +51,7 @@ func ProcessStats(s *Statistics) {
 		case order := <-s.Processed:
 			processedStats := processOrder(&order)
 			s.Stats <- processedStats
-			fmt.Printf("Processing Stats %s completed\n", order.ID)
+			fmt.Printf("Processing stats %s completed\n", order.ID)
 		case <-s.Done:
 			fmt.Println("Stats processing stopped!")
 			return
