@@ -11,3 +11,8 @@ type Wind struct {
 	Name  string
 	Netto float64
 }
+
+type Energy interface {
+	Solar | Wind
+	Cost() float64
+}

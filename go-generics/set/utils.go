@@ -16,11 +16,21 @@ func (w *Wind) print() string {
 	return fmt.Sprintf("%s - %v\n", kinetecoPrint, *w)
 }
 
-func printGeneric[T any](s T) string {
+// Print prints the cost of a solar product.
+func (s Solar) Cost() float64 {
+	return s.Netto * 0.4
+}
+
+// Print prints the cost of a wind product.
+func (w Wind) Cost() float64 {
+	return w.Netto * 0.4
+}
+
+func printGeneric[T Energy](s T) string {
 	return fmt.Sprintf("%s - %v\n", kinetecoPrint, s)
 }
 
-func printSlice[T any](sl []T) {
+func printSlice[T Energy](sl []T) {
 	for i, el := range sl {
 		fmt.Printf("%d: %s", i, printGeneric[T](el))
 	}
