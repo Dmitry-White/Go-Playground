@@ -1,9 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"go-generics/parameter"
+)
 
 func main() {
 	fmt.Println("----------- Type Parameter -----------")
-	typeParameter()
+	parameter.TypeParameter()
 	fmt.Println("--------------------------------------")
 }
