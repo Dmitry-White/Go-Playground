@@ -12,10 +12,15 @@ func TypeInference() {
 	fmt.Println(solar2k.print())
 	fmt.Println(solar3k.print())
 	fmt.Println(windwest.print())
-	fmt.Println(printGeneric[Solar](solar2k))
+	fmt.Println(printGeneric(solar2k))
 
 	solarSlice := []Solar{solar2k, solar3k}
 	windSlice := []Wind{windwest, windwest}
-	printSlice[Solar](solarSlice)
-	printSlice[Wind](windSlice)
+	printSlice(solarSlice)
+	printSlice(windSlice)
+
+	Cost(10, solar2k.Netto)
+	// Cost(0.45, 10) // Compile error since 10 is not infered as float64
+	Cost(0.45, float64(10)) // Either cast explicitly
+	Cost[float64](0.45, 10) // Or add type parameter
 }

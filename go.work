@@ -9,6 +9,7 @@ use (
 	./go-essential-training/json
 	./go-essential-training/testing
 	./go-generics
+	./go-generics/inference
 	./go-rest-api/api
 	./go-rest-api/misc/functions
 	./go-rest-api/misc/helloworld
