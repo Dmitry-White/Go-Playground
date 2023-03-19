@@ -23,4 +23,8 @@ func TypeInference() {
 	// Cost(0.45, 10) // Compile error since 10 is not infered as float64
 	Cost(0.45, float64(10)) // Either cast explicitly
 	Cost[float64](0.45, 10) // Or add type parameter
+
+	newSolarSlice := SolarSlice{solar2k, solar3k}
+	printSlice(newSolarSlice)            // Incorrectly infers the constrained type of the input slice
+	printSliceConstrained(newSolarSlice) // Correctly infers the constrained type of the input slice
 }

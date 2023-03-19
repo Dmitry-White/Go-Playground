@@ -31,8 +31,18 @@ func printGeneric[T Energy](s T) string {
 }
 
 func printSlice[T Energy](sl []T) {
+	fmt.Printf("Type of sl: %T\n", sl)
 	for i, el := range sl {
-		fmt.Printf("%d: %s", i, printGeneric[T](el))
+		fmt.Printf("%d: %s", i, printGeneric(el))
+	}
+}
+
+// Correctly infers the constrained type of the input slice
+// since S is constrained by the slice of T and its underlying types
+func printSliceConstrained[T Energy, S ~[]T](sl S) {
+	fmt.Printf("Type of sl: %T\n", sl)
+	for i, el := range sl {
+		fmt.Printf("%d: %s", i, printGeneric(el))
 	}
 }
 

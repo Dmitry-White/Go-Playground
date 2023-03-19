@@ -23,3 +23,6 @@ type Energy interface {
 type Number interface {
 	constraints.Float | constraints.Integer
 }
+
+// SolarSlice is a defined slice of solar
+type SolarSlice []Solar
