@@ -15,6 +15,11 @@ use (
 	./go-rest-api/misc/helloworld
 	./go-rest-api/misc/practice
 	./go-rest-api/misc/tester
+	./go-security/auth
+	./go-security/infrastructure
+	./go-security/input
+	./go-security/output
+	./go-security/process
 	./go-standard-library/fmt
 	./go-standard-library/http
 	./go-standard-library/math
