@@ -1,0 +1,15 @@
+# Read about SQL Injection vulnerability
+https://owasp.org/Top10/A03_2021-Injection/
+
+# Start a Docker container with PostgreSQL DB process
+docker run \
+    -e POSTGRES_HOST_AUTH_METHOD=trust \
+    -p 5432:5432 \
+    postgres:13-alpine
+
+# Start a Docker container to connect to DB shell from
+docker run \
+    --rm -it \
+    --network=host \
+    postgres:13-alpine \
+    psql -U postgres -h localhost
