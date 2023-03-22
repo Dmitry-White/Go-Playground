@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"go-security/input/sql-injection/dal"
 	"io"
 	"log"
 	"os"
@@ -25,4 +26,6 @@ func main() {
 
 	log.Println("Filename: ", filename)
 	log.Println("DB: ", db)
+
+	dal.CreateTable(db)
 }
