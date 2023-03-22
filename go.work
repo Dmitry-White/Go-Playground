@@ -17,7 +17,7 @@ use (
 	./go-rest-api/misc/tester
 	./go-security/auth
 	./go-security/infrastructure
-	./go-security/input
+	./go-security/input/sql-injection
 	./go-security/output
 	./go-security/process
 	./go-standard-library/fmt
