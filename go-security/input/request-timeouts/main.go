@@ -1,7 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"log"
+)
 
 func main() {
-	fmt.Println("Server Placeholder")
+	server, err := getClient("safe")()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	log.Println(server)
 }
