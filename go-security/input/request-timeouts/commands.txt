@@ -1,1 +1,22 @@
-# 
+# Exmples of thing that cause timeouts:
+https://en.wikipedia.org/wiki/Zip_bomb
+https://en.wikipedia.org/wiki/Billion_laughs_attack
+
+# To prevent request tacking forver to be satisfied,
+# use timeouts for HTTP servers.
+# The context library is the way to handle
+# timeouts and cancellations in Go.
+# Every request has an associated context
+# that you can pass to worker functions
+# to limit the amount of time they have.
+# The HTPP server has several timeout fields.
+
+# Launch the server:
+go run .
+
+# Launch the client:
+go run ./client
+
+# Observe that with "hacky" strategy the server is overwhelmed
+# with the amount of bytes slowly coming in,
+# while with "safe" strategy it timeouts after a while.

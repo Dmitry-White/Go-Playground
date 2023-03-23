@@ -8,7 +8,7 @@ import (
 func main() {
 	http.HandleFunc("/", handler)
 
-	server, err := getClient("safe")()
+	server, err := getClient("hacky")()
 	if err != nil {
 		log.Fatal(err)
 	}

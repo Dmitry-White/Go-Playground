@@ -9,6 +9,20 @@ import (
 	"time"
 )
 
+func handler(res http.ResponseWriter, req *http.Request) {
+	defer req.Body.Close()
+
+	start := time.Now()
+	n, err := io.Copy(io.Discard, req.Body)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	log.Printf("%d bytes in %v", n, time.Since(start))
+
+	payload := fmt.Sprintf("%d bytes digested", n)
+	fmt.Fprintln(res, payload)
+}
+
 func getSafeServer() (*http.Server, error) {
 	return &http.Server{
 		Addr:              ":8080",
@@ -20,7 +34,9 @@ func getSafeServer() (*http.Server, error) {
 }
 
 func getHackyServer() (*http.Server, error) {
-	return &http.Server{}, nil
+	return &http.Server{
+		Addr: ":8080",
+	}, nil
 }
 
 func getClient(strategy string) func() (*http.Server, error) {
@@ -36,18 +52,4 @@ func getClient(strategy string) func() (*http.Server, error) {
 		}
 		return nil, errors.New("this strategy is not supported")
 	}
-}
-
-func handler(res http.ResponseWriter, req *http.Request) {
-	defer req.Body.Close()
-
-	start := time.Now()
-	n, err := io.Copy(io.Discard, req.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	log.Printf("%d bytes in %v", n, time.Since(start))
-
-	payload := fmt.Sprintf("%d bytes digested", n)
-	fmt.Fprintln(res, payload)
 }
