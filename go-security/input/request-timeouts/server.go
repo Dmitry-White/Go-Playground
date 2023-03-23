@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 	"time"
@@ -35,4 +36,18 @@ func getClient(strategy string) func() (*http.Server, error) {
 		}
 		return nil, errors.New("this strategy is not supported")
 	}
+}
+
+func handler(res http.ResponseWriter, req *http.Request) {
+	defer req.Body.Close()
+
+	start := time.Now()
+	n, err := io.Copy(io.Discard, req.Body)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	log.Printf("%d bytes in %v", n, time.Since(start))
+
+	payload := fmt.Sprintf("%d bytes digested", n)
+	fmt.Fprintln(res, payload)
 }
