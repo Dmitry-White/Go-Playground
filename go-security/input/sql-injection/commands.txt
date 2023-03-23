@@ -13,3 +13,17 @@ docker run \
     --network=host \
     postgres:13-alpine \
     psql -U postgres -h localhost
+
+# Inside DB shell use
+\d
+# to explore tables, and
+SELECT * FROM logs;
+# to explore the logs table
+
+# Execute Go code with different payloads
+go run . < log_hacky.txt
+go run . < log_safe.txt
+
+# Observe that with "hacky" strategy the table is vulnerable
+# to SQL Injection from log_hacky.txt,
+# while with "safe" strategy both logs are escaped and appear in the DB.
