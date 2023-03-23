@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	_ "embed"
 	"errors"
+	"fmt"
 	"log"
 	"time"
 )
@@ -19,7 +20,6 @@ import (
 var ddlSQL string
 
 func CreateTable(db *sql.DB) error {
-	log.Println("ddlSQL: ", ddlSQL)
 	_, err := db.Exec(ddlSQL)
 	return err
 }
@@ -27,7 +27,9 @@ func CreateTable(db *sql.DB) error {
 func InsertLog(strategy string) func(db *sql.DB, time time.Time, message string) error {
 	return func(db *sql.DB, time time.Time, message string) error {
 		timestamp := time.Format("2006-01-02 15:04:05") // Format time for SQL
-		log.Println("Timestamp:", timestamp)
+
+		choice := fmt.Sprintf("Using %s insert", strategy)
+		log.Println(choice)
 
 		switch strategy {
 		case "safe":

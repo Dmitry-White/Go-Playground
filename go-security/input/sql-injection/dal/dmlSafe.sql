@@ -1,4 +1,4 @@
 INSERT INTO
     logs (time, message)
 VALUES
-    ('%s', '%s');
+    ($1, $2);

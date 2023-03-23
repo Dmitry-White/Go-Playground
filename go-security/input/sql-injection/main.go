@@ -30,5 +30,8 @@ func main() {
 
 	dal.CreateTable(db)
 
-	dal.InsertLog("hacky")(db, time.Now(), content)
+	err = dal.InsertLog("unsafe")(db, time.Now(), content)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
