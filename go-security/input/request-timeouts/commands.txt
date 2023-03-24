@@ -1,8 +1,4 @@
-# Exmples of thing that cause timeouts:
-https://en.wikipedia.org/wiki/Zip_bomb
-https://en.wikipedia.org/wiki/Billion_laughs_attack
-
-# To prevent request tacking forver to be satisfied,
+# To prevent requests tacking forever to be satisfied,
 # use timeouts for HTTP servers.
 # The context library is the way to handle
 # timeouts and cancellations in Go.

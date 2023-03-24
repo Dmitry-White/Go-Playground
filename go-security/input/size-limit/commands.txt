@@ -1,0 +1,8 @@
+# Exmples of things that cause timeouts:
+https://en.wikipedia.org/wiki/Zip_bomb
+https://en.wikipedia.org/wiki/Billion_laughs_attack
+
+# To prevent requests taking too much memory to be satisfied,
+# use I/O size limits for HTTP request body.
+# The I/O library is the way to handle
+# size limitting via LimitedReaders in Go.
