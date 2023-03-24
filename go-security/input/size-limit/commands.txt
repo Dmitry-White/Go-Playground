@@ -6,3 +6,13 @@ https://en.wikipedia.org/wiki/Billion_laughs_attack
 # use I/O size limits for HTTP request body.
 # The I/O library is the way to handle
 # size limitting via LimitedReaders in Go.
+
+# Launch the server:
+go run .
+
+# Send a big-sized payload
+curl -d@pi.txt http://localhost:8080
+
+# Observe that with "hacky" strategy the server is overwhelmed
+# with the amount of bytes it needs to keep in memory,
+# while with "safe" strategy it responds after a hitting max size limit.
