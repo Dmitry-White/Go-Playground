@@ -20,6 +20,7 @@ use (
 	./go-security/input/request-timeouts
 	./go-security/input/size-limit
 	./go-security/input/sql-injection
+	./go-security/input/validation
 	./go-security/output
 	./go-security/process
 	./go-standard-library/fmt
