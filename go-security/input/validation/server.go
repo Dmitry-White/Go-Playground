@@ -19,8 +19,9 @@ func handler(res http.ResponseWriter, req *http.Request) {
 
 	data, err := handle(decoder)
 	if err != nil {
-		log.Print(err)
-		http.Error(res, "Bad JSON", http.StatusBadRequest)
+		errMessage := fmt.Sprintf("Validation errors:\n%v", err)
+		log.Println(errMessage)
+		http.Error(res, errMessage, http.StatusBadRequest)
 		return
 	}
 
