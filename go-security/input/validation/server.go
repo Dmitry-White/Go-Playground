@@ -7,27 +7,24 @@ import (
 	"net/http"
 )
 
-type Payment struct {
-	Time   string
-	User   string
-	To     string
-	Amount int
-}
-
 func handler(res http.ResponseWriter, req *http.Request) {
 	defer req.Body.Close()
 
 	decoder := json.NewDecoder(req.Body)
 
-	var p Payment
-	err := decoder.Decode(&p)
+	handle, err := getHandleFunc(BASIC_STRATEGY)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	data, err := handle(decoder)
 	if err != nil {
 		log.Print(err)
 		http.Error(res, "Bad JSON", http.StatusBadRequest)
 		return
 	}
 
-	log.Println("Payment:", p)
+	log.Println("Payment:", data)
 
-	fmt.Fprintln(res, p)
+	fmt.Fprintln(res, data)
 }
