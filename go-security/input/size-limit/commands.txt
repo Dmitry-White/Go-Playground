@@ -11,7 +11,9 @@ https://en.wikipedia.org/wiki/Billion_laughs_attack
 go run .
 
 # Send a big-sized payload
-curl -d@pi.txt http://localhost:8080
+curl -X POST http://localhost:8080 \
+    -H "Content-Type: text/plain" \
+    -d @pi.txt
 
 # Observe that with "hacky" strategy the server is overwhelmed
 # with the amount of bytes it needs to keep in memory,
