@@ -14,7 +14,7 @@ type PaymentBasic struct {
 	Amount int
 }
 
-func (p *PaymentBasic) validate() error {
+func (p *PaymentBasic) Validate() error {
 	foundErrors := []error{}
 
 	if len(p.User) == 0 {
@@ -38,14 +38,15 @@ func (p *PaymentBasic) validate() error {
 	return nil
 }
 
-func handleBasic(decoder *json.Decoder) (*PaymentBasic, error) {
+func handleBasic(decoder *json.Decoder) (Payment, error) {
 	p := PaymentBasic{}
+
 	err := decoder.Decode(&p)
 	if err != nil {
 		return nil, err
 	}
 
-	err = p.validate()
+	err = p.Validate()
 	if err != nil {
 		return nil, err
 	}

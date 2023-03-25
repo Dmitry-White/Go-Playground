@@ -7,7 +7,11 @@ import (
 	"log"
 )
 
-type HandleFunc func(decoder *json.Decoder) (*PaymentBasic, error)
+type Payment interface {
+	Validate() error
+}
+
+type HandleFunc func(decoder *json.Decoder) (Payment, error)
 
 const (
 	SAFE_STRATEGY  = "safe"

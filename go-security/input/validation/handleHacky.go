@@ -11,8 +11,13 @@ type PaymentHacky struct {
 	Amount int
 }
 
-func handleHacky(decoder *json.Decoder) (*PaymentBasic, error) {
-	p := PaymentBasic{}
+func (p *PaymentHacky) Validate() error {
+	return nil
+}
+
+func handleHacky(decoder *json.Decoder) (Payment, error) {
+	p := PaymentHacky{}
+
 	err := decoder.Decode(&p)
 	if err != nil {
 		return nil, err
