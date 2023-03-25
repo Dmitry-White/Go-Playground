@@ -12,7 +12,7 @@ func handler(res http.ResponseWriter, req *http.Request) {
 
 	decoder := json.NewDecoder(req.Body)
 
-	handle, err := getHandleFunc(BASIC_STRATEGY)
+	handle, err := getHandleFunc(SAFE_STRATEGY)
 	if err != nil {
 		log.Fatalln(err)
 	}
