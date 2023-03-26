@@ -1,5 +1,6 @@
 # Read about SQL Injection vulnerability
-https://owasp.org/Top10/A03_2021-Injection/
+https://owasp.org/www-community/attacks/SQL_Injection
+https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html
 
 # Start a Docker container with PostgreSQL DB process
 docker run \
