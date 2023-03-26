@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-func handler(res http.ResponseWriter, req *http.Request) {
+func handler(resw http.ResponseWriter, req *http.Request) {
 	defer req.Body.Close()
 
 	start := time.Now()
@@ -20,7 +20,7 @@ func handler(res http.ResponseWriter, req *http.Request) {
 	log.Printf("%d bytes in %v", n, time.Since(start))
 
 	payload := fmt.Sprintf("%d bytes digested", n)
-	fmt.Fprintln(res, payload)
+	fmt.Fprintln(resw, payload)
 }
 
 func getSafeServer() (*http.Server, error) {

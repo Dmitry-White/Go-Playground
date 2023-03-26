@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func handler(res http.ResponseWriter, req *http.Request) {
+func handler(resw http.ResponseWriter, req *http.Request) {
 	defer req.Body.Close()
 
 	decoder := json.NewDecoder(req.Body)
@@ -21,11 +21,11 @@ func handler(res http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		errMessage := fmt.Sprintf("Validation errors:\n%v", err)
 		log.Println(errMessage)
-		http.Error(res, errMessage, http.StatusBadRequest)
+		http.Error(resw, errMessage, http.StatusBadRequest)
 		return
 	}
 
 	log.Println("Payment:", data)
 
-	fmt.Fprintln(res, data)
+	fmt.Fprintln(resw, data)
 }

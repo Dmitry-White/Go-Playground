@@ -31,7 +31,7 @@ func getReader(strategy string) func(req *http.Request) (io.Reader, error) {
 	}
 }
 
-func handler(res http.ResponseWriter, req *http.Request) {
+func handler(resw http.ResponseWriter, req *http.Request) {
 	defer req.Body.Close()
 
 	reader, err := getReader("hacky")(req)
@@ -49,5 +49,5 @@ func handler(res http.ResponseWriter, req *http.Request) {
 	n := len(data)
 
 	payload := fmt.Sprintf("%d bytes stored", n)
-	fmt.Fprintln(res, payload)
+	fmt.Fprintln(resw, payload)
 }
