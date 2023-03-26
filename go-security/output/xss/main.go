@@ -1,7 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"log"
+	"net/http"
+)
 
 func main() {
-	fmt.Println("Placeholder")
+	http.HandleFunc("/", handler)
+
+	err := http.ListenAndServe(":8080", nil)
+	if err != nil {
+		log.Fatalln(err)
+	}
 }
