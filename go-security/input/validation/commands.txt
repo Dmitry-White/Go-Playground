@@ -5,3 +5,9 @@ go run .
 curl -X POST http://localhost:8080 \
     -H "Content-Type: application/json" \
     -d @payload.json
+
+# Observe that with "hacky" strategy the payload is not validated
+# and unintended data might affect your system,
+# while with both "basic" & "safe" strategies check request body
+# althoug with different complexity/scalability/readability - 
+# "safe" strategy is more idiomatic to Go since it uses struct tags.

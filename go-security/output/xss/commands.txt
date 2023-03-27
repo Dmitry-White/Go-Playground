@@ -1,3 +1,14 @@
 # Read about Cross-Site Scripting vulnerability
 https://owasp.org/www-community/attacks/xss/
 https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html
+
+# Launch the server:
+go run .
+
+# Observe that with "hacky" strategy the messages contain JS script
+# and the script is executed by the victim's browser,
+# while with "safe" strategy HTML is parametrised
+# and messages are escaped and interpolated by
+# html/template strandard library.
+# Note that text/template while providing the same API as
+# html/template for interpolation, does not escape HTML.
