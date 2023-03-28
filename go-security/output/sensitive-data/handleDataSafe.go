@@ -15,6 +15,12 @@ func handleDataSafe(resw http.ResponseWriter, user *dal.User) {
 		return
 	}
 
+	audit := &dal.AuditLog{
+		Origin: "handleDataSafe",
+		Data:   user,
+	}
+	audit.Track()
+
 	resw.Header().Set("Content-Type", "application/json")
 
 	jsonWriter := json.NewEncoder(resw)

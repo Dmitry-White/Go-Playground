@@ -19,7 +19,7 @@ func handler(resw http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	handleData, err := getDataHandler(SAFE_STRATEGY)
+	handleData, err := getDataHandler(HACKY_STRATEGY)
 	if err != nil {
 		log.Fatalln(err)
 	}
