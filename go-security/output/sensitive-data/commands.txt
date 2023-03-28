@@ -5,6 +5,9 @@ https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html
 # Launch the server:
 go run .
 
+# Send a request with query parameter and include headers in the response
+curl -i -X GET http://localhost:8080?user=joe
+
 # Observe that with "hacky" strategy the response errors contain
 # server internal details and expose unintended data,
 # while with "safe" strategy logs error and returns generic response.
