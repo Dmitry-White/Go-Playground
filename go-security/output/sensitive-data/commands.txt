@@ -11,3 +11,6 @@ curl -i -X GET http://localhost:8080?user=joe
 # Observe that with "hacky" strategy the response errors contain
 # server internal details and expose unintended data,
 # while with "safe" strategy logs error and returns generic response.
+# Moreover, "hacky" strategy does not terminate handler on error leading to
+# untrustful audit logs and exposure of buggy data,
+# while with "safe" strategy stops handler execution after returning the error.

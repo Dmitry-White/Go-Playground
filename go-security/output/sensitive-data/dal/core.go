@@ -1,6 +1,9 @@
 package dal
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+)
 
 type User struct {
 	Login   string
@@ -13,6 +16,16 @@ type CustomError struct {
 	Info   interface{}
 }
 
+type AuditLog struct {
+	Origin string
+	Data   interface{}
+}
+
 func (e *CustomError) Error() string {
 	return fmt.Sprintf("%s (%#v)", e.Reason, e.Info)
+}
+
+func (a *AuditLog) Track() {
+	// Dummy audit log
+	log.Printf("Audit: \n%v from %s\n", a.Data, a.Origin)
 }
