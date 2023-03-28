@@ -21,6 +21,7 @@ use (
 	./go-security/input/size-limit
 	./go-security/input/sql-injection
 	./go-security/input/validation
+	./go-security/output/sensitive-data
 	./go-security/output/xss
 	./go-security/process
 	./go-standard-library/fmt
