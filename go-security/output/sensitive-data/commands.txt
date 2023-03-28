@@ -1,0 +1,10 @@
+# Read about Cryptographic Failures vulnerability
+https://owasp.org/Top10/A02_2021-Cryptographic_Failures/
+https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html
+
+# Launch the server:
+go run .
+
+# Observe that with "hacky" strategy the response errors contain
+# server internal details and expose unintended data,
+# while with "safe" strategy logs error and returns generic response.
