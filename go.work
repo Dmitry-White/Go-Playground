@@ -15,7 +15,7 @@ use (
 	./go-rest-api/misc/helloworld
 	./go-rest-api/misc/practice
 	./go-rest-api/misc/tester
-	./go-security/auth
+	./go-security/auth/authentication
 	./go-security/infrastructure
 	./go-security/input/request-timeouts
 	./go-security/input/size-limit
