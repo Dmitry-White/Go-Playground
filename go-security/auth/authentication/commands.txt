@@ -1,3 +1,20 @@
 # Read about Identification and Authentication Failures vulnerability
 https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures/
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication
+
+# Launch the server:
+go run .
+
+# Send requests to different endpoints
+curl -i -X GET http://localhost:8080?health
+curl -i -X GET http://localhost:8080?messages
+
+# Notice that some requests require authentication.
+# Authentication is done via "Authorization: Bearer X" header.
+
+# Send requests to the securded endpoints with a correct header:
+curl -i -X GET http://localhost:8080/messages \
+    -H "Authorization: Bearer crypto"
+
+# The implementation uses middleware pattern:
+https://www.alexedwards.net/blog/making-and-using-middleware
