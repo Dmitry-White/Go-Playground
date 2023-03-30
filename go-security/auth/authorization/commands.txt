@@ -1,0 +1,21 @@
+# Read about Broken Access Control vulnerability
+https://owasp.org/Top10/A01_2021-Broken_Access_Control/
+https://resources.infosecinstitute.com/certification/access-control-models-and-methods/
+
+# Launch the server:
+go run .
+
+# Send requests to different endpoints
+curl -i -X GET http://localhost:8080/profile?user=joe
+curl -i -X GET http://localhost:8080/profile?user=jane
+curl -i -X POST http://localhost:8080/profile?user=joe
+curl -i -X POST http://localhost:8080/profile?user=jane
+
+# Notice that some requests work for every user
+# while other requests require authorization from users.
+
+# There's a number of Access Control models (DAC, RBAC, ABAC, etc)
+# and at the same time a number of access control methods that implement them
+# (ACLs, group policies, login/passwords, etc).
+# Example of RBAC: Windows Groups, AWS IAM
+# Example of ACL: Filesystem ACL in Linux, Network ACL in firewalls
