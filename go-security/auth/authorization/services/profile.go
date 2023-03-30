@@ -1,11 +1,24 @@
 package services
 
-import "log"
-
-func GetProfile() {
-	log.Println("Not Implemented")
+type Profile struct {
+	name   string
+	status string
 }
 
-func UpdateProfile() {
-	log.Println("Not Implemented")
+func GetProfile(user string) *Profile {
+	profile := &Profile{
+		name:   user,
+		status: "Latest",
+	}
+
+	return profile
+}
+
+func UpdateProfile(user string) *Profile {
+	profile := &Profile{
+		name:   user,
+		status: "Updated",
+	}
+
+	return profile
 }

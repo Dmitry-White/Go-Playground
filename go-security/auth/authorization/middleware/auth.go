@@ -2,6 +2,6 @@ package middleware
 
 import "log"
 
-func CheckAccess() {
+func WithAccess() {
 	log.Println("Not Implemented")
 }
