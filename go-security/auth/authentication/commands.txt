@@ -6,8 +6,8 @@ https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication
 go run .
 
 # Send requests to different endpoints
-curl -i -X GET http://localhost:8080?health
-curl -i -X GET http://localhost:8080?messages
+curl -i -X GET http://localhost:8080/health
+curl -i -X GET http://localhost:8080/messages
 
 # Notice that some requests require authentication.
 # Authentication is done via "Authorization: Bearer X" header.
