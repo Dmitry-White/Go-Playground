@@ -17,7 +17,7 @@ use (
 	./go-rest-api/misc/tester
 	./go-security/auth/authentication
 	./go-security/auth/authorization
-	./go-security/infrastructure
+	./go-security/infrastructure/ssl-certificates
 	./go-security/input/request-timeouts
 	./go-security/input/size-limit
 	./go-security/input/sql-injection
