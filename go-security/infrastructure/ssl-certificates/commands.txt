@@ -1,0 +1,41 @@
+# Create a self-signed SSL certificate
+openssl req \
+    -x509 \
+    -nodes \
+    -sha256 \
+    -newkey rsa:4096 \
+    -keyout key.pem \
+    -out cert.pem \
+    -subj '//CN=localhost' \
+    -days 365 \
+    -config req.conf
+
+# Explore the self-signed certificate
+openssl x509 \
+    -text \
+    -noout \
+    -in cert.pem
+
+# Create a signing request
+openssl req \
+    -new \
+    -nodes \
+    -sha256 \
+    -newkey rsa:2048 \
+    -keyout key.pem \
+    -out req.pem \
+    -config req.conf
+
+# Explore the signing request
+openssl req \
+    -text \
+    -noout \
+    -in req.pem
+
+# Open an SSL connection with Twitter.com to check certificate details
+openssl s_client \
+    -connect twitter.com:443
+
+# From SSL REPL, get the Twitter homepage
+GET /index.html HTTP/1.1
+Host: twitter.com
