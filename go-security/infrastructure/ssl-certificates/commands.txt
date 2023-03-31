@@ -1,3 +1,26 @@
+# Read about Security Misconfiguration vulnerability
+https://owasp.org/Top10/A05_2021-Security_Misconfiguration/
+https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html
+
+# Launch the server:
+go run .
+
+# Send requests with different configurations
+curl -i -X GET http://localhost:8080/health
+curl -i -X GET https://localhost:8080/health
+curl -i --insecure -X GET https://localhost:8080/health
+
+# Notice that some requests require a correct SSL certificate.
+# Client can't sent an HTTP request to an HTTPS server.
+# CURL by default would reject a self-signed certificate.
+# Generating and explicitly telling client to accept self-signed certificates
+# allows client to securely connect to server via TLS.
+
+# Learn about SSL certificates
+https://www.youtube.com/watch?v=T4Df5_cojAs
+https://www.youtube.com/watch?v=VcV4T8cL3xw
+https://stackoverflow.com/a/27931596
+
 # Create a self-signed SSL certificate
 openssl req \
     -x509 \
@@ -39,3 +62,11 @@ openssl s_client \
 # From SSL REPL, get the Twitter homepage
 GET /index.html HTTP/1.1
 Host: twitter.com
+
+# Open an SSL connection with Localhost to check certificate details
+openssl s_client \
+    -connect localhost:8080
+
+# From SSL REPL, get the Twitter homepage
+GET /health HTTP/1.1
+Host: localhost
