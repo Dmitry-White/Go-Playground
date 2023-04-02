@@ -9,10 +9,16 @@ import (
 var serverConfig *config.Config
 
 func prepareEnv() {
-	loadedConfig, err := config.LoadConfig()
+	envFunc, err := getEnvFunc(BASIC_STRATEGY)
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	loadedConfig, err := envFunc()
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	serverConfig = loadedConfig
 }
 
