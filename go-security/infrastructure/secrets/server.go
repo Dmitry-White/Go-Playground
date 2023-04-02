@@ -9,7 +9,7 @@ import (
 var serverConfig *config.Config
 
 func prepareEnv() {
-	envFunc, err := getEnvFunc(DOTENV_STRATEGY)
+	envFunc, err := getEnvFunc(VIPER_STRATEGY)
 	if err != nil {
 		log.Fatal(err)
 	}
