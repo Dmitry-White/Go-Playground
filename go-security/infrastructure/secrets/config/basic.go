@@ -6,6 +6,11 @@ import (
 )
 
 func LoadBasicConfig() (*Config, error) {
+	apiUser := os.Getenv(API_USER)
+	if apiUser == "" {
+		return nil, fmt.Errorf("missing %s", API_USER)
+	}
+
 	apiKey := os.Getenv(API_KEY)
 	if apiKey == "" {
 		return nil, fmt.Errorf("missing %s", API_KEY)
@@ -17,8 +22,9 @@ func LoadBasicConfig() (*Config, error) {
 	}
 
 	config := &Config{
-		API_KEY: apiKey,
-		API_URL: apiUrl,
+		API_USER: apiUser,
+		API_KEY:  apiKey,
+		API_URL:  apiUrl,
 	}
 
 	return config, nil

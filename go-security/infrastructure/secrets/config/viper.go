@@ -24,6 +24,11 @@ func LoadViperConfig() (*Config, error) {
 		If the type is a string then ok will be true
 		ok will make sure the program not break
 	*/
+	apiUser, ok := viper.Get(API_USER).(string)
+	if !ok {
+		return nil, fmt.Errorf("missing %s", API_USER)
+	}
+
 	apiKey, ok := viper.Get(API_KEY).(string)
 	if !ok {
 		return nil, fmt.Errorf("missing %s", API_KEY)
@@ -35,8 +40,9 @@ func LoadViperConfig() (*Config, error) {
 	}
 
 	config := &Config{
-		API_KEY: apiKey,
-		API_URL: apiUrl,
+		API_USER: apiUser,
+		API_KEY:  apiKey,
+		API_URL:  apiUrl,
 	}
 
 	return config, nil
