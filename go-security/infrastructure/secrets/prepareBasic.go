@@ -5,7 +5,7 @@ import (
 )
 
 func prepareBasic() (*config.Config, error) {
-	loadedConfig, err := config.LoadConfig()
+	loadedConfig, err := config.LoadBasicConfig()
 	if err != nil {
 		return nil, err
 	}
