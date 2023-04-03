@@ -1,0 +1,3 @@
+# Read about Security Logging and Monitoring Failures vulnerability
+https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/
+https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html
