@@ -1,3 +1,26 @@
 # Read about Security Logging and Monitoring Failures vulnerability
 https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/
 https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html
+
+# Launch the server:
+go run .
+
+# Send login requests with different configurations
+curl -i http://localhost:8080/login
+curl -i -X POST http://localhost:8080/login
+curl -i http://localhost:8080/login \
+    -X POST \
+    -F user=joe \
+    -F passwd=test
+curl -i http://localhost:8080/login \
+    -X POST \
+    -F user=daffy \
+    -F passwd=r4bb1ts3as0n
+
+# Observe different app logs depending on the strategy.
+
+# Send debug request to observe metrics
+curl -i http://localhost:8080/debug/vars
+
+# Read more about `expvars` app metrics:
+https://sysdig.com/blog/golang-expvar-custom-metrics/
