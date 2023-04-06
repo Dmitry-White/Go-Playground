@@ -8,13 +8,24 @@ go run . -url http://example.com
 # Observe that while code works, it might have some
 # formatting, linting and security issues.
 
-# #################### 1 ####################
+# #################### gofmt ####################
 # If you don't have Go plugin in your editor,
 # the simplest formatting tool is `gofmt`
 
-# Lint Check:
+# Format Check:
 gofmt -s -d .
 
-# Lint Fix:
+# Format Fix:
 gofmt -s -w .
-# ###########################################
+# ###############################################
+
+# ################# staticcheck #################
+# Simple linter
+go install honnef.co/go/tools/cmd/staticcheck@latest
+
+# Lint Check:
+staticcheck ./...
+
+# Lint Fix:
+N/A
+# ###############################################
