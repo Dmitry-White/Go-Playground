@@ -26,7 +26,7 @@ use (
 	./go-security/input/validation
 	./go-security/output/sensitive-data
 	./go-security/output/xss
-	./go-security/process
+	./go-security/process/linting
 	./go-standard-library/fmt
 	./go-standard-library/http
 	./go-standard-library/math
