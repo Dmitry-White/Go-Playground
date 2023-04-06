@@ -1,3 +1,20 @@
 # Read about Static COde Analysis and Code Linting
 https://owasp.org/www-community/controls/Static_Code_Analysis
 https://owasp.org/www-project-devsecops-guideline/latest/01b-Linting-Code
+
+# Launch the code:
+go run . -url http://example.com
+
+# Observe that while code works, it might have some
+# formatting, linting and security issues.
+
+# #################### 1 ####################
+# If you don't have Go plugin in your editor,
+# the simplest formatting tool is `gofmt`
+
+# Lint Check:
+gofmt -s -d .
+
+# Lint Fix:
+gofmt -s -w .
+# ###########################################
