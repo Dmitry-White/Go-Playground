@@ -40,3 +40,14 @@ golangci-lint run ./...
 # Lint Fix:
 golangci-lint run --fix ./...
 # ###############################################
+
+# ################ gosec ################
+# Inspects source code for security problems
+go install github.com/securego/gosec/v2/cmd/gosec@latest
+
+# Lint Check:
+gosec -conf gosec.json ./...
+
+# Lint Fix:
+N/A
+# ###############################################
