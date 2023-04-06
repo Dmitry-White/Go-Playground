@@ -29,3 +29,14 @@ staticcheck ./...
 # Lint Fix:
 N/A
 # ###############################################
+
+# ################ golangci-lint ################
+# Go linters aggregator
+go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+
+# Lint Check:
+golangci-lint run ./...
+
+# Lint Fix:
+golangci-lint run --fix ./...
+# ###############################################
