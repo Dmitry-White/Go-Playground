@@ -15,3 +15,5 @@
 7. [Generics in Go](https://www.linkedin.com/learning/generics-in-go)
 
 8. [Secure Coding in Go](https://www.linkedin.com/learning/secure-coding-in-go)
+
+9. [Go Recipes: Practical Projects](https://www.linkedin.com/learning/go-recipes-practical-projects)
