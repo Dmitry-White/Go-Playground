@@ -10,6 +10,7 @@ use (
 	./go-essential-training/testing
 	./go-generics
 	./go-generics/inference
+	./go-recipes/numbers
 	./go-rest-api/api
 	./go-rest-api/misc/functions
 	./go-rest-api/misc/helloworld
