@@ -1,9 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
 	fmt.Println("----------- Mean -----------")
-	// mean()
+	fmt.Println(meanNaive([]int{1, 2, 3}))    // 2
+	fmt.Println(meanNaive([]int{1, 2, 3, 4})) // 2
+
+	fmt.Println(meanSafe([]int{1, 2, 3}))    // 2
+	fmt.Println(meanSafe([]int{1, 2, 3, 4})) // 2.5
 	fmt.Println("----------------------------------")
 }
