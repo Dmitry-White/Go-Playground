@@ -19,7 +19,7 @@ func main() {
 	fmt.Println("----------------------------------")
 
 	fmt.Println("----------- Frequency ------------")
-	fmt.Println(frequency([]string{}))
-	commaOk() // The price of Banana is $0. We don't have Apples.
+	fmt.Println(frequency(MOBY)) // map[a:5 ...]
+	commaOk()                    // The price of Banana is $0. We don't have Apples.
 	fmt.Println("----------------------------------")
 }
