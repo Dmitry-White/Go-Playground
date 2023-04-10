@@ -17,4 +17,9 @@ func main() {
 	fmt.Println(median([]float64{3, 1, 2}))    // 2
 	fmt.Println(median([]float64{3, 1, 4, 2})) // 2.5
 	fmt.Println("----------------------------------")
+
+	fmt.Println("----------- Frequency ------------")
+	fmt.Println(frequency([]string{}))
+	commaOk() // The price of Banana is $0. We don't have Apples.
+	fmt.Println("----------------------------------")
 }
