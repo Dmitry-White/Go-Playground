@@ -22,4 +22,10 @@ func main() {
 	fmt.Println(frequency(MOBY)) // map[a:5 ...]
 	commaOk()                    // The price of Banana is $0. We don't have Apples.
 	fmt.Println("----------------------------------")
+
+	fmt.Println("------------- Errors -------------")
+	fmt.Println(setupErrors())
+	fmt.Println(exerciseErrors()) // Success
+	fmt.Println(exerciseErrors()) // Error...
+	fmt.Println("----------------------------------")
 }
