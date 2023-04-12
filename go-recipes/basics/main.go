@@ -24,8 +24,8 @@ func main() {
 	fmt.Println("----------------------------------")
 
 	fmt.Println("------------- Errors -------------")
-	fmt.Println(setupErrors())
-	fmt.Println(exerciseErrors()) // Success
-	fmt.Println(exerciseErrors()) // Error...
+	fmt.Println(setupErrors("cid.txt"))
+	fmt.Println(checkErrors("cid.txt")) // Success
+	fmt.Println(checkErrors("cid.txt")) // Error...
 	fmt.Println("----------------------------------")
 }
