@@ -24,9 +24,10 @@ func killContainer(fileName string) error {
 		return fmt.Errorf("bad container id: %q", cid)
 	}
 
-	log.Printf("stopping container %s", cid)
+	log.Printf("Stopping container %s\n", cid)
 
-	err = exec.Command("docker", "rm", "-f", cid).Run()
+	command := exec.Command("docker", "rm", "-f", cid)
+	err = command.Run()
 	if err != nil {
 		return fmt.Errorf("failed to stop %s: %w", cid, err)
 	}
@@ -34,9 +35,28 @@ func killContainer(fileName string) error {
 	return nil
 }
 
-func setupErrors(fileName string) string {
-	fmt.Println("Not Implemented")
-	return ""
+func runContainer(filename string) error {
+	image := "docker/getting-started"
+	ports := "80:80"
+
+	log.Printf("Running container from \"%s\"\n", image)
+
+	command := exec.Command("docker", "run", "--cidfile", filename, "-d", "-p", ports, image)
+	err := command.Run()
+	if err != nil {
+		return fmt.Errorf("failed to run %s: %w", image, err)
+	}
+
+	return nil
+}
+
+func setupErrors(fileName string) error {
+	err := runContainer(fileName)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func checkErrors(fileName string) error {
