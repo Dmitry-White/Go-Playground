@@ -1,8 +1,11 @@
 package main
 
-import "fmt"
-
 func doDefer() error {
-	fmt.Println("Not Implemented")
+	nums := []int{1}
+	panickingHandler(nums)
 	return nil
+}
+
+func panickingHandler(nums []int) int {
+	return nums[len(nums)-2]
 }
