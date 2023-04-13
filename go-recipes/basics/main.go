@@ -28,4 +28,8 @@ func main() {
 	fmt.Println(checkErrors("cid.txt")) // Success
 	fmt.Println(checkErrors("cid.txt")) // Error...
 	fmt.Println("----------------------------------")
+
+	fmt.Println("------------- Close -------------")
+	fmt.Println(close("items.csv"))
+	fmt.Println("---------------------------------")
 }
