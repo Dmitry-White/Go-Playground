@@ -1,8 +1,18 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
-func nextDay() error {
+func nextBusinessDay(time.Time) time.Time {
 	fmt.Println("Not Implemented")
-	return nil
+	return time.Now()
+}
+
+func nextDay(date time.Time) (time.Time, time.Weekday) {
+	fmt.Println("Date: ", date, date.Weekday())
+	nextDate := nextBusinessDay(date)
+	fmt.Println("Next: ", nextDate, nextDate.Weekday())
+	return nextDate, nextDate.Weekday()
 }
