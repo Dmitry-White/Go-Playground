@@ -16,7 +16,7 @@ func main() {
 	fmt.Println(nextDay(time.Date(2022, time.January, 4, 0, 0, 0, 0, time.UTC)))
 	fmt.Println("----------------------------------")
 
-	fmt.Println("---------- Dot Measured ----------")
-	fmt.Println(dot())
+	fmt.Println("----------- Dot Product ----------")
+	fmt.Println(dotProduct(VECTOR, VECTOR))
 	fmt.Println("----------------------------------")
 }
