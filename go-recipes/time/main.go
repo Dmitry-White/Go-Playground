@@ -15,4 +15,8 @@ func main() {
 	// Next: 2022-01-05 00:00:00 +0000 UTC Wednesday
 	fmt.Println(nextDay(time.Date(2022, time.January, 4, 0, 0, 0, 0, time.UTC)))
 	fmt.Println("----------------------------------")
+
+	fmt.Println("---------- Dot Measured ----------")
+	fmt.Println(dot())
+	fmt.Println("----------------------------------")
 }
