@@ -5,9 +5,26 @@ import (
 	"time"
 )
 
-func nextBusinessDay(time.Time) time.Time {
-	fmt.Println("Not Implemented")
-	return time.Now()
+func isWeekend(date time.Time) bool {
+	weekday := date.Weekday()
+	if weekday == time.Saturday || weekday == time.Sunday {
+		return true
+	}
+	return false
+}
+
+func nextBusinessDay(date time.Time) time.Time {
+	day_duration := 24 * time.Hour
+
+	targetDay := date
+	for {
+		targetDay = targetDay.Add(day_duration)
+		if !isWeekend(targetDay) {
+			break
+		}
+	}
+
+	return targetDay
 }
 
 func nextDay(date time.Time) (time.Time, time.Weekday) {
