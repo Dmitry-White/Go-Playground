@@ -18,5 +18,6 @@ func main() {
 
 	fmt.Println("----------- Dot Product ----------")
 	fmt.Println(dotProduct(VECTOR, VECTOR))
+	fmt.Println(withTimeMeasure(dotProduct, VECTOR, VECTOR))
 	fmt.Println("----------------------------------")
 }
