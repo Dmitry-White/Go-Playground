@@ -25,4 +25,8 @@ func main() {
 	lenon := time.Date(1940, time.October, 9, 18, 30, 0, 0, time.UTC)
 	fmt.Println(getBirthday(lenon)) // 3.5s
 	fmt.Println("----------------------------------")
+
+	fmt.Println("----------- From String ----------")
+	fmt.Println(fromString())
+	fmt.Println("----------------------------------")
 }

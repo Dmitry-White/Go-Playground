@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-// Formatting converts time object ot string
+// Formatting converts time object to string
 func getBirthday(date time.Time) time.Duration {
 	fmt.Println("Default: ", date) // 1940-10-09 18:30:00 +0000 UTC
 
