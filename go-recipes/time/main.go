@@ -20,4 +20,8 @@ func main() {
 	fmt.Println(dotProduct(VECTOR, VECTOR))
 	fmt.Println(withTimeMeasure(dotProduct, VECTOR, VECTOR))
 	fmt.Println("----------------------------------")
+
+	fmt.Println("------------- Birthday -----------")
+	fmt.Println(getBirthday())
+	fmt.Println("----------------------------------")
 }
