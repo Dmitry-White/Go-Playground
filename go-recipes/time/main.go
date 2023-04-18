@@ -30,4 +30,8 @@ func main() {
 	fmt.Println(fromString(TIME_STRATEGY, "June 18, 1942"))
 	fmt.Println(fromString(DURATION_STRATEGY, "2700ms"))
 	fmt.Println("----------------------------------")
+
+	fmt.Println("------------ Timezone ------------")
+	fmt.Println(tzConvert())
+	fmt.Println("----------------------------------")
 }
