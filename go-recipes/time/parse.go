@@ -14,12 +14,22 @@ const (
 
 type ParserFunc = func(string) (interface{}, error)
 
-func parseTime(string) (interface{}, error) {
-	return time.Now(), nil
+func parseTime(datetime string) (interface{}, error) {
+	duration, err := time.Parse("January 02, 2006", datetime)
+	if err != nil {
+		return nil, err
+	}
+
+	return duration, nil
 }
 
-func parseDuration(string) (interface{}, error) {
-	return time.Minute, nil
+func parseDuration(datetime string) (interface{}, error) {
+	duration, err := time.ParseDuration(datetime)
+	if err != nil {
+		return nil, err
+	}
+
+	return duration, nil
 }
 
 func getParser(strategy string) (ParserFunc, error) {
