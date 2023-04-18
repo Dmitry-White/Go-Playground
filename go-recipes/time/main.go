@@ -27,6 +27,7 @@ func main() {
 	fmt.Println("----------------------------------")
 
 	fmt.Println("----------- From String ----------")
-	fmt.Println(fromString())
+	fmt.Println(fromString(TIME_STRATEGY, "June 18, 1942"))
+	fmt.Println(fromString(DURATION_STRATEGY, "2700ms"))
 	fmt.Println("----------------------------------")
 }
