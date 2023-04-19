@@ -32,6 +32,6 @@ func main() {
 	fmt.Println("----------------------------------")
 
 	fmt.Println("------------ Timezone ------------")
-	fmt.Println(tzConvert())
+	fmt.Println(tzConvert("2021-02-28 19:30:00"))
 	fmt.Println("----------------------------------")
 }
