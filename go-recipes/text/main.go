@@ -1,9 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 func main() {
 	fmt.Println("------------- Format -------------")
-	fmt.Println(genReport())
+	trades := []Trade{
+		{"MSFT", 231, 234.57},
+		{"TSLA", 123, 686.75},
+		{"BRK-A", 1, 399100},
+	}
+	genReport(os.Stdout, trades)
 	fmt.Println("----------------------------------")
 }
