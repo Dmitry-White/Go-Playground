@@ -17,3 +17,5 @@
 8. [Secure Coding in Go](https://www.linkedin.com/learning/secure-coding-in-go)
 
 9. [Go Recipes: Practical Projects](https://www.linkedin.com/learning/go-recipes-practical-projects)
+
+10. [Web Development with Go](https://www.udemy.com/course/go-programming-language/)
