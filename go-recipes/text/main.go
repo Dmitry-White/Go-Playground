@@ -18,4 +18,8 @@ func main() {
 	fmt.Println("------------ Unicode -------------")
 	fmt.Println(sentenceLength([]string{"«", "Don't", "Panic", "»"}))
 	fmt.Println("----------------------------------")
+
+	fmt.Println("------------- Cases --------------")
+	fmt.Println(englishFor(""))
+	fmt.Println("----------------------------------")
 }
