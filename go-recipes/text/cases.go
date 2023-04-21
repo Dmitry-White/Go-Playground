@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"strings"
 )
 
 type Letter struct {
@@ -9,14 +9,15 @@ type Letter struct {
 	Translation string
 }
 
-var Dictionary = []Letter{
-	{
-		Symbol:      "",
-		Translation: "",
-	},
+var dictionary = []Letter{
+	{"Σ", "Sigma"},
 }
 
 func englishFor(greek string) string {
-	fmt.Println("Not Implemented")
-	return ""
+	for _, letter := range dictionary {
+		if strings.EqualFold(letter.Symbol, greek) {
+			return letter.Translation
+		}
+	}
+	return "Unknown"
 }

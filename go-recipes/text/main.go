@@ -20,6 +20,8 @@ func main() {
 	fmt.Println("----------------------------------")
 
 	fmt.Println("------------- Cases --------------")
-	fmt.Println(englishFor(""))
+	fmt.Println(englishFor("Σ"))
+	fmt.Println(englishFor("σ"))
+	fmt.Println(englishFor("ς"))
 	fmt.Println("----------------------------------")
 }
