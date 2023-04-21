@@ -24,4 +24,8 @@ func main() {
 	fmt.Println(englishFor("σ"))
 	fmt.Println(englishFor("ς"))
 	fmt.Println("----------------------------------")
+
+	fmt.Println("------------- Regex --------------")
+	fmt.Println(parseLedger([]string{""}))
+	fmt.Println("----------------------------------")
 }
