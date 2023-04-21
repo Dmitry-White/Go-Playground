@@ -16,6 +16,6 @@ func main() {
 	fmt.Println("----------------------------------")
 
 	fmt.Println("------------ Unicode -------------")
-	sentenceLength([]string{})
+	fmt.Println(sentenceLength([]string{"«", "Don't", "Panic", "»"}))
 	fmt.Println("----------------------------------")
 }
