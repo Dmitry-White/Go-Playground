@@ -26,6 +26,6 @@ func main() {
 	fmt.Println("----------------------------------")
 
 	fmt.Println("------------- Regex --------------")
-	fmt.Println(parseLedger([]string{""}))
+	fmt.Printf("%+v\n", parseLedger([]string{"12 shares of MSFT for $234.57"}))
 	fmt.Println("----------------------------------")
 }
