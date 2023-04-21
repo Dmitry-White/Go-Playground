@@ -14,4 +14,8 @@ func main() {
 	}
 	genReport(os.Stdout, trades)
 	fmt.Println("----------------------------------")
+
+	fmt.Println("------------ Unicode -------------")
+	sentenceLength([]string{})
+	fmt.Println("----------------------------------")
 }
