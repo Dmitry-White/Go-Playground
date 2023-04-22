@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"regexp"
 )
 
 func main() {
@@ -27,5 +28,10 @@ func main() {
 
 	fmt.Println("------------- Regex --------------")
 	fmt.Printf("%+v\n", parseLedger([]string{"12 shares of MSFT for $234.57"}))
+	fmt.Println("----------------------------------")
+
+	fmt.Println("------------- Files --------------")
+	fmt.Println(grep("filename", "term"))
+	fmt.Println(analyze("filename", regexp.Regexp{}))
 	fmt.Println("----------------------------------")
 }
