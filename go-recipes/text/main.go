@@ -31,7 +31,7 @@ func main() {
 	fmt.Println("----------------------------------")
 
 	fmt.Println("------------- Files --------------")
-	fmt.Println(grep("filename", "term"))
+	fmt.Printf("%#v", grep("syslog.txt", "System is rebooting"))
 	fmt.Println(analyze("filename", regexp.Regexp{}))
 	fmt.Println("----------------------------------")
 }
