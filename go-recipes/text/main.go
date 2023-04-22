@@ -31,7 +31,17 @@ func main() {
 	fmt.Println("----------------------------------")
 
 	fmt.Println("------------- Files --------------")
-	fmt.Printf("%#v", grep("syslog.txt", "System is rebooting"))
-	fmt.Println(analyze("filename", regexp.Regexp{}))
+	fmt.Printf("%#v\n", grep("syslog", "System is rebooting"))
+
+	/* Example history file
+	: 1542784278:0;git push
+	: 1542784308:0;ls
+	: 1542784310:0;go test
+	: 1542784314:0;go test -v
+	: 1542784386:0;which gometalinter
+	: 1542784314:0;go test -v
+	*/
+	var goRegex = regexp.MustCompile(`;go ([a-z]+)`)
+	fmt.Println(analyze("zsh_history", goRegex))
 	fmt.Println("----------------------------------")
 }

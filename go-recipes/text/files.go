@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 	"regexp"
 	"strings"
@@ -33,7 +32,31 @@ func grep(filename string, term string) interface{} {
 	return matches
 }
 
-func analyze(filename string, regex regexp.Regexp) error {
-	fmt.Println("Not Implemented")
-	return nil
+func analyze(filename string, regex *regexp.Regexp) interface{} {
+	file, err := os.Open(filename)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	frequencies := make(map[string]int)
+	scanner := bufio.NewScanner(file)
+
+	for scanner.Scan() {
+		line := scanner.Text()
+		matches := regex.FindStringSubmatch(line)
+		if len(matches) == 0 {
+			continue
+		}
+
+		cmd := matches[1]
+		frequencies[cmd]++
+	}
+
+	err = scanner.Err()
+	if err != nil {
+		return err
+	}
+
+	return frequencies
 }
