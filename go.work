@@ -11,6 +11,7 @@ use (
 	./go-generics
 	./go-generics/inference
 	./go-recipes/basics
+	./go-recipes/oop
 	./go-recipes/text
 	./go-recipes/time
 	./go-rest-api/api
