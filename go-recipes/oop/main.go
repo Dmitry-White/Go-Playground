@@ -1,7 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 func main() {
-	fmt.Println("Not Implemented")
+	fmt.Println("------------- Struct -------------")
+	fmt.Println(getDoorEvent("front door", time.Now(), "open"))
+	fmt.Println("----------------------------------")
 }
