@@ -5,7 +5,24 @@ import (
 	"time"
 )
 
-func getDoorEvent(id string, time time.Time, action string) error {
-	fmt.Println("Not Implemented")
-	return nil
+type Event struct {
+	id   string
+	time time.Time
+}
+
+type DoorEvent struct {
+	Event
+	action string
+}
+
+func getDoorEvent(id string, time time.Time, action string) interface{} {
+	if id == "" {
+		return fmt.Errorf("empty id")
+	}
+
+	doorEvent := DoorEvent{
+		Event:  Event{id, time},
+		action: action,
+	}
+	return &doorEvent
 }
