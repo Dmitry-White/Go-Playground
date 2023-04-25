@@ -18,4 +18,8 @@ func main() {
 	fmt.Println("----------- Interfaces -----------")
 	fmt.Printf("%#v\n", getSensors())
 	fmt.Println("----------------------------------")
+
+	fmt.Println("-------------- Empty -------------")
+	fmt.Println(getCounts())
+	fmt.Println("----------------------------------")
 }
