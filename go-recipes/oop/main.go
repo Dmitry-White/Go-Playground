@@ -22,4 +22,8 @@ func main() {
 	fmt.Println("-------------- Empty -------------")
 	fmt.Println(getCounts())
 	fmt.Println("----------------------------------")
+
+	fmt.Println("-------------- IOTA --------------")
+	fmt.Println(initLogLevel())
+	fmt.Println("----------------------------------")
 }
