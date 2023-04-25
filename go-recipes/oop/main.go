@@ -14,4 +14,8 @@ func main() {
 	fmt.Println("------------- Methods ------------")
 	fmt.Printf("%+v\n", getThermostat())
 	fmt.Println("----------------------------------")
+
+	fmt.Println("----------- Interfaces -----------")
+	fmt.Printf("%+v\n", getSensors())
+	fmt.Println("----------------------------------")
 }
