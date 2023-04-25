@@ -20,7 +20,22 @@ const (
 	Error
 )
 
-func initLogLevel() error {
-	fmt.Println("Not Implemented")
-	return nil
+func (ll LogLevel) String() string {
+	switch ll {
+	case Debug:
+		return "Debug"
+	case Warning:
+		return "Warning"
+	case Info:
+		return "Info"
+	case Error:
+		return "Error"
+	}
+
+	return fmt.Sprintf("Unknown log level: %d", ll)
+}
+
+func initLogLevel(level LogLevel) LogLevel {
+	logLevel := LogLevel(level)
+	return logLevel
 }

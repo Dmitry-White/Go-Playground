@@ -24,6 +24,10 @@ func main() {
 	fmt.Println("----------------------------------")
 
 	fmt.Println("-------------- IOTA --------------")
-	fmt.Println(initLogLevel())
+	fmt.Println(initLogLevel(Debug))
+	fmt.Println(initLogLevel(Warning))
+	fmt.Println(initLogLevel(Info))
+	fmt.Println(initLogLevel(Error))
+	fmt.Println(initLogLevel(19))
 	fmt.Println("----------------------------------")
 }
