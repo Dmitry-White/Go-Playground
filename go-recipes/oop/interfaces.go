@@ -7,19 +7,35 @@ type Alarm struct {
 	action string
 }
 
+func (a *Alarm) ID() string {
+	return a.id
+}
+
+func (a *Alarm) Kind() string {
+	return "alarm"
+}
+
 type Camera struct {
 	id  string
 	fov int
 }
 
+func (c *Camera) ID() string {
+	return c.id
+}
+
+func (c *Camera) Kind() string {
+	return "camera"
+}
+
 type Sensor interface {
-	id() string
-	kind() string
+	ID() string
+	Kind() string
 }
 
 func printSensors(sensors []Sensor) {
 	for _, sensor := range sensors {
-		fmt.Printf("%s <%s>\n", sensor.id(), sensor.kind())
+		fmt.Printf("%s <%s>\n", sensor.ID(), sensor.Kind())
 	}
 }
 

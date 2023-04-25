@@ -16,6 +16,6 @@ func main() {
 	fmt.Println("----------------------------------")
 
 	fmt.Println("----------- Interfaces -----------")
-	fmt.Printf("%+v\n", getSensors())
+	fmt.Printf("%#v\n", getSensors())
 	fmt.Println("----------------------------------")
 }
