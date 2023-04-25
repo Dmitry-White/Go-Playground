@@ -12,6 +12,6 @@ func main() {
 	fmt.Println("----------------------------------")
 
 	fmt.Println("------------- Methods ------------")
-	fmt.Println(getTermostat())
+	fmt.Printf("%+v\n", getThermostat())
 	fmt.Println("----------------------------------")
 }
