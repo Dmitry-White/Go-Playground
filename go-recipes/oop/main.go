@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"go-recipes/oop/misc"
 	"time"
 )
 
@@ -29,5 +30,9 @@ func main() {
 	fmt.Println(initLogLevel(Info))
 	fmt.Println(initLogLevel(Error))
 	fmt.Println(initLogLevel(19))
+	fmt.Println("----------------------------------")
+
+	fmt.Println("-------------- Image -------------")
+	fmt.Println(misc.GetFace())
 	fmt.Println("----------------------------------")
 }
