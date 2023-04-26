@@ -1,7 +1,10 @@
 package misc
 
 import (
+	"fmt"
+	"image"
 	"image/color"
+	"image/png"
 	"io"
 	"log"
 	"os"
@@ -15,48 +18,40 @@ var (
 	Blue  = color.RGBA{0, 0, 0xFF, 0xFF}
 )
 
-type Circle struct {
-	// FIXME
-}
-
 func NewCircle(x, y, r int, c color.Color) *Circle {
-	// FIXME
-	return nil
-}
-
-type Rectangle struct {
-	// FIXME
+	circle := Circle{Shape{x, y, c}, r}
+	return &circle
 }
 
 func NewRectangle(x, y, h, w int, c color.Color) *Rectangle {
-	// FIXME
-	return nil
-}
-
-type Device interface {
-	Set(int, int, color.Color)
-}
-
-type ImageCanvas struct {
-	// FIXME
+	rectangle := Rectangle{Shape{x, y, c}, h, w}
+	return &rectangle
 }
 
 func NewImageCanvas(width, height int) (*ImageCanvas, error) {
-	// FIXME
-	return nil, nil
+	imageCanvas := ImageCanvas{width, height, []Drawer{}}
+	return &imageCanvas, nil
 }
 
-type Drawer interface {
-	// FIXME
+func (s *Shape) Draw(d Device) {
+	d.Set(s.x, s.y, s.c)
 }
 
 func (ic *ImageCanvas) Add(d Drawer) {
-	// FIXME
+	ic.shapes = append(ic.shapes, d)
 }
 
 func (ic *ImageCanvas) Draw(w io.Writer) error {
-	// FIXME
-	return nil
+	canvas := image.Rect(0, 0, ic.width, ic.height)
+	image := image.NewRGBA(canvas)
+
+	fmt.Printf("%#v", ic.shapes)
+
+	for _, shape := range ic.shapes {
+		shape.Draw(image)
+	}
+
+	return png.Encode(w, image)
 }
 
 func GetFace() *ImageCanvas {
