@@ -7,19 +7,19 @@ import (
 
 type Circle struct {
 	Shape
-	r int
+	radius int
 }
 
-func NewCircle(x, y, r int, c color.Color) *Circle {
-	circle := Circle{Shape{x, y, c}, r}
+func NewCircle(x, y, radius int, color color.Color) *Circle {
+	circle := Circle{Shape{x, y, color}, radius}
 	return &circle
 }
 
 func (c *Circle) Draw(d Device) {
-	minX := c.x - c.r
-	minY := c.y - c.r
-	maxX := c.x + c.r
-	maxY := c.y + c.r
+	minX := c.x - c.radius
+	minY := c.y - c.radius
+	maxX := c.x + c.radius
+	maxY := c.y + c.radius
 
 	for x := minX; x <= maxX; x++ {
 		for y := minY; y <= maxY; y++ {
@@ -27,8 +27,8 @@ func (c *Circle) Draw(d Device) {
 			dy := y - c.y
 			point := int(math.Sqrt(float64(dx*dx + dy*dy)))
 
-			if point <= c.r {
-				d.Set(x, y, c.c)
+			if point <= c.radius {
+				d.Set(x, y, c.color)
 			}
 		}
 	}

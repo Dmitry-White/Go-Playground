@@ -3,9 +3,9 @@ package misc
 import "image/color"
 
 type Shape struct {
-	x int
-	y int
-	c color.Color
+	x     int
+	y     int
+	color color.Color
 }
 
 type Device interface {

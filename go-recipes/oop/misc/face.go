@@ -14,7 +14,7 @@ var (
 	Blue  = color.RGBA{0, 0, 0xFF, 0xFF}
 )
 
-func GetFace() *Canvas {
+func DrawFace() *Canvas {
 	ic, err := NewCanvas(200, 200)
 	if err != nil {
 		log.Fatal(err)

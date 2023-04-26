@@ -33,6 +33,6 @@ func main() {
 	fmt.Println("----------------------------------")
 
 	fmt.Println("-------------- Image -------------")
-	fmt.Println(misc.GetFace())
+	fmt.Printf("%#v\n", misc.DrawFace())
 	fmt.Println("----------------------------------")
 }
