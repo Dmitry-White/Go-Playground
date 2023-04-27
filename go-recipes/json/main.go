@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println("----------- Placeholder ----------")
-	fmt.Println("Not Implemented")
+	fmt.Println("------------ Unmarshal -----------")
+	fmt.Printf("%+v", getTemperature())
 	fmt.Println("----------------------------------")
 }
