@@ -3,15 +3,23 @@ package main
 import (
 	"encoding/json"
 	"os"
+	"time"
 )
 
-func parseTemperature(file *os.File) (interface{}, error) {
-	var record interface{}
+type Record struct {
+	Time    time.Time
+	Station string
+	Temp    float64 `json:"temperature"` // celsius
+	Rain    float64 // millimeter
+}
+
+func parseTemperature(file *os.File) (Record, error) {
+	var record Record
 
 	decoder := json.NewDecoder(file)
 	err := decoder.Decode(&record)
 	if err != nil {
-		return nil, err
+		return Record{}, err
 	}
 
 	return record, nil
