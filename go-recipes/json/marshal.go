@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 )
 
@@ -9,6 +10,17 @@ import (
 type Quantity struct {
 	Value float64
 	Unit  string
+}
+
+// MarshalJSON implements the json.Marshaler interface
+func (q *Quantity) MarshalJSON() ([]byte, error) {
+	if q.Unit == "" {
+		return nil, fmt.Errorf("empty unit")
+	}
+
+	data := fmt.Sprintf("%f%s", q.Value, q.Unit)
+
+	return json.Marshal(data)
 }
 
 func getQuantity() interface{} {
