@@ -10,4 +10,8 @@ func main() {
 	fmt.Println("------------- Complex ------------")
 	fmt.Printf("%+v\n", scanStations())
 	fmt.Println("----------------------------------")
+
+	fmt.Println("------------- Marshal ------------")
+	fmt.Printf("%+v\n", getQuantity())
+	fmt.Println("----------------------------------")
 }
