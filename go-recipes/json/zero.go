@@ -1,5 +1,10 @@
 package main
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
 // LineItem is a line in receipt
 type LineItem struct {
 	SKU      string
@@ -8,21 +13,36 @@ type LineItem struct {
 	Quantity int
 }
 
-func parseLineItem([]byte) (LineItem, error) {
-	return LineItem{}, nil
+func parseLineItem(data []byte) (LineItem, error) {
+	// Defaulting a field to non-zero so that
+	// it's clear when it's overriden by a zero value
+	li := LineItem{
+		Quantity: 1,
+	}
+
+	err := json.Unmarshal(data, &li)
+	if err != nil {
+		return LineItem{}, err
+	}
+
+	if li.Quantity < 1 {
+		return LineItem{}, fmt.Errorf("bad quantity")
+	}
+
+	return li, nil
 }
 
 func handleZero() interface{} {
 	firstLine := []byte(`{"sku": "x3xs", "price": 1.2}`)
 	firstLineItem, err := parseLineItem(firstLine)
 	if err != nil {
-		return err
+		fmt.Println("First line:", err)
 	}
 
 	secondLine := []byte(`{"sku": "x3xs", "price": 1.2, "quantity": 0}`)
 	secondLineItem, err := parseLineItem(secondLine)
 	if err != nil {
-		return err
+		fmt.Println("Second line:", err)
 	}
 
 	return []LineItem{firstLineItem, secondLineItem}
