@@ -18,4 +18,8 @@ func main() {
 	fmt.Println("-------------- Zero --------------")
 	fmt.Printf("%+v\n", handleZero())
 	fmt.Println("----------------------------------")
+
+	fmt.Println("------------ Unknown -------------")
+	fmt.Printf("%+v\n", handleRequests())
+	fmt.Println("----------------------------------")
 }
