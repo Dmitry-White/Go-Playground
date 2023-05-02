@@ -14,4 +14,8 @@ func main() {
 	fmt.Println("------------- Marshal ------------")
 	fmt.Printf("%+v\n", getQuantity())
 	fmt.Println("----------------------------------")
+
+	fmt.Println("-------------- Zero --------------")
+	fmt.Printf("%+v\n", getZero())
+	fmt.Println("----------------------------------")
 }
