@@ -16,6 +16,6 @@ func main() {
 	fmt.Println("----------------------------------")
 
 	fmt.Println("-------------- Zero --------------")
-	fmt.Printf("%+v\n", getZero())
+	fmt.Printf("%+v\n", handleZero())
 	fmt.Println("----------------------------------")
 }
