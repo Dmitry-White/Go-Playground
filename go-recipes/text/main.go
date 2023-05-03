@@ -41,7 +41,7 @@ func main() {
 	: 1542784386:0;which gometalinter
 	: 1542784314:0;go test -v
 	*/
-	var goRegex = regexp.MustCompile(`;go ([a-z]+)`)
+	goRegex := regexp.MustCompile(`;go ([a-z]+)`)
 	fmt.Println(analyze("zsh_history", goRegex))
 	fmt.Println("----------------------------------")
 }
