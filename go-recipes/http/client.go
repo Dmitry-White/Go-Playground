@@ -22,10 +22,8 @@ type MetricResponse struct {
 }
 
 const (
-	BASE_URL = "https://httpbin.org"
-	ENDPOINT = "post"
-	TIMEOUT  = 5 * time.Second
-	SIZE     = 1 << 20
+	TIMEOUT = 5 * time.Second
+	SIZE    = 1 << 20
 )
 
 func postMetric(m Metric) (*MetricResponse, error) {
@@ -37,7 +35,7 @@ func postMetric(m Metric) (*MetricResponse, error) {
 	}
 	fmt.Println("Bytes:", data)
 
-	url := fmt.Sprintf("%s/%s", BASE_URL, ENDPOINT)
+	url := fmt.Sprintf("%s/%s", BASE_URL, POST_ENDPOINT)
 	body := bytes.NewReader(data)
 
 	ctx, cancel := context.WithTimeout(context.Background(), TIMEOUT)
