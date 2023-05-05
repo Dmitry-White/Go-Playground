@@ -1,6 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+	"io"
+	"net/http"
+)
 
 type Credentials struct {
 	username string
@@ -8,8 +13,36 @@ type Credentials struct {
 }
 
 func basicAuth(url string, credentials Credentials) (interface{}, error) {
-	fmt.Println("Not Implemented")
-	return nil, nil
+	request, err := http.NewRequest(http.MethodGet, url, nil)
+	if err != nil {
+		return nil, err
+	}
+	request.SetBasicAuth(credentials.username, credentials.password)
+	fmt.Println("Request:", request)
+
+	response, err := http.DefaultClient.Do(request)
+	if err != nil {
+		return nil, err
+	}
+	if response.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("bad status: %d %s", response.StatusCode, response.Status)
+	}
+	defer response.Body.Close()
+	fmt.Println("Response:", response)
+
+	result := map[string]interface{}{}
+	reader, err := io.ReadAll(response.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	jsonErr := json.Unmarshal(reader, &result)
+	if err != nil {
+		return nil, jsonErr
+	}
+	fmt.Printf("Result: %#v\n", result)
+
+	return &result, nil
 }
 
 func authenticate() interface{} {
