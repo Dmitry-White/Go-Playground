@@ -6,7 +6,10 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"sync"
 )
+
+const SERVER_PORT = ":8080"
 
 // DB is a database
 type DB struct{}
@@ -26,8 +29,6 @@ func (db *DB) Add(m interface{}) (uint32, error) {
 
 var db *DB
 
-const PORT = ":8080"
-
 func handleMetric(resw http.ResponseWriter, req *http.Request) {
 	if req.Method != "POST" {
 		http.Error(resw, "method not allowed", http.StatusMethodNotAllowed)
@@ -35,26 +36,24 @@ func handleMetric(resw http.ResponseWriter, req *http.Request) {
 	}
 	defer req.Body.Close()
 
-	log.Println("Request:", req)
-
-	m := Metric{}
+	metric := Metric{}
 	reader := io.LimitReader(req.Body, SIZE)
 	decoder := json.NewDecoder(reader)
 
-	decoderErr := decoder.Decode(&m)
+	decoderErr := decoder.Decode(&metric)
 	if decoderErr != nil {
 		log.Printf("Error decoding: %s", decoderErr)
 		http.Error(resw, decoderErr.Error(), http.StatusBadRequest)
 		return
 	}
 
-	id, err := db.Add(m)
+	id, err := db.Add(metric)
 	if err != nil {
 		log.Printf("Error adding to DB: %s", err)
 		http.Error(resw, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	log.Printf("Metric(id=%d): %+v", id, m)
+	log.Printf("Metric(id=%d): %+v", id, metric)
 
 	resw.Header().Set("Content-Type", "application/json")
 	data := map[string]interface{}{
@@ -70,12 +69,14 @@ func handleMetric(resw http.ResponseWriter, req *http.Request) {
 	}
 }
 
-func startServer() interface{} {
-	http.HandleFunc("/metric", handleMetric)
+func startServer(wg *sync.WaitGroup) {
+	router := http.ServeMux{}
 
-	err := http.ListenAndServe(PORT, nil)
+	router.HandleFunc("/metric", handleMetric)
+
+	err := http.ListenAndServe(SERVER_PORT, &router)
 	if err != nil {
-		return err
+		wg.Done()
+		log.Fatal(err)
 	}
-	return nil
 }
