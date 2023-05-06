@@ -10,20 +10,12 @@ import (
 	"time"
 )
 
-// Metric is an application metric
-type Metric struct {
-	Time   time.Time `json:"time"`
-	CPU    float64   `json:"cpu"`    // CPU load
-	Memory float64   `json:"memory"` // MB
-}
-
 type MetricResponse struct {
 	Json Metric
 }
 
 const (
 	TIMEOUT = 5 * time.Second
-	SIZE    = 1 << 20
 )
 
 func postMetric(m Metric) (*MetricResponse, error) {
