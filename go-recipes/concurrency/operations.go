@@ -7,7 +7,6 @@ import (
 	"log"
 	"net/http"
 	"strconv"
-	"sync"
 	"time"
 )
 
@@ -49,12 +48,11 @@ func csvHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func server(wg *sync.WaitGroup) {
+func server() {
 	http.HandleFunc("/", csvHandler)
 
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal(err)
-		wg.Done()
 	}
 }
 
@@ -164,7 +162,7 @@ func monthDistanceConcurrent(month time.Time) (float64, error) {
 	return totalDistance, nil
 }
 
-func operations(strategy string) func(month time.Time) interface{} {
+func getDistance(strategy string) func(month time.Time) interface{} {
 	operationsFunc, err := getOperationsFunc(strategy)
 	if err != nil {
 		log.Fatalln(err)
