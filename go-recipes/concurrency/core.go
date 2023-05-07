@@ -20,9 +20,9 @@ func getOperationsFunc(strategy string) (OperationsFunc, error) {
 
 	switch strategy {
 	case SEQUENTIAL_STRATEGY:
-		return monthDistance, nil
+		return monthDistanceSequential, nil
 	case CONCURRENT_STRATEGY:
-		return monthDistance, nil
+		return monthDistanceConcurrent, nil
 	}
 	return nil, errors.New("this strategy is not supported")
 }
