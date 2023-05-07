@@ -11,6 +11,7 @@ use (
 	./go-generics
 	./go-generics/inference
 	./go-recipes/basics
+	./go-recipes/concurrency
 	./go-recipes/http
 	./go-recipes/json
 	./go-recipes/oop
