@@ -20,7 +20,7 @@ func main() {
 	fmt.Println("----------------------------------")
 
 	fmt.Println("----------- WaitGroups -----------")
-	fmt.Printf("%+v\n", patchVMs())
+	fmt.Printf("%+v\n", patchVMs("1.0.2"))
 	fmt.Println("----------------------------------")
 
 	fmt.Println("------------- Errors -------------")
