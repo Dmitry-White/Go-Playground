@@ -18,4 +18,12 @@ func main() {
 	fmt.Println("------------ Timeouts ------------")
 	fmt.Printf("%+v\n", realTimeBidding())
 	fmt.Println("----------------------------------")
+
+	fmt.Println("----------- WaitGroups -----------")
+	fmt.Printf("%+v\n", patchVMs())
+	fmt.Println("----------------------------------")
+
+	fmt.Println("------------- Errors -------------")
+	fmt.Printf("%+v\n", getErrors())
+	fmt.Println("----------------------------------")
 }
