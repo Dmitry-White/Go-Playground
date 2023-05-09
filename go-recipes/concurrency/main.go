@@ -31,6 +31,10 @@ func main() {
 	fmt.Printf("%+v\n", m.Sign()) // No-op
 	fmt.Println("----------------------------------")
 
+	fmt.Println("-------------- Pool --------------")
+	fmt.Printf("%+v\n", calcMultiMedian())
+	fmt.Println("----------------------------------")
+
 	fmt.Println("------------- Errors -------------")
 	fmt.Printf("%+v\n", getErrors())
 	fmt.Println("----------------------------------")
