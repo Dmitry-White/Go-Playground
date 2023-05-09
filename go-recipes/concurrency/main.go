@@ -23,6 +23,10 @@ func main() {
 	fmt.Printf("%+v\n", patchVMs("1.0.2"))
 	fmt.Println("----------------------------------")
 
+	fmt.Println("-------------- Once --------------")
+	fmt.Printf("%+v\n", signMessage())
+	fmt.Println("----------------------------------")
+
 	fmt.Println("------------- Errors -------------")
 	fmt.Printf("%+v\n", getErrors())
 	fmt.Println("----------------------------------")
