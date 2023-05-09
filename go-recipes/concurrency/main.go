@@ -32,7 +32,7 @@ func main() {
 	fmt.Println("----------------------------------")
 
 	fmt.Println("-------------- Pool --------------")
-	fmt.Printf("%+v\n", calcMultiMedian())
+	fmt.Printf("%+v\n", multiMedian())
 	fmt.Println("----------------------------------")
 
 	fmt.Println("------------- Errors -------------")
