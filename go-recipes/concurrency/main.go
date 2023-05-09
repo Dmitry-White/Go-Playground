@@ -24,7 +24,11 @@ func main() {
 	fmt.Println("----------------------------------")
 
 	fmt.Println("-------------- Once --------------")
-	fmt.Printf("%+v\n", signMessage())
+	m := Message{
+		Content: "There is nothing more deceptive than an obvious fact.",
+	}
+	fmt.Printf("%+v\n", m.Sign()) // 2021/05/03 20:24:45 Calculating new signature...
+	fmt.Printf("%+v\n", m.Sign()) // No-op
 	fmt.Println("----------------------------------")
 
 	fmt.Println("------------- Errors -------------")
