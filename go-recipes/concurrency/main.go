@@ -35,6 +35,10 @@ func main() {
 	fmt.Printf("%+v\n", multiMedian())
 	fmt.Println("----------------------------------")
 
+	fmt.Println("------------- Atomic -------------")
+	fmt.Printf("%+v\n", uploadSize())
+	fmt.Println("----------------------------------")
+
 	fmt.Println("------------- Errors -------------")
 	fmt.Printf("%+v\n", getErrors())
 	fmt.Println("----------------------------------")
