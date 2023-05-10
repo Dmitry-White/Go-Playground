@@ -17,9 +17,9 @@ type Result struct {
 }
 
 const (
-	DATE_FORMAT = "2006-01-02"
-	TIME_FORMAT = "2006-01-02T15:04:05"
-	BASE_URL    = "http://localhost:8080"
+	DATE_FORMAT  = "2006-01-02"
+	TIME_FORMAT  = "2006-01-02T15:04:05"
+	CSV_BASE_URL = "http://localhost:8080"
 )
 
 // ############################## HTTP Server ######################################
@@ -95,7 +95,7 @@ func monthDistanceSequential(month time.Time) (float64, error) {
 
 	date := month
 	for date.Month() == month.Month() {
-		url := fmt.Sprintf("%s/%s", BASE_URL, date.Format(DATE_FORMAT))
+		url := fmt.Sprintf("%s/%s", CSV_BASE_URL, date.Format(DATE_FORMAT))
 		resp, err := http.Get(url)
 		if err != nil {
 			return 0, err
@@ -123,7 +123,7 @@ func dateWorker(date time.Time, ch chan<- Result) {
 		ch <- res
 	}()
 
-	url := fmt.Sprintf("%s/%s", BASE_URL, date.Format(DATE_FORMAT))
+	url := fmt.Sprintf("%s/%s", CSV_BASE_URL, date.Format(DATE_FORMAT))
 	resp, err := http.Get(url)
 	if err != nil {
 		res.err = err

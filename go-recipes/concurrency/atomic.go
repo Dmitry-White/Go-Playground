@@ -1,12 +1,14 @@
 package main
 
 import (
+	"bytes"
 	"expvar"
 	"fmt"
 	"io"
 	"log"
 	"net/http"
 	"sync/atomic"
+	"time"
 )
 
 /*
@@ -16,6 +18,10 @@ import (
 var (
 	total     = expvar.NewInt("total")
 	totalSize uint64
+)
+
+const (
+	UPLOAD_BASE_URL = "http://localhost:8081"
 )
 
 // ############################## HTTP Server ######################################
@@ -50,9 +56,38 @@ func uploadServer() {
 // #################################################################################
 
 // ############################## HTTP Client ######################################
-func uploadSize() error {
-	fmt.Println("Not Implemented")
-	return nil
+func request(verb, endpoint string) interface{} {
+	url := fmt.Sprintf("%s/%s", UPLOAD_BASE_URL, endpoint)
+	var resp *http.Response
+	var err error
+
+	switch verb {
+	case "GET":
+		resp, err = http.Get(url)
+	case "POST":
+		data := []byte(time.Now().String())
+		resp, err = http.Post(url, "application/json", bytes.NewBuffer(data))
+	}
+
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	result, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
+
+	return string(result)
+}
+
+func uploadSize() []interface{} {
+	uploadResult := request("POST", "upload")
+	totalResult := request("GET", "totalSize")
+	debugResult := request("GET", "debug/vars")
+
+	return []interface{}{uploadResult, totalResult, debugResult}
 }
 
 // #################################################################################
