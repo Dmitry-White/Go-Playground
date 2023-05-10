@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"sync"
 	"time"
 )
 
@@ -36,12 +35,9 @@ func main() {
 	fmt.Println("----------------------------------")
 
 	fmt.Println("------------- Atomic -------------")
-	wg := sync.WaitGroup{}
-	wg.Add(1)
 	go uploadServer()
 
 	fmt.Printf("%+v\n", uploadSize())
-	wg.Wait()
 	fmt.Println("----------------------------------")
 
 	fmt.Println("------------- Errors -------------")
