@@ -8,8 +8,10 @@ import (
 )
 
 const (
-	SEQUENTIAL_STRATEGY = "sequential"
-	CONCURRENT_STRATEGY = "concurrent"
+	OPERATIONS_SERVER_PORT = ":8080"
+	UPLOAD_SERVER_PORT     = ":8081"
+	SEQUENTIAL_STRATEGY    = "sequential"
+	CONCURRENT_STRATEGY    = "concurrent"
 )
 
 type OperationsFunc func(time.Time) (float64, error)

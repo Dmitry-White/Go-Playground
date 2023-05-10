@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sync"
 	"time"
 )
 
@@ -9,7 +10,7 @@ func main() {
 	fmt.Println("----------- Operations -----------")
 	month := time.Date(2021, 2, 1, 0, 0, 0, 0, time.UTC)
 
-	go server()
+	go csvServer()
 
 	fmt.Printf("%+v\n", getDistance(SEQUENTIAL_STRATEGY)(month))
 	fmt.Printf("%+v\n", getDistance(CONCURRENT_STRATEGY)(month))
@@ -36,7 +37,12 @@ func main() {
 	fmt.Println("----------------------------------")
 
 	fmt.Println("------------- Atomic -------------")
+	wg := sync.WaitGroup{}
+	wg.Add(1)
+	go uploadServer(&wg)
+
 	fmt.Printf("%+v\n", uploadSize())
+	wg.Wait()
 	fmt.Println("----------------------------------")
 
 	fmt.Println("------------- Errors -------------")

@@ -23,7 +23,6 @@ const (
 )
 
 // ############################## HTTP Server ######################################
-
 func csvHandler(w http.ResponseWriter, r *http.Request) {
 	s := r.URL.Path[1:] // trim leading /
 
@@ -48,10 +47,11 @@ func csvHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func server() {
+func csvServer() {
 	http.HandleFunc("/", csvHandler)
 
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	err := http.ListenAndServe(OPERATIONS_SERVER_PORT, nil)
+	if err != nil {
 		log.Fatal(err)
 	}
 }
@@ -59,7 +59,6 @@ func server() {
 // #################################################################################
 
 // ############################## HTTP Client ######################################
-
 func dayDistance(r io.Reader) (float64, error) {
 	rdr := csv.NewReader(r)
 	total, lNum := 0.0, 0
