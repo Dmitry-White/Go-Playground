@@ -6,9 +6,12 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"sync"
 	"sync/atomic"
 )
+
+/*
+	More Info: https://gobyexample.com/atomic-counters
+*/
 
 var (
 	total     = expvar.NewInt("total")
@@ -34,13 +37,12 @@ func totalSizeHandler(resw http.ResponseWriter, req *http.Request) {
 	fmt.Fprintf(resw, "size=%d\n", totalSize)
 }
 
-func uploadServer(wg *sync.WaitGroup) {
+func uploadServer() {
 	http.HandleFunc("/upload", uploadHandler)
 	http.HandleFunc("/totalSize", totalSizeHandler)
 
 	err := http.ListenAndServe(UPLOAD_SERVER_PORT, nil)
 	if err != nil {
-		wg.Done()
 		log.Fatal(err)
 	}
 }

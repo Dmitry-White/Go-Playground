@@ -9,6 +9,10 @@ import (
 	"time"
 )
 
+/*
+	More Info: https://gobyexample.com/worker-pools
+*/
+
 func calcMedian(values []float64) float64 {
 	nums := make([]float64, len(values))
 

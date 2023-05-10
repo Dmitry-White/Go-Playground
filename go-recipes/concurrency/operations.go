@@ -48,9 +48,10 @@ func csvHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func csvServer() {
-	http.HandleFunc("/", csvHandler)
+	router := http.ServeMux{}
+	router.HandleFunc("/", csvHandler)
 
-	err := http.ListenAndServe(OPERATIONS_SERVER_PORT, nil)
+	err := http.ListenAndServe(OPERATIONS_SERVER_PORT, &router)
 	if err != nil {
 		log.Fatal(err)
 	}
