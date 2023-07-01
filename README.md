@@ -18,4 +18,6 @@
 
 9. [Go Recipes: Practical Projects](https://www.linkedin.com/learning/go-recipes-practical-projects)
 
-10. [Web Development with Go](https://www.udemy.com/course/go-programming-language/)
+10. [Working with Microservices in Go](https://www.udemy.com/course/working-with-microservices-in-go)
+
+11. [Web Development with Go](https://www.udemy.com/course/go-programming-language/)
