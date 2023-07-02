@@ -10,7 +10,8 @@ use (
 	./go-essential-training/testing
 	./go-generics
 	./go-generics/inference
-	./go-microservices/frontend
+	./go-microservices/broker-service
+	./go-microservices/frontend-service
 	./go-recipes/basics
 	./go-recipes/concurrency
 	./go-recipes/http
