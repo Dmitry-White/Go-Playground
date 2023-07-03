@@ -6,12 +6,14 @@ import (
 )
 
 func main() {
+	app := &Config{PORT, ADDR}
+
 	server := &http.Server{
-		Addr:    ADDR,
-		Handler: http.HandlerFunc(handleIndex),
+		Addr:    app.ADDR,
+		Handler: app.router(),
 	}
 
-	log.Printf("Server listening on %s", ADDR)
+	log.Printf("Server listening on %s", app.ADDR)
 
 	err := server.ListenAndServe()
 	if err != nil {
