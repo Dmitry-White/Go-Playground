@@ -6,5 +6,6 @@ type Config struct {
 }
 
 type Routes struct {
-	INDEX string
+	INDEX  string
+	HEALTH string
 }

@@ -5,7 +5,8 @@ import "fmt"
 const PORT = 80
 
 var ROUTES = Routes{
-	INDEX: "/",
+	INDEX:  "/",
+	HEALTH: "/health",
 }
 
 var ADDR = fmt.Sprintf("localhost:%d", PORT)
