@@ -11,7 +11,7 @@ func (a *Config) router() *chi.Mux {
 	mux.Use(healthMiddleware)
 	mux.Use(corsMiddleware)
 
-	mux.Get(ROUTES.INDEX, handleIndex)
+	mux.Post(ROUTES.INDEX, a.handleIndex)
 
 	return mux
 }

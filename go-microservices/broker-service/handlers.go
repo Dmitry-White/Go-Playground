@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func handleIndex(resw http.ResponseWriter, req *http.Request) {
+func (a *Config) handleIndex(resw http.ResponseWriter, req *http.Request) {
 	payload := jsonResponse{
 		Error:   false,
 		Message: "Hit the broker",
