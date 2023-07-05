@@ -8,4 +8,4 @@ var ROUTES = Routes{
 	INDEX: "/",
 }
 
-var ADDR = fmt.Sprintf("localhost:%d", PORT)
+var ADDR = fmt.Sprintf(":%d", PORT)
