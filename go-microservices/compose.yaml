@@ -1,0 +1,18 @@
+services:
+  frontend-service:
+    build: ./frontend-service
+    restart: always
+    ports:
+      - "8080:80"
+    deploy:
+      mode: replicated
+      replicas: 1
+
+  broker-service:
+    build: ./broker-service
+    restart: always
+    ports:
+      - "8081:80"
+    deploy:
+      mode: replicated
+      replicas: 1
