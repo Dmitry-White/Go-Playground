@@ -4,16 +4,11 @@
         {{template "header" .}}
 
         <body>
-        {{block "content" .}}
-
-        {{end}}
-
+        {{template "content" .}}
 
         {{template "footer" .}}
 
-        {{block "js" .}}
-
-        {{end}}
+        {{template "js" .}}
         </body>
 
     </html>

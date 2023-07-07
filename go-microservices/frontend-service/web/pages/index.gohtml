@@ -7,8 +7,11 @@
                 <h1 class="mt-5">Test microservices</h1>
                 <hr>
 
-                <div id="output" class="mt-5" style="outline: 1px solid silver; padding: 2em;">
-                    <span class="text-muted">Output shows here...</span>
+                {{template "buttons" .}}
+
+                <h4 class="mt-5">Output</h4>
+                <div class="mt-1" style="outline: 1px solid silver; padding: 2em;">
+                    <pre id="output"><span class="text-muted">Output shows here...</span></pre>
                 </div>
             </div>
         </div>
@@ -30,7 +33,6 @@
 {{end}}
 
 {{define "js"}}
-    <script>
-        
-    </script>
+    <script src="js/core.js"></script>
+    <script src="js/broker.js"></script>
 {{end}}
