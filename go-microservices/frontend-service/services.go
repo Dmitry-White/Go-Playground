@@ -7,12 +7,13 @@ import (
 
 func render(t string) (*template.Template, error) {
 	templateSlice := []string{}
-	templateSlice = append(templateSlice, fmt.Sprintf("./web/pages/%s", t))
+	templateSlice = append(templateSlice, fmt.Sprintf("%s/%s", PATHS.PAGES, t))
 
 	partials := []string{
-		"./web/templates/base.layout.gohtml",
-		"./web/templates/header.partial.gohtml",
-		"./web/templates/footer.partial.gohtml",
+		PATHS.TEMPLATES + "/base.layout.gohtml",
+		PATHS.TEMPLATES + "/buttons.partial.gohtml",
+		PATHS.TEMPLATES + "/header.partial.gohtml",
+		PATHS.TEMPLATES + "/footer.partial.gohtml",
 	}
 	templateSlice = append(templateSlice, partials...)
 

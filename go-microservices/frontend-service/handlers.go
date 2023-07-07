@@ -14,3 +14,5 @@ func handleIndex(resw http.ResponseWriter, r *http.Request) {
 		http.Error(resw, err.Error(), http.StatusInternalServerError)
 	}
 }
+
+var handleJS = http.StripPrefix(ROUTES.JS, http.FileServer(http.Dir(PATHS.JS)))

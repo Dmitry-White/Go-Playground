@@ -7,4 +7,11 @@ type Config struct {
 
 type Routes struct {
 	INDEX string
+	JS    string
+}
+
+type Paths struct {
+	JS        string
+	PAGES     string
+	TEMPLATES string
 }
