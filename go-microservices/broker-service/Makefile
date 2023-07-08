@@ -4,4 +4,4 @@ build:
 	docker build -t broker-service .
 
 run:
-	docker run --name broker-service -d -p 8080:80 broker-service
+	docker run --name broker-service -d -p 8081:80 broker-service
