@@ -10,6 +10,7 @@ use (
 	./go-essential-training/testing
 	./go-generics
 	./go-generics/inference
+	./go-microservices/authentication-service
 	./go-microservices/broker-service
 	./go-microservices/frontend-service
 	./go-recipes/basics
