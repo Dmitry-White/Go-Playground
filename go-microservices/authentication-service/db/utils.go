@@ -12,13 +12,14 @@ func (u *User) ResetPassword(password string) error {
 	ctx, cancel := context.WithTimeout(context.Background(), DB_TIMEOUT)
 	defer cancel()
 
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), 12)
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), PASSWORD_COST)
 	if err != nil {
 		return err
 	}
 
-	stmt := `update users set password = $1 where id = $2`
-	_, err = db.ExecContext(ctx, stmt, hashedPassword, u.ID)
+	query := `update users set password = $1 where id = $2`
+
+	_, err = db.ExecContext(ctx, query, hashedPassword, u.ID)
 	if err != nil {
 		return err
 	}

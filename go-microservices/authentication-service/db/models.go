@@ -26,6 +26,7 @@ func (u *User) GetAll() ([]*User, error) {
 
 	for rows.Next() {
 		var user User
+
 		err := rows.Scan(
 			&user.ID,
 			&user.Email,
@@ -67,7 +68,6 @@ func (u *User) GetByEmail(email string) (*User, error) {
 		&user.CreatedAt,
 		&user.UpdatedAt,
 	)
-
 	if err != nil {
 		return nil, err
 	}
@@ -95,7 +95,6 @@ func (u *User) GetOne(id int) (*User, error) {
 		&user.CreatedAt,
 		&user.UpdatedAt,
 	)
-
 	if err != nil {
 		return nil, err
 	}
@@ -109,7 +108,7 @@ func (u *User) Update() error {
 	ctx, cancel := context.WithTimeout(context.Background(), DB_TIMEOUT)
 	defer cancel()
 
-	stmt := `update users set
+	query := `update users set
 		email = $1,
 		first_name = $2,
 		last_name = $3,
@@ -118,7 +117,7 @@ func (u *User) Update() error {
 		where id = $6
 	`
 
-	_, err := db.ExecContext(ctx, stmt,
+	_, err := db.ExecContext(ctx, query,
 		u.Email,
 		u.FirstName,
 		u.LastName,
@@ -126,7 +125,6 @@ func (u *User) Update() error {
 		time.Now(),
 		u.ID,
 	)
-
 	if err != nil {
 		return err
 	}
@@ -139,9 +137,9 @@ func (u *User) Delete() error {
 	ctx, cancel := context.WithTimeout(context.Background(), DB_TIMEOUT)
 	defer cancel()
 
-	stmt := `delete from users where id = $1`
+	query := `delete from users where id = $1`
 
-	_, err := db.ExecContext(ctx, stmt, u.ID)
+	_, err := db.ExecContext(ctx, query, u.ID)
 	if err != nil {
 		return err
 	}
@@ -154,9 +152,9 @@ func (u *User) DeleteByID(id int) error {
 	ctx, cancel := context.WithTimeout(context.Background(), DB_TIMEOUT)
 	defer cancel()
 
-	stmt := `delete from users where id = $1`
+	query := `delete from users where id = $1`
 
-	_, err := db.ExecContext(ctx, stmt, id)
+	_, err := db.ExecContext(ctx, query, id)
 	if err != nil {
 		return err
 	}
@@ -169,16 +167,16 @@ func (u *User) Insert(user User) (int, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), DB_TIMEOUT)
 	defer cancel()
 
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), 12)
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), PASSWORD_COST)
 	if err != nil {
 		return 0, err
 	}
 
 	var newID int
-	stmt := `insert into users (email, first_name, last_name, password, user_active, created_at, updated_at)
+	query := `insert into users (email, first_name, last_name, password, user_active, created_at, updated_at)
 		values ($1, $2, $3, $4, $5, $6, $7) returning id`
 
-	err = db.QueryRowContext(ctx, stmt,
+	err = db.QueryRowContext(ctx, query,
 		user.Email,
 		user.FirstName,
 		user.LastName,
@@ -187,7 +185,6 @@ func (u *User) Insert(user User) (int, error) {
 		time.Now(),
 		time.Now(),
 	).Scan(&newID)
-
 	if err != nil {
 		return 0, err
 	}
