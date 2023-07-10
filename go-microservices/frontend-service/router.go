@@ -4,7 +4,7 @@ import (
 	"net/http"
 )
 
-func (a *Config) router() *http.ServeMux {
+func (a *AppConfig) router() *http.ServeMux {
 	router := http.ServeMux{}
 
 	router.HandleFunc(ROUTES.INDEX, handleIndex)

@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	app := &Config{PORT, ADDR}
+	app := &AppConfig{PORT, ADDR}
 
 	server := &http.Server{
 		Addr:    app.ADDR,

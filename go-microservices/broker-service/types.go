@@ -1,6 +1,6 @@
 package main
 
-type Config struct {
+type AppConfig struct {
 	PORT int
 	ADDR string
 }

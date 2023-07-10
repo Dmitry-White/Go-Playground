@@ -4,7 +4,7 @@ import (
 	"net/http"
 )
 
-func (a *Config) handleIndex(resw http.ResponseWriter, req *http.Request) {
+func (a *AppConfig) handleIndex(resw http.ResponseWriter, req *http.Request) {
 	data := generateJson()
 
 	writeJSON(resw, http.StatusAccepted, data)

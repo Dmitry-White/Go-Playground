@@ -4,7 +4,7 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-func (a *Config) router() *chi.Mux {
+func (a *AppConfig) router() *chi.Mux {
 	mux := chi.NewRouter()
 
 	mux.Use(loggerMiddleware)
