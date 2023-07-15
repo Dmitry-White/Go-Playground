@@ -1,12 +1,25 @@
 package main
 
 import (
+	"go-microservices/authentication-service/dal"
 	"log"
 	"net/http"
 )
 
 func main() {
-	app := &AppConfig{PORT, ADDR}
+	connection := dal.Connect()
+	if connection == nil {
+		log.Fatalln("Can't connect to DB!")
+	}
+
+	log.Printf("DB Stats: %+v\n", connection.Stats())
+
+	app := &AppConfig{
+		PORT:   PORT,
+		ADDR:   ADDR,
+		DB:     connection,
+		Models: dal.New(connection),
+	}
 
 	server := &http.Server{
 		Addr:    app.ADDR,
