@@ -22,10 +22,11 @@ type User struct {
 }
 
 type Queries struct {
-	DELETE_BY_ID string
-	GET_ALL      string
-	GET_BY_EMAIL string
-	GET_BY_ID    string
-	INSERT       string
-	UPDATE_BY_ID string
+	DELETE_BY_ID    string
+	GET_ALL         string
+	GET_BY_EMAIL    string
+	GET_BY_ID       string
+	INSERT          string
+	UPDATE_BY_ID    string
+	UPDATE_PASSWORD string
 }

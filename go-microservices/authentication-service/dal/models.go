@@ -17,6 +17,7 @@ func (u *User) GetAll() ([]*User, error) {
 
 	rows, err := db.QueryContext(ctx, query)
 	if err != nil {
+		log.Println("Error querying", err)
 		return nil, err
 	}
 	defer rows.Close()
@@ -68,6 +69,7 @@ func (u *User) GetByEmail(email string) (*User, error) {
 		&user.UpdatedAt,
 	)
 	if err != nil {
+		log.Println("Error scanning", err)
 		return nil, err
 	}
 
@@ -95,6 +97,7 @@ func (u *User) GetOne(id int) (*User, error) {
 		&user.UpdatedAt,
 	)
 	if err != nil {
+		log.Println("Error scanning", err)
 		return nil, err
 	}
 

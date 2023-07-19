@@ -18,7 +18,7 @@ func (u *User) ResetPassword(password string) error {
 		return err
 	}
 
-	query := `update users set password = $1 where id = $2`
+	query := getQuery(QUERIES.UPDATE_PASSWORD)
 
 	_, err = db.ExecContext(ctx, query, hashedPassword, u.ID)
 	if err != nil {
@@ -47,15 +47,9 @@ func (u *User) PasswordMatches(plainText string) (bool, error) {
 }
 
 func getQuery(name string) string {
-	query, err := queriesFolder.Open(name)
+	queryBytes, err := queriesFolder.ReadFile(name)
 	if err != nil {
 		log.Panic(err)
-	}
-
-	queryBytes := []byte{}
-	_, fileErr := query.Read(queryBytes)
-	if fileErr != nil {
-		log.Panic(fileErr)
 	}
 
 	return string(queryBytes)
