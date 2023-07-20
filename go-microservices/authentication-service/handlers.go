@@ -7,11 +7,12 @@ import (
 )
 
 func (app *AppConfig) handleAuth(resw http.ResponseWriter, req *http.Request) {
-	var requestPayload jsonRequest
+	var requestPayload RequestPayload
 
 	err := readJSON(resw, req, &requestPayload)
 	if err != nil {
 		errorJSON(resw, err, http.StatusBadRequest)
+		return
 	}
 
 	user, err := app.Models.User.GetByEmail(requestPayload.Email)
@@ -31,6 +32,5 @@ func (app *AppConfig) handleAuth(resw http.ResponseWriter, req *http.Request) {
 		Message: fmt.Sprintf("Logged in user: %s", user.Email),
 		Data:    user,
 	}
-
 	writeJSON(resw, http.StatusAccepted, responsePayload)
 }

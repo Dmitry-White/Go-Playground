@@ -17,7 +17,7 @@ type Routes struct {
 	HEALTH string
 }
 
-type jsonRequest struct {
+type RequestPayload struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }
