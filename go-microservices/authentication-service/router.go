@@ -9,7 +9,7 @@ func (a *AppConfig) router() *chi.Mux {
 	mux.Use(healthMiddleware)
 	mux.Use(corsMiddleware)
 
-	mux.Post(ROUTES.INDEX, a.handleIndex)
+	mux.Post(ROUTES.AUTH, a.handleAuth)
 
 	return mux
 }

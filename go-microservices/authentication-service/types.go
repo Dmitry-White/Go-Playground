@@ -13,6 +13,17 @@ type AppConfig struct {
 }
 
 type Routes struct {
-	INDEX  string
+	AUTH   string
 	HEALTH string
+}
+
+type jsonRequest struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
+type jsonResponse struct {
+	Error   bool   `json:"error"`
+	Message string `json:"message"`
+	Data    any    `json:"data,omitempty"`
 }
