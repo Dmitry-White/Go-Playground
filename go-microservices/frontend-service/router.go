@@ -1,8 +1,6 @@
 package main
 
-import (
-	"net/http"
-)
+import "net/http"
 
 func (a *AppConfig) router() *http.ServeMux {
 	router := http.ServeMux{}
