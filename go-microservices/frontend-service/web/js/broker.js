@@ -29,10 +29,10 @@ authBrokerBtn.addEventListener("click", async () => {
   const { BASE, PROCESS } = API.BROKER;
 
   const payload = {
-    action: "auth",
+    action: "Auth",
     auth: {
       email: "admin@example.com",
-      password: "verysecret!",
+      password: "verysecret",
     },
   };
 
@@ -51,7 +51,7 @@ authBrokerBtn.addEventListener("click", async () => {
     const response = await fetch(URL, body);
     const data = await response.json();
 
-    sentBox.textContent = JSON.stringify(data, undefined, 4);
+    sentBox.textContent = JSON.stringify(payload, undefined, 4);
     receivedBox.textContent = JSON.stringify(data, undefined, 4);
 
     if (data.error) {
