@@ -5,3 +5,6 @@ build:
 
 run:
 	docker run --name frontend-service -d -p 8080:80 frontend-service
+
+inside:
+	docker exec -it frontend-service sh
