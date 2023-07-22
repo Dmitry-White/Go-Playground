@@ -13,6 +13,7 @@ use (
 	./go-microservices/authentication-service
 	./go-microservices/broker-service
 	./go-microservices/frontend-service
+	./go-microservices/logger-service
 	./go-recipes/basics
 	./go-recipes/concurrency
 	./go-recipes/http

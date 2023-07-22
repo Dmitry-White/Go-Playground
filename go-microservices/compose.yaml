@@ -28,6 +28,15 @@ services:
     environment:
       DSN: postgresql://postgres:password@postgres-db:5432/users?sslmode=disable&timezone=UTC&connect_timeout=5
 
+  logger-service:
+    build: ./logger-service
+    restart: always
+    ports:
+      - 8083:80
+    deploy:
+      mode: replicated
+      replicas: 1
+
   postgres-db:
     image: postgres:14.2
     restart: always
