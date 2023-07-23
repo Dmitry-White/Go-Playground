@@ -8,3 +8,6 @@ run:
 
 inside:
 	docker exec -it frontend-service sh
+
+kill:
+	docker container stop frontend-service && docker container rm frontend-service

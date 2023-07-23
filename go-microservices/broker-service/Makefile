@@ -8,3 +8,6 @@ run:
 
 inside:
 	docker exec -it broker-service sh
+
+kill:
+	docker container stop broker-service && docker container rm broker-service

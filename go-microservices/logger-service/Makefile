@@ -8,3 +8,6 @@ run:
 
 inside:
 	docker exec -it logger-service sh
+
+kill:
+	docker container stop logger-service && docker container rm logger-service

@@ -9,5 +9,8 @@ run:
 inside:
 	docker exec -it authentication-service sh
 
+kill:
+	docker container stop authentication-service && docker container rm authentication-service
+
 migrate:
 	go run cmd/main.go
