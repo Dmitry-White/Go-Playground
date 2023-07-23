@@ -23,7 +23,7 @@ func processAuth(resw http.ResponseWriter, requestPayload *RequestPayload) {
 		return
 	}
 
-	responsePayload := jsonResponse{
+	responsePayload := ResponsePayload{
 		Error:   false,
 		Message: fmt.Sprintf("Processed Auth request: %s", data.Message),
 		Data:    data,

@@ -22,7 +22,7 @@ type RequestPayload struct {
 	Password string `json:"password"`
 }
 
-type jsonResponse struct {
+type ResponsePayload struct {
 	Error   bool   `json:"error"`
 	Message string `json:"message"`
 	Data    any    `json:"data,omitempty"`

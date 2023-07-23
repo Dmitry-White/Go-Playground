@@ -8,15 +8,15 @@ import (
 	"net/http"
 )
 
-func generateJson() jsonResponse {
-	payload := jsonResponse{
+func generateJson() ResponsePayload {
+	payload := ResponsePayload{
 		Error:   false,
 		Message: "Hit the broker",
 	}
 	return payload
 }
 
-func authenticate(payload AuthPayload) (*jsonResponse, error) {
+func authenticate(payload AuthPayload) (*ResponsePayload, error) {
 	authRequest, err := json.MarshalIndent(payload, "", "\t")
 	if err != nil {
 		log.Println("[authenticate] Marshal Error: ", err)
@@ -48,7 +48,7 @@ func authenticate(payload AuthPayload) (*jsonResponse, error) {
 		return nil, responseErr
 	}
 
-	var jsonFromService jsonResponse
+	var jsonFromService ResponsePayload
 	decoder := json.NewDecoder(response.Body)
 	decodeErr := decoder.Decode(&jsonFromService)
 	if decodeErr != nil {

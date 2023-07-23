@@ -27,7 +27,7 @@ func (app *AppConfig) handleAuth(resw http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	responsePayload := jsonResponse{
+	responsePayload := ResponsePayload{
 		Error:   false,
 		Message: fmt.Sprintf("Logged in user: %s", user.Email),
 		Data:    user,

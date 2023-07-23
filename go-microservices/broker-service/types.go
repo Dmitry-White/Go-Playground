@@ -20,7 +20,7 @@ type Services struct {
 	Auth ServiceConfig
 }
 
-type jsonResponse struct {
+type ResponsePayload struct {
 	Error   bool   `json:"error"`
 	Message string `json:"message"`
 	Data    any    `json:"data,omitempty"`
