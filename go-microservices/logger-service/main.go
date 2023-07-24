@@ -1,11 +1,19 @@
 package main
 
 import (
+	"go-microservices/logger-service/dal"
 	"log"
 	"net/http"
 )
 
 func main() {
+	connection := dal.Connect()
+	if connection == nil {
+		log.Fatalln("Can't connect to DB!")
+	}
+
+	log.Printf("DB Sessions: %+v\n", connection.NumberSessionsInProgress())
+
 	app := &AppConfig{PORT, ADDR}
 
 	server := &http.Server{
