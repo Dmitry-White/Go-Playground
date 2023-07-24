@@ -36,6 +36,10 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+    environment:
+      URI: mongodb://mongo-db:27017
+      Username: mongo
+      Password: password
 
   postgres-db:
     image: postgres:14.2
@@ -51,3 +55,18 @@ services:
       POSTGRES_DB: users
     volumes:
       - ./authentication-service/dal/data:/var/lib/postgresql/data
+
+  mongo-db:
+    image: mongo:4.2.16-bionic
+    restart: always
+    ports:
+      - 27017:27017
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DB: logs
+    volumes:
+      - ./logger-service/dal/data:/data/db
