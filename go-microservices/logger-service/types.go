@@ -1,8 +1,16 @@
 package main
 
+import (
+	"go-microservices/logger-service/dal"
+
+	"go.mongodb.org/mongo-driver/mongo"
+)
+
 type AppConfig struct {
-	PORT int
-	ADDR string
+	PORT   int
+	ADDR   string
+	DB     *mongo.Client
+	Models dal.Models
 }
 
 type Routes struct {
