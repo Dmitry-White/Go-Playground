@@ -32,7 +32,7 @@ func processAuth(resw http.ResponseWriter, requestPayload *RequestPayload) {
 }
 
 func (app *AppConfig) handleProcess(resw http.ResponseWriter, req *http.Request) {
-	var requestPayload RequestPayload
+	requestPayload := RequestPayload{}
 
 	err := readJSON(resw, req, &requestPayload)
 	if err != nil {

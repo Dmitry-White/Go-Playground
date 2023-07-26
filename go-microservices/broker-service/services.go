@@ -48,7 +48,7 @@ func authenticate(payload AuthPayload) (*ResponsePayload, error) {
 		return nil, responseErr
 	}
 
-	var jsonFromService ResponsePayload
+	jsonFromService := ResponsePayload{}
 	decoder := json.NewDecoder(response.Body)
 	decodeErr := decoder.Decode(&jsonFromService)
 	if decodeErr != nil {

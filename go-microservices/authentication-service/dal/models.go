@@ -22,10 +22,10 @@ func (u *User) GetAll() ([]*User, error) {
 	}
 	defer rows.Close()
 
-	var users []*User
+	users := []*User{}
 
 	for rows.Next() {
-		var user User
+		user := User{}
 
 		err := rows.Scan(
 			&user.ID,
@@ -55,7 +55,7 @@ func (u *User) GetByEmail(email string) (*User, error) {
 
 	query := getQuery(QUERIES.GET_BY_EMAIL)
 
-	var user User
+	user := User{}
 	row := db.QueryRowContext(ctx, query, email)
 
 	err := row.Scan(
@@ -83,7 +83,7 @@ func (u *User) GetOne(id int) (*User, error) {
 
 	query := getQuery(QUERIES.GET_BY_ID)
 
-	var user User
+	user := User{}
 	row := db.QueryRowContext(ctx, query, id)
 
 	err := row.Scan(
@@ -179,7 +179,7 @@ func (u *User) Insert(user User) (int, error) {
 		time.Now(),
 	)
 
-	var newID int
+	newID := 0
 	err := row.Scan(&newID)
 	if err != nil {
 		return 0, err

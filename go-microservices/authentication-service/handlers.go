@@ -7,7 +7,7 @@ import (
 )
 
 func (app *AppConfig) handleAuth(resw http.ResponseWriter, req *http.Request) {
-	var requestPayload RequestPayload
+	requestPayload := RequestPayload{}
 
 	err := readJSON(resw, req, &requestPayload)
 	if err != nil {
