@@ -11,7 +11,8 @@ func (app *AppConfig) router() *chi.Mux {
 	mux.Use(healthMiddleware)
 	mux.Use(corsMiddleware)
 
-	mux.Post(ROUTES.LOG, handleLog)
+	mux.Post(ROUTES.LOG, app.handleWriteLog)
+	mux.Get(ROUTES.LOG, app.handleReadLogs)
 
 	return mux
 }

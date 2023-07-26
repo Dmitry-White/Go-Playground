@@ -18,6 +18,11 @@ type Routes struct {
 	HEALTH string
 }
 
+type RequestPayload struct {
+	Name string `json:"name"`
+	Data string `json:"data"`
+}
+
 type ResponsePayload struct {
 	Error   bool   `json:"error"`
 	Message string `json:"message"`
