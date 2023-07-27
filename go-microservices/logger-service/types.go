@@ -7,15 +7,19 @@ import (
 )
 
 type AppConfig struct {
-	PORT   int
-	ADDR   string
-	DB     *mongo.Client
-	Models dal.Models
+	PORT     int
+	ADDR     string
+	DB       *mongo.Client
+	Services Services
 }
 
 type Routes struct {
 	LOG    string
 	HEALTH string
+}
+
+type Services struct {
+	Models dal.Models
 }
 
 type RequestPayload struct {

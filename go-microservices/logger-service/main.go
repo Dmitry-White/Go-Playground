@@ -15,10 +15,12 @@ func main() {
 	log.Printf("DB Sessions: %+v\n", connection.NumberSessionsInProgress())
 
 	app := &AppConfig{
-		PORT:   PORT,
-		ADDR:   ADDR,
-		DB:     connection,
-		Models: dal.New(connection),
+		PORT: PORT,
+		ADDR: ADDR,
+		DB:   connection,
+		Services: Services{
+			Models: dal.New(connection),
+		},
 	}
 
 	server := &http.Server{

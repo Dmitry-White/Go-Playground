@@ -3,7 +3,6 @@ package main
 import (
 	"errors"
 	"fmt"
-	"go-microservices/logger-service/dal"
 	"net/http"
 )
 
@@ -16,11 +15,7 @@ func (app *AppConfig) handleWriteLog(resw http.ResponseWriter, req *http.Request
 		return
 	}
 
-	logEntry := dal.LogEntry{
-		Name: requestPayload.Name,
-		Data: requestPayload.Data,
-	}
-	entry, err := app.Models.LogEntry.Insert(logEntry)
+	entry, err := app.Services.write(&requestPayload)
 	if err != nil {
 		errorJSON(resw, errors.New("failed to log"), http.StatusInternalServerError)
 		return
@@ -35,7 +30,7 @@ func (app *AppConfig) handleWriteLog(resw http.ResponseWriter, req *http.Request
 }
 
 func (app *AppConfig) handleReadLogs(resw http.ResponseWriter, req *http.Request) {
-	entries, err := app.Models.LogEntry.GetAll()
+	entries, err := app.Services.all()
 	if err != nil {
 		errorJSON(resw, errors.New("failed to access logs"), http.StatusInternalServerError)
 		return
