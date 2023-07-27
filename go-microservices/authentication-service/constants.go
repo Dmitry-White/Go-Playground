@@ -10,4 +10,11 @@ var ROUTES = Routes{
 	HEALTH: "/health",
 }
 
+var SERVICES = Services{
+	Broker: ServiceConfig{
+		Name: "Broker",
+		URL:  "http://broker-service/process",
+	},
+}
+
 var ADDR = fmt.Sprintf(":%d", PORT)

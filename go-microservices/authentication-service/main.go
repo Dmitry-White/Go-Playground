@@ -15,10 +15,13 @@ func main() {
 	log.Printf("DB Stats: %+v\n", connection.Stats())
 
 	app := &AppConfig{
-		PORT:   PORT,
-		ADDR:   ADDR,
-		DB:     connection,
-		Models: dal.New(connection),
+		PORT: PORT,
+		ADDR: ADDR,
+		DB:   connection,
+		Services: Services{
+			Models: dal.New(connection),
+			Broker: SERVICES.Broker,
+		},
 	}
 
 	server := &http.Server{
