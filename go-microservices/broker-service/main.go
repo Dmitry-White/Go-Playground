@@ -6,7 +6,14 @@ import (
 )
 
 func main() {
-	app := &AppConfig{PORT, ADDR}
+	app := &AppConfig{
+		PORT: PORT,
+		ADDR: ADDR,
+		Services: Services{
+			Auth: SERVICES.Auth,
+			Log:  SERVICES.Log,
+		},
+	}
 
 	server := &http.Server{
 		Addr:    app.ADDR,

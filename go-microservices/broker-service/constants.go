@@ -16,6 +16,10 @@ var SERVICES = Services{
 		Name: "Auth",
 		URL:  "http://authentication-service/auth",
 	},
+	Log: ServiceConfig{
+		Name: "Log",
+		URL:  "http://logger-service/log",
+	},
 }
 
 var ADDR = fmt.Sprintf(":%d", PORT)

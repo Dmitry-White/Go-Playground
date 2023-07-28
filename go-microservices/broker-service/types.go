@@ -1,8 +1,9 @@
 package main
 
 type AppConfig struct {
-	PORT int
-	ADDR string
+	PORT     int
+	ADDR     string
+	Services Services
 }
 
 type Routes struct {
@@ -18,6 +19,7 @@ type ServiceConfig struct {
 
 type Services struct {
 	Auth ServiceConfig
+	Log  ServiceConfig
 }
 
 type ResponsePayload struct {
@@ -31,7 +33,13 @@ type AuthPayload struct {
 	Password string `json:"password"`
 }
 
+type LogPayload struct {
+	Name string `json:"name"`
+	Data string `json:"data"`
+}
+
 type RequestPayload struct {
 	Action string      `json:"action"`
 	Auth   AuthPayload `json:"auth,omitempty"`
+	Log    LogPayload  `json:"log,omitempty"`
 }
