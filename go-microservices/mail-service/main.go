@@ -9,7 +9,8 @@ func main() {
 	app := &AppConfig{PORT, ADDR}
 
 	server := http.Server{
-		Addr: app.ADDR,
+		Addr:    app.ADDR,
+		Handler: app.router(),
 	}
 
 	log.Printf("Server listening on %s", app.ADDR)
