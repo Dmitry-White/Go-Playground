@@ -41,6 +41,15 @@ services:
       Username: mongo
       Password: password
 
+  mail-service:
+    build: ./mail-service
+    restart: always
+    ports:
+      - 8084:80
+    deploy:
+      mode: replicated
+      replicas: 1
+
   postgres-db:
     image: postgres:14.2
     restart: always
@@ -70,3 +79,13 @@ services:
       MONGO_INITDB_DB: logs
     volumes:
       - ./logger-service/dal/data:/data/db
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    restart: always
+    ports:
+      - 1025:1025
+      - 8025:8025
+    deploy:
+      mode: replicated
+      replicas: 1
