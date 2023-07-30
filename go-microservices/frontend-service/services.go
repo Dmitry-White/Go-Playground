@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"text/template"
+	"html/template"
 )
 
 func render(t string) (*template.Template, error) {

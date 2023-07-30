@@ -15,7 +15,7 @@ var db *mongo.Client
 var retryCounts int64
 
 // New is the function used to create an instance of the dal package. It returns the type
-// Model, which embeds all the types we want to be available to our application.
+// Models, which embeds all the types we want to be available to our application.
 func New(dbPool *mongo.Client) Models {
 	db = dbPool
 
