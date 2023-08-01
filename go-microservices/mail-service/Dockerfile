@@ -10,5 +10,7 @@ FROM alpine:latest AS Runner
 WORKDIR /app
 
 COPY --from=Builder /app/dist ./
+COPY --from=Builder /app/smtp/emails ./emails
+COPY --from=Builder /app/smtp/templates ./templates
 
 CMD [ "./dist" ]

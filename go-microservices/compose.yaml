@@ -49,6 +49,12 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+    environment:
+      Host: mailhog-smtp
+      Port: 1025
+      Username: mailhog
+      Password: password
+      Encryption: none
 
   postgres-db:
     image: postgres:14.2
@@ -80,7 +86,7 @@ services:
     volumes:
       - ./logger-service/dal/data:/data/db
 
-  mailhog:
+  mailhog-smtp:
     image: mailhog/mailhog:latest
     restart: always
     ports:
