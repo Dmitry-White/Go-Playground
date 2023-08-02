@@ -4,7 +4,6 @@ import "net/http"
 
 func handleIndex(resw http.ResponseWriter, r *http.Request) {
 	tmpl, err := render("index.gohtml")
-
 	if err != nil {
 		http.Error(resw, err.Error(), http.StatusInternalServerError)
 	}
