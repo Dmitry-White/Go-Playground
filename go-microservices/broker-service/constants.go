@@ -20,6 +20,10 @@ var SERVICES = Services{
 		Name: "Log",
 		URL:  "http://logger-service/log",
 	},
+	Mail: ServiceConfig{
+		Name: "Mail",
+		URL:  "http://mail-service/mail",
+	},
 }
 
 var ADDR = fmt.Sprintf(":%d", PORT)

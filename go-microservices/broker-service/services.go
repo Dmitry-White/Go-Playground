@@ -98,3 +98,42 @@ func (s *Services) log(payload LogPayload) (*ResponsePayload, error) {
 
 	return &jsonFromService, nil
 }
+
+func (s *Services) mail(payload MailPayload) (*ResponsePayload, error) {
+	mailRequest, err := json.MarshalIndent(payload, "", "\t")
+	if err != nil {
+		log.Println("[mail] Marshal Error: ", err)
+		return nil, err
+	}
+
+	mailRequestReader := bytes.NewBuffer(mailRequest)
+	request, err := http.NewRequest(http.MethodPost, s.Mail.URL, mailRequestReader)
+	if err != nil {
+		log.Println("[mail] Request Error: ", err)
+		return nil, err
+	}
+	request.Header.Set("Content-Type", "application/json")
+
+	client := &http.Client{}
+	response, err := client.Do(request)
+	if err != nil {
+		log.Println("[mail] Client Error: ", err)
+		return nil, err
+	}
+	defer response.Body.Close()
+
+	if response.StatusCode != http.StatusAccepted {
+		responseErr := errors.New("error calling mail service")
+		return nil, responseErr
+	}
+
+	jsonFromService := ResponsePayload{}
+	decoder := json.NewDecoder(response.Body)
+	decodeErr := decoder.Decode(&jsonFromService)
+	if decodeErr != nil {
+		log.Println("[mail] Decode Error: ", decodeErr)
+		return nil, decodeErr
+	}
+
+	return &jsonFromService, nil
+}

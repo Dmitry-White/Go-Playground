@@ -12,6 +12,7 @@ func main() {
 		Services: Services{
 			Auth: SERVICES.Auth,
 			Log:  SERVICES.Log,
+			Mail: SERVICES.Mail,
 		},
 	}
 

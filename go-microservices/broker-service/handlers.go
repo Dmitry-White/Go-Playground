@@ -51,6 +51,25 @@ func (app *AppConfig) processLog(resw http.ResponseWriter, requestPayload *Reque
 	writeJSON(resw, http.StatusAccepted, responsePayload)
 }
 
+func (app *AppConfig) processMail(resw http.ResponseWriter, requestPayload *RequestPayload) {
+	data, err := app.Services.mail(requestPayload.Mail)
+	if err != nil {
+		errorJSON(resw, err)
+		return
+	}
+	if data.Error {
+		errorJSON(resw, errors.New(data.Message), http.StatusUnauthorized)
+		return
+	}
+
+	responsePayload := ResponsePayload{
+		Error:   false,
+		Message: fmt.Sprintf("Processed Mail request: %s", data.Message),
+		Data:    data,
+	}
+	writeJSON(resw, http.StatusAccepted, responsePayload)
+}
+
 func (app *AppConfig) handleProcess(resw http.ResponseWriter, req *http.Request) {
 	requestPayload := RequestPayload{}
 
@@ -66,6 +85,8 @@ func (app *AppConfig) handleProcess(resw http.ResponseWriter, req *http.Request)
 		app.processAuth(resw, &requestPayload)
 	case SERVICES.Log.Name:
 		app.processLog(resw, &requestPayload)
+	case SERVICES.Mail.Name:
+		app.processMail(resw, &requestPayload)
 	default:
 		errorJSON(resw, errors.New("unknown Action"))
 		return
