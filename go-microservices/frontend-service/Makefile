@@ -1,4 +1,4 @@
-.PHONY: build, run
+.PHONY: build, run, inside, kill
 
 build:
 	docker build -t frontend-service .

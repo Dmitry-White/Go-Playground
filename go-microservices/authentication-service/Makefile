@@ -1,4 +1,4 @@
-.PHONY: build, run
+.PHONY: build, run, inside, kill, migrate
 
 build:
 	docker build -t authentication-service .

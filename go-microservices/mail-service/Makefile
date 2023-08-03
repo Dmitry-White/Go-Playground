@@ -1,4 +1,4 @@
-.PHONY: build, run, in
+.PHONY: build, run, inside, kill
 
 build:
 	docker build -t mail-service .
