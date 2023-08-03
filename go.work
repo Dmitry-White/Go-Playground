@@ -13,6 +13,7 @@ use (
 	./go-microservices/authentication-service
 	./go-microservices/broker-service
 	./go-microservices/frontend-service
+	./go-microservices/listener-service
 	./go-microservices/logger-service
 	./go-microservices/mail-service
 	./go-recipes/basics
