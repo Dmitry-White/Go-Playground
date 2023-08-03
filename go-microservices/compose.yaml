@@ -56,6 +56,15 @@ services:
       Password: password
       Encryption: none
 
+  listener-service:
+    build: ./listener-service
+    restart: always
+    ports:
+      - 8085:80
+    deploy:
+      mode: replicated
+      replicas: 1
+
   postgres-db:
     image: postgres:14.2
     restart: always
