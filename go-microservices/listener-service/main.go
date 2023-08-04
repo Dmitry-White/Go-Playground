@@ -1,7 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"go-microservices/listener-service/dal"
+	"log"
+)
 
 func main() {
-	fmt.Println("Listener Service")
+	connection := dal.Connect()
+	if connection == nil {
+		log.Fatalln("Can't connect to Queue!")
+	}
+
+	log.Printf("Queue Config: %+v\n", connection.Config)
 }

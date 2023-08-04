@@ -64,6 +64,8 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+    environment:
+      DSN: amqp://guest:guest@rabbitmq-amqp:5672
 
   postgres-db:
     image: postgres:14.2
