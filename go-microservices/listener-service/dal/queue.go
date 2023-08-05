@@ -12,6 +12,14 @@ var queue *amqp.Connection
 
 var retryCounts int64
 
+func New(queuePool *amqp.Connection) Models {
+	queue = queuePool
+
+	return Models{
+		Consumer: Consumer{},
+	}
+}
+
 func openAMQP(dsn string) (*amqp.Connection, error) {
 	connection, err := amqp.Dial(dsn)
 	if err != nil {
