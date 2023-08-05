@@ -15,7 +15,8 @@ func main() {
 	log.Printf("SMTP Client: %+v\n", connection.Client)
 
 	app := &AppConfig{
-		PORT: PORT, ADDR: ADDR,
+		PORT: PORT,
+		ADDR: ADDR,
 		SMTP: connection,
 		Services: Services{
 			Models: smtp.New(connection, mailer),

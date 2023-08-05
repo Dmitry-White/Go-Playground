@@ -71,8 +71,8 @@ func (m *Mailer) SendSMTP(msg Message) error {
 		return err
 	}
 
-	log.Println("HTML Message: ", htmlMessage)
-	log.Println("Plain Message: ", plainMessage)
+	log.Println("[SendSMTP] HTML Message: ", htmlMessage)
+	log.Println("[SendSMTP] Plain Message: ", plainMessage)
 
 	email := mail.NewMSG()
 	email.SetFrom(msg.From).

@@ -84,7 +84,7 @@ func (s *Services) log(payload LogPayload) (*ResponsePayload, error) {
 	defer response.Body.Close()
 
 	if response.StatusCode != http.StatusAccepted {
-		responseErr := errors.New("error calling log service")
+		responseErr := errors.New("[log] error calling log service")
 		return nil, responseErr
 	}
 
