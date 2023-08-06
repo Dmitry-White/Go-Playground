@@ -27,6 +27,12 @@ type Topics struct {
 	LOG_ERROR   string
 }
 
+type Events struct {
+	LOG string
+}
+
+type HandlerFunc = func(messages <-chan amqp.Delivery)
+
 type ServiceConfig struct {
 	Name string
 	URL  string

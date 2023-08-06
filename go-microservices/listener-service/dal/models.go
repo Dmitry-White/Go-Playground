@@ -7,6 +7,7 @@ func (c *Consumer) SetupExchange(name string) error {
 	if err != nil {
 		return err
 	}
+	defer channel.Close()
 
 	exchangeErr := declareExchange(channel, name)
 	if exchangeErr != nil {
@@ -23,6 +24,7 @@ func (c *Consumer) SetupQueue(name string) error {
 	if err != nil {
 		return err
 	}
+	defer channel.Close()
 
 	queue, err := declareQueue(channel, name)
 	if err != nil {
@@ -39,6 +41,7 @@ func (c *Consumer) Subscribe(topics []string) error {
 	if err != nil {
 		return err
 	}
+	defer channel.Close()
 
 	for _, topic := range topics {
 		channel.QueueBind(

@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-func (s *Services) listen() error {
+func (s *Services) listen(handler HandlerFunc) error {
 	messages, err := s.Models.Consumer.Listen()
 	if err != nil {
 		return err
@@ -18,19 +18,7 @@ func (s *Services) listen() error {
 	log.Println("[listen] Source Queue:", s.Models.Consumer.Queue.Name)
 
 	forever := make(chan bool)
-	go func() {
-		for d := range messages {
-			log.Printf("[listen] Recieved a message, processing...")
-
-			payload := LogPayload{}
-			err = json.Unmarshal(d.Body, &payload)
-			if err != nil {
-				log.Println("[listen] Unmarshal Error:", err)
-			}
-
-			go s.log(payload)
-		}
-	}()
+	go handler(messages)
 
 	log.Println("[listen] Waiting for a message...")
 	<-forever
@@ -65,6 +53,8 @@ func (s *Services) log(payload LogPayload) error {
 		responseErr := errors.New("[log] error calling log service")
 		return responseErr
 	}
+
+	log.Printf("[log] Logged: %+v\n", payload)
 
 	return nil
 }

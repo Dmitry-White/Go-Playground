@@ -30,7 +30,7 @@ func main() {
 
 	log.Printf("Server listening on %s", app.ADDR)
 
-	err := app.Services.listen()
+	err := app.listen()
 	if err != nil {
 		log.Panic(err)
 	}

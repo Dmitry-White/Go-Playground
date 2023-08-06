@@ -18,6 +18,10 @@ var TOPICS = &Topics{
 	LOG_ERROR:   "log.ERROR",
 }
 
+var EVENTS = &Events{
+	LOG: "log",
+}
+
 var SERVICES = Services{
 	Log: ServiceConfig{
 		Name: "Log",
