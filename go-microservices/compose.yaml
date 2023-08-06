@@ -16,6 +16,8 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+    environment:
+      DSN: amqp://guest:guest@rabbitmq-amqp:5672
 
   authentication-service:
     build: ./authentication-service
