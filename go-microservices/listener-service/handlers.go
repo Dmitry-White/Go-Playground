@@ -16,7 +16,7 @@ func (app *AppConfig) listen() error {
 	return nil
 }
 
-func (app *AppConfig) handleTopics() error {
+func (app *AppConfig) handleSetup() error {
 	exchangeErr := app.Services.Models.Consumer.SetupExchange(EXCHANGES.LOGS)
 	if exchangeErr != nil {
 		return exchangeErr

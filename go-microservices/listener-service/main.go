@@ -19,13 +19,14 @@ func main() {
 		ADDR: ADDR,
 		AMQP: connection,
 		Services: Services{
+			Log:    SERVICES.Log,
 			Models: dal.New(connection),
 		},
 	}
 
-	handlerErr := app.handleTopics()
+	handlerErr := app.handleSetup()
 	if handlerErr != nil {
-		log.Fatalln("Can't handle Queue!", handlerErr)
+		log.Fatalln("Can't setup Queue!", handlerErr)
 	}
 
 	log.Printf("Server listening on %s", app.ADDR)
