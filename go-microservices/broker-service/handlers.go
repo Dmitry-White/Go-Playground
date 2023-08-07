@@ -7,8 +7,21 @@ import (
 	"net/http"
 )
 
+func (app *AppConfig) handleSetup() error {
+	exchangeErr := app.Services.Models.Emmiter.SetupExchange(EXCHANGES.LOGS)
+	if exchangeErr != nil {
+		return exchangeErr
+	}
+
+	return nil
+}
+
 func (app *AppConfig) handleIndex(resw http.ResponseWriter, req *http.Request) {
-	data := generateJson()
+	data, err := app.Services.index()
+	if err != nil {
+		errorJSON(resw, err)
+		return
+	}
 
 	writeJSON(resw, http.StatusAccepted, data)
 }
@@ -70,6 +83,25 @@ func (app *AppConfig) processMail(resw http.ResponseWriter, requestPayload *Requ
 	writeJSON(resw, http.StatusAccepted, responsePayload)
 }
 
+func (app *AppConfig) processAsync(resw http.ResponseWriter, requestPayload *RequestPayload) {
+	data, err := app.Services.async(requestPayload.Async)
+	if err != nil {
+		errorJSON(resw, err)
+		return
+	}
+	if data.Error {
+		errorJSON(resw, errors.New(data.Message), http.StatusUnauthorized)
+		return
+	}
+
+	responsePayload := ResponsePayload{
+		Error:   false,
+		Message: fmt.Sprintf("Processed Async request: %s", data.Message),
+		Data:    data,
+	}
+	writeJSON(resw, http.StatusAccepted, responsePayload)
+}
+
 func (app *AppConfig) handleProcess(resw http.ResponseWriter, req *http.Request) {
 	requestPayload := RequestPayload{}
 
@@ -87,6 +119,8 @@ func (app *AppConfig) handleProcess(resw http.ResponseWriter, req *http.Request)
 		app.processLog(resw, &requestPayload)
 	case SERVICES.Mail.Name:
 		app.processMail(resw, &requestPayload)
+	case SERVICES.Async.Name:
+		app.processAsync(resw, &requestPayload)
 	default:
 		errorJSON(resw, errors.New("unknown Action"))
 		return

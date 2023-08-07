@@ -1,8 +1,15 @@
 package main
 
+import (
+	"go-microservices/broker-service/dal"
+
+	amqp "github.com/rabbitmq/amqp091-go"
+)
+
 type AppConfig struct {
 	PORT     int
 	ADDR     string
+	AMQP     *amqp.Connection
 	Services Services
 }
 
@@ -12,15 +19,27 @@ type Routes struct {
 	PROCESS string
 }
 
+type Exchanges struct {
+	LOGS string
+}
+
+type Topics struct {
+	LOG_INFO    string
+	LOG_WARNING string
+	LOG_ERROR   string
+}
+
 type ServiceConfig struct {
 	Name string
 	URL  string
 }
 
 type Services struct {
-	Auth ServiceConfig
-	Log  ServiceConfig
-	Mail ServiceConfig
+	Auth   ServiceConfig
+	Log    ServiceConfig
+	Mail   ServiceConfig
+	Async  ServiceConfig
+	Models dal.Models
 }
 
 type ResponsePayload struct {
@@ -46,9 +65,15 @@ type MailPayload struct {
 	Message string `json:"message"`
 }
 
+type AsyncPayload struct {
+	Name string `json:"name"`
+	Data string `json:"data"`
+}
+
 type RequestPayload struct {
-	Action string      `json:"action"`
-	Auth   AuthPayload `json:"auth,omitempty"`
-	Log    LogPayload  `json:"log,omitempty"`
-	Mail   MailPayload `json:"mail,omitempty"`
+	Action string       `json:"action"`
+	Auth   AuthPayload  `json:"auth,omitempty"`
+	Log    LogPayload   `json:"log,omitempty"`
+	Mail   MailPayload  `json:"mail,omitempty"`
+	Async  AsyncPayload `json:"async,omitempty"`
 }

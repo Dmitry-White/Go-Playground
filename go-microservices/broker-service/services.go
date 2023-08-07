@@ -8,12 +8,13 @@ import (
 	"net/http"
 )
 
-func generateJson() ResponsePayload {
+func (s *Services) index() (*ResponsePayload, error) {
 	payload := ResponsePayload{
 		Error:   false,
 		Message: "Hit the broker",
 	}
-	return payload
+
+	return &payload, nil
 }
 
 func (s *Services) authenticate(payload AuthPayload) (*ResponsePayload, error) {
@@ -136,4 +137,25 @@ func (s *Services) mail(payload MailPayload) (*ResponsePayload, error) {
 	}
 
 	return &jsonFromService, nil
+}
+
+func (s *Services) async(payload AsyncPayload) (*ResponsePayload, error) {
+	asyncRequest, err := json.MarshalIndent(payload, "", "\t")
+	if err != nil {
+		log.Println("[async] Marshal Error: ", err)
+		return nil, err
+	}
+
+	pushErr := s.Models.Emmiter.Push(TOPICS.LOG_INFO, asyncRequest)
+	if pushErr != nil {
+		log.Println("[async] Push Error: ", pushErr)
+		return nil, pushErr
+	}
+
+	response := ResponsePayload{
+		Error:   false,
+		Message: "Processing started",
+	}
+
+	return &response, nil
 }
