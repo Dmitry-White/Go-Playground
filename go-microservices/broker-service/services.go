@@ -159,3 +159,15 @@ func (s *Services) async(payload AsyncPayload) (*ResponsePayload, error) {
 
 	return &response, nil
 }
+
+func (s *Services) logRPC(payload LogRPCPayload) (*ResponsePayload, error) {
+	logRPCRequest, err := json.MarshalIndent(payload, "", "\t")
+	if err != nil {
+		log.Println("[logRPC] Marshal Error: ", err)
+		return nil, err
+	}
+
+	log.Println("[logRPC] RPC Log Request:", logRPCRequest)
+
+	return nil, nil
+}

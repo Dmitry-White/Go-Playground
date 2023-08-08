@@ -102,6 +102,25 @@ func (app *AppConfig) processAsync(resw http.ResponseWriter, requestPayload *Req
 	writeJSON(resw, http.StatusAccepted, responsePayload)
 }
 
+func (app *AppConfig) processRPC(resw http.ResponseWriter, requestPayload *RequestPayload) {
+	data, err := app.Services.logRPC(requestPayload.LogRPC)
+	if err != nil {
+		errorJSON(resw, err)
+		return
+	}
+	if data.Error {
+		errorJSON(resw, errors.New(data.Message), http.StatusUnauthorized)
+		return
+	}
+
+	responsePayload := ResponsePayload{
+		Error:   false,
+		Message: fmt.Sprintf("Processed RPC Log request: %s", data.Message),
+		Data:    data,
+	}
+	writeJSON(resw, http.StatusAccepted, responsePayload)
+}
+
 func (app *AppConfig) handleProcess(resw http.ResponseWriter, req *http.Request) {
 	requestPayload := RequestPayload{}
 
@@ -121,6 +140,8 @@ func (app *AppConfig) handleProcess(resw http.ResponseWriter, req *http.Request)
 		app.processMail(resw, &requestPayload)
 	case SERVICES.Async.Name:
 		app.processAsync(resw, &requestPayload)
+	case SERVICES.LogRPC.Name:
+		app.processRPC(resw, &requestPayload)
 	default:
 		errorJSON(resw, errors.New("unknown Action"))
 		return
