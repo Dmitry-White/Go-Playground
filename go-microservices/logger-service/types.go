@@ -8,7 +8,9 @@ import (
 
 type AppConfig struct {
 	PORT     int
+	PORT_RPC int
 	ADDR     string
+	ADDR_RPC string
 	DB       *mongo.Client
 	Services Services
 }
@@ -25,6 +27,11 @@ type Services struct {
 type RequestPayload struct {
 	Name string `json:"name"`
 	Data string `json:"data"`
+}
+
+type RequestPayloadRPC struct {
+	Name string
+	Data string
 }
 
 type ResponsePayload struct {

@@ -15,12 +15,19 @@ func main() {
 	log.Printf("DB Sessions: %+v\n", connection.NumberSessionsInProgress())
 
 	app := &AppConfig{
-		PORT: PORT,
-		ADDR: ADDR,
-		DB:   connection,
+		PORT:     PORT,
+		PORT_RPC: PORT_RPC,
+		ADDR:     ADDR,
+		ADDR_RPC: ADDR_RPC,
+		DB:       connection,
 		Services: Services{
 			Models: dal.New(connection),
 		},
+	}
+
+	handlerErr := app.handleSetup()
+	if handlerErr != nil {
+		log.Fatalln("Can't setup RPC!", handlerErr)
 	}
 
 	server := &http.Server{

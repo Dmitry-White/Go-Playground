@@ -30,3 +30,17 @@ func (s *Services) all() ([]*dal.LogEntry, error) {
 
 	return entries, nil
 }
+
+func (s *Services) writeRPC(requestPayload *RequestPayloadRPC) (*mongo.InsertOneResult, error) {
+	logEntry := dal.LogEntry{
+		Name: requestPayload.Name,
+		Data: requestPayload.Data,
+	}
+	entry, err := s.Models.LogEntry.Insert(logEntry)
+	if err != nil {
+		log.Println("[write] Model Error: ", err)
+		return nil, err
+	}
+
+	return entry, nil
+}
