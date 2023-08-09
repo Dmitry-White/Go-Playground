@@ -29,9 +29,8 @@ type RequestPayload struct {
 	Data string `json:"data"`
 }
 
-type RequestPayloadRPC struct {
-	Name string
-	Data string
+type LogRPCPayload struct {
+	RequestPayload
 }
 
 type ResponsePayload struct {

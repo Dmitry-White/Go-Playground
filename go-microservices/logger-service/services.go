@@ -31,7 +31,7 @@ func (s *Services) all() ([]*dal.LogEntry, error) {
 	return entries, nil
 }
 
-func (s *Services) writeRPC(requestPayload *RequestPayloadRPC) (*mongo.InsertOneResult, error) {
+func (s *Services) writeRPC(requestPayload *RequestPayload) (*mongo.InsertOneResult, error) {
 	logEntry := dal.LogEntry{
 		Name: requestPayload.Name,
 		Data: requestPayload.Data,
