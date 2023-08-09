@@ -109,7 +109,7 @@ func (app *AppConfig) processRPC(resw http.ResponseWriter, requestPayload *Reque
 		return
 	}
 	if data.Error {
-		errorJSON(resw, errors.New(data.Message), http.StatusUnauthorized)
+		errorJSON(resw, errors.New(data.Message), http.StatusInternalServerError)
 		return
 	}
 

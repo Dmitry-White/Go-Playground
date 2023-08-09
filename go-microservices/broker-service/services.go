@@ -6,6 +6,7 @@ import (
 	"errors"
 	"log"
 	"net/http"
+	"net/rpc"
 )
 
 func (s *Services) index() (*ResponsePayload, error) {
@@ -152,22 +153,29 @@ func (s *Services) async(payload AsyncPayload) (*ResponsePayload, error) {
 		return nil, pushErr
 	}
 
-	response := ResponsePayload{
+	jsonFromService := ResponsePayload{
 		Error:   false,
 		Message: "Processing started",
 	}
 
-	return &response, nil
+	return &jsonFromService, nil
 }
 
 func (s *Services) logRPC(payload LogRPCPayload) (*ResponsePayload, error) {
-	logRPCRequest, err := json.MarshalIndent(payload, "", "\t")
+	log.Printf("[logRPC] RPC Log Config: %+v\n", s.LogRPC)
+
+	client, err := rpc.Dial("tcp", s.LogRPC.URL)
 	if err != nil {
-		log.Println("[logRPC] Marshal Error: ", err)
+		log.Println("[logRPC] Client Error: ", err)
 		return nil, err
 	}
 
-	log.Println("[logRPC] RPC Log Request:", logRPCRequest)
+	jsonFromService := ResponsePayload{}
+	requestErr := client.Call("AppConfig.HandleLogRPC", &payload, &jsonFromService)
+	if requestErr != nil {
+		log.Println("[logRPC] Request Error: ", requestErr)
+		return nil, requestErr
+	}
 
-	return nil, nil
+	return &jsonFromService, nil
 }

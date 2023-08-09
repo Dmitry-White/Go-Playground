@@ -23,18 +23,20 @@ func main() {
 			Auth:   SERVICES.Auth,
 			Log:    SERVICES.Log,
 			Mail:   SERVICES.Mail,
+			Async:  SERVICES.Async,
+			LogRPC: SERVICES.LogRPC,
 			Models: dal.New(connection),
 		},
-	}
-
-	server := &http.Server{
-		Addr:    app.ADDR,
-		Handler: app.router(),
 	}
 
 	handlerErr := app.handleSetup()
 	if handlerErr != nil {
 		log.Fatalln("Can't setup Queue!", handlerErr)
+	}
+
+	server := &http.Server{
+		Addr:    app.ADDR,
+		Handler: app.router(),
 	}
 
 	log.Printf("Server listening on %s", app.ADDR)

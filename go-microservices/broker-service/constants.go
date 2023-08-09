@@ -41,6 +41,10 @@ var SERVICES = Services{
 		Name: "Async",
 		URL:  os.Getenv("DSN"),
 	},
+	LogRPC: ServiceConfig{
+		Name: "LogRPC",
+		URL:  fmt.Sprintf("logger-service:%s", os.Getenv("LOGGER_PORT_RPC")),
+	},
 }
 
 var ADDR = fmt.Sprintf(":%d", PORT)
