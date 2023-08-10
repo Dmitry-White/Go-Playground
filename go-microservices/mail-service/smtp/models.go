@@ -89,6 +89,7 @@ func (m *Mailer) SendSMTP(msg Message) error {
 
 	sendErr := email.Send(client)
 	if sendErr != nil {
+		log.Println("[SendSMTP] Client error", err)
 		return sendErr
 	}
 

@@ -30,7 +30,7 @@ func openSMTP(m *Mailer) (*mail.SMTPClient, error) {
 		Username:       m.Username,
 		Password:       m.Password,
 		Encryption:     getEncryption(m.Encryption),
-		KeepAlive:      false,
+		KeepAlive:      true,
 		ConnectTimeout: 10 * time.Second,
 		SendTimeout:    10 * time.Second,
 	}
