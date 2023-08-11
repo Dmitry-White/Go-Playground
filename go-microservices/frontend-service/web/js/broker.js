@@ -1,44 +1,68 @@
-const brokerBtn = document.getElementById("brokerBtn");
-const authBrokerBtn = document.getElementById("authBrokerBtn");
-const logBrokerBtn = document.getElementById("logBrokerBtn");
-const mailBrokerBtn = document.getElementById("mailBrokerBtn");
-const asyncBrokerBtn = document.getElementById("asyncBrokerBtn");
-const rpcBrokerBtn = document.getElementById("rpcBrokerBtn");
+const buttons = document.getElementById("buttons");
 
-brokerBtn.addEventListener("click", async () => {
-  const { BASE, INDEX } = API.BROKER;
+const { BASE, PROCESS } = API.BROKER;
 
-  const body = {
-    method: "POST",
-  };
-  const URL = `${BASE}${INDEX}`;
-
-  try {
-    const response = await fetch(URL, body);
-    const data = await response.json();
-
-    sentBox.textContent = "empty post request";
-    receivedBox.textContent = JSON.stringify(data, undefined, 4);
-
-    if (data.error) {
-      throw new Error(data.message);
-    }
-    outputBox.innerHTML += `<br><strong>Response from broker service</strong>: ${data.message}`;
-  } catch (error) {
-    outputBox.innerHTML += "<br><strong>Error</strong>:" + error;
-  }
-});
-
-authBrokerBtn.addEventListener("click", async () => {
-  const { BASE, PROCESS } = API.BROKER;
-
-  const payload = {
-    action: "Auth",
-    auth: {
-      email: "admin@example.com",
-      password: "verysecret",
+const SERVICES = {
+  brokerBtn: {
+    url: `${BASE}`,
+    payload: {},
+  },
+  authBrokerBtn: {
+    url: `${BASE}${PROCESS}`,
+    payload: {
+      action: "Auth",
+      auth: {
+        email: "admin@example.com",
+        password: "verysecret",
+      },
     },
-  };
+  },
+  logBrokerBtn: {
+    url: `${BASE}${PROCESS}`,
+    payload: {
+      action: "Log",
+      log: {
+        name: "event",
+        data: "some kind of data",
+      },
+    },
+  },
+  mailBrokerBtn: {
+    url: `${BASE}${PROCESS}`,
+    payload: {
+      action: "Mail",
+      mail: {
+        from: "testFrom@example.com",
+        to: "testTo@example.com",
+        subject: "Test Subject",
+        message: "Test Message",
+      },
+    },
+  },
+  asyncBrokerBtn: {
+    url: `${BASE}${PROCESS}`,
+    payload: {
+      action: "Async",
+      async: {
+        name: "Async Test Name",
+        data: "Async Test Data",
+      },
+    },
+  },
+  rpcBrokerBtn: {
+    url: `${BASE}${PROCESS}`,
+    payload: {
+      action: "LogRPC",
+      logRPC: {
+        name: "RPC Test Name",
+        data: "RPC Test Data",
+      },
+    },
+  },
+};
+
+const makeRequest = async (service) => {
+  const { url, payload } = service;
 
   const headers = new Headers({
     "Content-Type": "application/json",
@@ -49,10 +73,9 @@ authBrokerBtn.addEventListener("click", async () => {
     headers: headers,
     body: JSON.stringify(payload),
   };
-  const URL = `${BASE}${PROCESS}`;
 
   try {
-    const response = await fetch(URL, body);
+    const response = await fetch(url, body);
     const data = await response.json();
 
     sentBox.textContent = JSON.stringify(payload, undefined, 4);
@@ -65,158 +88,21 @@ authBrokerBtn.addEventListener("click", async () => {
   } catch (error) {
     outputBox.innerHTML += "<br><strong>Error</strong>:" + error;
   }
-});
+};
 
-logBrokerBtn.addEventListener("click", async () => {
-  const { BASE, PROCESS } = API.BROKER;
+buttons.addEventListener("click", async (event) => {
+  const target = event.target;
+  console.log("Target: ", target.id);
 
-  const payload = {
-    action: "Log",
-    log: {
-      name: "event",
-      data: "some kind of data",
-    },
-  };
+  const service = SERVICES[target.id];
 
-  const headers = new Headers({
-    "Content-Type": "application/json",
-  });
-
-  const body = {
-    method: "POST",
-    headers: headers,
-    body: JSON.stringify(payload),
-  };
-  const URL = `${BASE}${PROCESS}`;
-
-  try {
-    const response = await fetch(URL, body);
-    const data = await response.json();
-
-    sentBox.textContent = JSON.stringify(payload, undefined, 4);
-    receivedBox.textContent = JSON.stringify(data, undefined, 4);
-
-    if (data.error) {
-      throw new Error(data.message);
-    }
-    outputBox.innerHTML += `<br><strong>Response from broker service</strong>: ${data.message}`;
-  } catch (error) {
-    outputBox.innerHTML += "<br><strong>Error</strong>:" + error;
+  if (!service) {
+    return;
   }
-});
-
-mailBrokerBtn.addEventListener("click", async () => {
-  const { BASE, PROCESS } = API.BROKER;
-
-  const payload = {
-    action: "Mail",
-    mail: {
-      from: "testFrom@example.com",
-      to: "testTo@example.com",
-      subject: "Test Subject",
-      message: "Test Message",
-    },
-  };
-
-  const headers = new Headers({
-    "Content-Type": "application/json",
-  });
-
-  const body = {
-    method: "POST",
-    headers: headers,
-    body: JSON.stringify(payload),
-  };
-  const URL = `${BASE}${PROCESS}`;
 
   try {
-    const response = await fetch(URL, body);
-    const data = await response.json();
-
-    sentBox.textContent = JSON.stringify(payload, undefined, 4);
-    receivedBox.textContent = JSON.stringify(data, undefined, 4);
-
-    if (data.error) {
-      throw new Error(data.message);
-    }
-    outputBox.innerHTML += `<br><strong>Response from broker service</strong>: ${data.message}`;
+    await makeRequest(service);
   } catch (error) {
-    outputBox.innerHTML += "<br><strong>Error</strong>:" + error;
-  }
-});
-
-asyncBrokerBtn.addEventListener("click", async () => {
-  const { BASE, PROCESS } = API.BROKER;
-
-  const payload = {
-    action: "Async",
-    async: {
-      name: "Async Test Name",
-      data: "Async Test Data",
-    },
-  };
-
-  const headers = new Headers({
-    "Content-Type": "application/json",
-  });
-
-  const body = {
-    method: "POST",
-    headers: headers,
-    body: JSON.stringify(payload),
-  };
-  const URL = `${BASE}${PROCESS}`;
-
-  try {
-    const response = await fetch(URL, body);
-    const data = await response.json();
-
-    sentBox.textContent = JSON.stringify(payload, undefined, 4);
-    receivedBox.textContent = JSON.stringify(data, undefined, 4);
-
-    if (data.error) {
-      throw new Error(data.message);
-    }
-    outputBox.innerHTML += `<br><strong>Response from broker service</strong>: ${data.message}`;
-  } catch (error) {
-    outputBox.innerHTML += "<br><strong>Error</strong>:" + error;
-  }
-});
-
-rpcBrokerBtn.addEventListener("click", async () => {
-  const { BASE, PROCESS } = API.BROKER;
-
-  const payload = {
-    action: "LogRPC",
-    logRPC: {
-      name: "RPC Test Name",
-      data: "RPC Test Data",
-    },
-  };
-
-  const headers = new Headers({
-    "Content-Type": "application/json",
-  });
-
-  const body = {
-    method: "POST",
-    headers: headers,
-    body: JSON.stringify(payload),
-  };
-  const URL = `${BASE}${PROCESS}`;
-
-  try {
-    const response = await fetch(URL, body);
-    const data = await response.json();
-
-    sentBox.textContent = JSON.stringify(payload, undefined, 4);
-    receivedBox.textContent = JSON.stringify(data, undefined, 4);
-
-    if (data.error) {
-      throw new Error(data.message);
-    }
-    outputBox.innerHTML += `<br><strong>Response from broker service</strong>: ${data.message}`;
-  } catch (error) {
-    outputBox.innerHTML += "<br><strong>Error</strong>:" + error;
+    console.log("Error: ", error);
   }
 });
