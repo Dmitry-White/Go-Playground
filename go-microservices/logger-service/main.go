@@ -15,11 +15,12 @@ func main() {
 	log.Printf("DB Sessions: %+v\n", connection.NumberSessionsInProgress())
 
 	app := &AppConfig{
-		PORT:     PORT,
-		PORT_RPC: PORT_RPC,
-		ADDR:     ADDR,
-		ADDR_RPC: ADDR_RPC,
-		DB:       connection,
+		PORT:      PORT,
+		PORT_RPC:  PORT_RPC,
+		ADDR:      ADDR,
+		ADDR_RPC:  ADDR_RPC,
+		ADDR_GRPC: ADDR_GRPC,
+		DB:        connection,
 		Services: Services{
 			Models: dal.New(connection),
 		},

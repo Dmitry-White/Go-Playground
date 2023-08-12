@@ -2,17 +2,20 @@ package main
 
 import (
 	"go-microservices/logger-service/dal"
+	"go-microservices/logger-service/grpc"
 
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type AppConfig struct {
-	PORT     int
-	PORT_RPC int
-	ADDR     string
-	ADDR_RPC string
-	DB       *mongo.Client
-	Services Services
+	PORT      int
+	PORT_RPC  int
+	ADDR      string
+	ADDR_RPC  string
+	ADDR_GRPC string
+	DB        *mongo.Client
+	Services  Services
+	grpc.UnimplementedLogServiceServer
 }
 
 type Routes struct {

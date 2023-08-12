@@ -1,12 +1,16 @@
 package main
 
 import (
+	"context"
 	"errors"
 	"fmt"
+	"go-microservices/logger-service/grpc"
 	"log"
 	"net"
 	"net/http"
 	"net/rpc"
+
+	grpcLib "google.golang.org/grpc"
 )
 
 func (app *AppConfig) listenRPC() {
@@ -31,6 +35,26 @@ func (app *AppConfig) listenRPC() {
 	}
 }
 
+func (app *AppConfig) listenGRPC() {
+	listener, err := net.Listen("tcp", app.ADDR_GRPC)
+	if err != nil {
+		log.Fatalln("GRPC Server Error:", err)
+	}
+	defer listener.Close()
+
+	log.Printf("GRPC Server Listener Address: %+v\n", listener.Addr())
+
+	grpcServer := grpcLib.NewServer()
+	grpc.RegisterLogServiceServer(grpcServer, app)
+
+	log.Printf("GRPC Server Info: %+v\n", grpcServer.GetServiceInfo())
+
+	grpcErr := grpcServer.Serve(listener)
+	if grpcErr != nil {
+		log.Fatalln("GRPC Server Connection Error:", grpcErr)
+	}
+}
+
 func (app *AppConfig) handleSetup() error {
 	rpcErr := rpc.Register(app)
 	if rpcErr != nil {
@@ -38,6 +62,8 @@ func (app *AppConfig) handleSetup() error {
 	}
 
 	go app.listenRPC()
+
+	go app.listenGRPC()
 
 	return nil
 }
@@ -99,4 +125,27 @@ func (app *AppConfig) HandleLogRPC(req LogRPCPayload, res *ResponsePayload) erro
 	}
 
 	return nil
+}
+
+func (app *AppConfig) HandleLogGRPC(ctx context.Context, req *grpc.LogRequest) (*grpc.LogResponse, error) {
+	input := req.GetInput()
+
+	requestPayload := RequestPayload{
+		Name: input.Name,
+		Data: input.Data,
+	}
+	entry, err := app.Services.write(&requestPayload)
+	if err != nil {
+		log.Println("failed to log", err)
+		return nil, err
+	}
+
+	data := fmt.Sprintf("%v", entry)
+	res := &grpc.LogResponse{
+		Error:   false,
+		Message: fmt.Sprintf("Logged entry: %s", entry.InsertedID),
+		Data:    data,
+	}
+
+	return res, nil
 }
