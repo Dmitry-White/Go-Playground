@@ -19,6 +19,7 @@ services:
     environment:
       DSN: amqp://guest:guest@rabbitmq-amqp:5672
       LOGGER_PORT_RPC: 5000
+      LOGGER_PORT_GRPC: 6000
 
   authentication-service:
     build: ./authentication-service
