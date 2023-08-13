@@ -2,11 +2,17 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"errors"
+	"go-microservices/broker-service/grpc"
 	"log"
 	"net/http"
 	"net/rpc"
+	"time"
+
+	grpcLib "google.golang.org/grpc"
+	grpcLibInsecure "google.golang.org/grpc/credentials/insecure"
 )
 
 func (s *Services) index() (*ResponsePayload, error) {
@@ -175,6 +181,45 @@ func (s *Services) logRPC(payload LogRPCPayload) (*ResponsePayload, error) {
 	if requestErr != nil {
 		log.Println("[logRPC] Request Error: ", requestErr)
 		return nil, requestErr
+	}
+
+	return &jsonFromService, nil
+}
+
+func (s *Services) logGRPC(payload LogGRPCPayload) (*ResponsePayload, error) {
+	log.Printf("[logGRPC] GRPC Log Config: %+v\n", s.LogGRPC)
+
+	blockingReqOption := grpcLib.WithBlock()
+	credentials := grpcLibInsecure.NewCredentials()
+	credentialsOption := grpcLib.WithTransportCredentials(credentials)
+
+	connection, err := grpcLib.Dial(s.LogGRPC.URL, credentialsOption, blockingReqOption)
+	if err != nil {
+		log.Println("[logGRPC] Connection Error: ", err)
+		return nil, err
+	}
+	defer connection.Close()
+
+	client := grpc.NewLogServiceClient(connection)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+
+	requestPayload := &grpc.LogRequest{
+		Input: &grpc.Log{
+			Name: payload.Name,
+			Data: payload.Data,
+		},
+	}
+	response, err := client.HandleLogGRPC(ctx, requestPayload)
+	if err != nil {
+		log.Println("[logGRPC] Handler Error: ", err)
+		return nil, err
+	}
+
+	jsonFromService := ResponsePayload{
+		Error:   response.Error,
+		Message: response.Message,
+		Data:    response.Data,
 	}
 
 	return &jsonFromService, nil

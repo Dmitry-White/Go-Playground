@@ -121,6 +121,25 @@ func (app *AppConfig) processRPC(resw http.ResponseWriter, requestPayload *Reque
 	writeJSON(resw, http.StatusAccepted, responsePayload)
 }
 
+func (app *AppConfig) processGRPC(resw http.ResponseWriter, requestPayload *RequestPayload) {
+	data, err := app.Services.logGRPC(requestPayload.LogGRPC)
+	if err != nil {
+		errorJSON(resw, err)
+		return
+	}
+	if data.Error {
+		errorJSON(resw, errors.New(data.Message), http.StatusInternalServerError)
+		return
+	}
+
+	responsePayload := ResponsePayload{
+		Error:   false,
+		Message: fmt.Sprintf("Processed GRPC Log request: %s", data.Message),
+		Data:    data,
+	}
+	writeJSON(resw, http.StatusAccepted, responsePayload)
+}
+
 func (app *AppConfig) handleProcess(resw http.ResponseWriter, req *http.Request) {
 	requestPayload := RequestPayload{}
 
@@ -142,6 +161,8 @@ func (app *AppConfig) handleProcess(resw http.ResponseWriter, req *http.Request)
 		app.processAsync(resw, &requestPayload)
 	case SERVICES.LogRPC.Name:
 		app.processRPC(resw, &requestPayload)
+	case SERVICES.LogGRPC.Name:
+		app.processGRPC(resw, &requestPayload)
 	default:
 		errorJSON(resw, errors.New("unknown Action"))
 		return

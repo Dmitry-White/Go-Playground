@@ -35,12 +35,13 @@ type ServiceConfig struct {
 }
 
 type Services struct {
-	Auth   ServiceConfig
-	Log    ServiceConfig
-	Mail   ServiceConfig
-	Async  ServiceConfig
-	LogRPC ServiceConfig
-	Models dal.Models
+	Auth    ServiceConfig
+	Log     ServiceConfig
+	Mail    ServiceConfig
+	Async   ServiceConfig
+	LogRPC  ServiceConfig
+	LogGRPC ServiceConfig
+	Models  dal.Models
 }
 
 type ResponsePayload struct {
@@ -76,13 +77,19 @@ type LogRPCPayload struct {
 	Data string `json:"data"`
 }
 
+type LogGRPCPayload struct {
+	Name string `json:"name"`
+	Data string `json:"data"`
+}
+
 type RequestPayload struct {
-	Action string        `json:"action"`
-	Auth   AuthPayload   `json:"auth,omitempty"`
-	Log    LogPayload    `json:"log,omitempty"`
-	Mail   MailPayload   `json:"mail,omitempty"`
-	Async  AsyncPayload  `json:"async,omitempty"`
-	LogRPC LogRPCPayload `json:"logRPC,omitempty"`
+	Action  string         `json:"action"`
+	Auth    AuthPayload    `json:"auth,omitempty"`
+	Log     LogPayload     `json:"log,omitempty"`
+	Mail    MailPayload    `json:"mail,omitempty"`
+	Async   AsyncPayload   `json:"async,omitempty"`
+	LogRPC  LogRPCPayload  `json:"logRPC,omitempty"`
+	LogGRPC LogGRPCPayload `json:"logGRPC,omitempty"`
 }
 
 type RequestPayloadRPC struct {

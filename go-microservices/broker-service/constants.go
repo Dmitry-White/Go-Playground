@@ -45,6 +45,11 @@ var SERVICES = Services{
 		Name: "LogRPC",
 		URL:  fmt.Sprintf("logger-service:%s", os.Getenv("LOGGER_PORT_RPC")),
 	},
+
+	LogGRPC: ServiceConfig{
+		Name: "LogGRPC",
+		URL:  fmt.Sprintf("logger-service:%s", os.Getenv("LOGGER_PORT_GRPC")),
+	},
 }
 
 var ADDR = fmt.Sprintf(":%d", PORT)

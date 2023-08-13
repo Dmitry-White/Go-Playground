@@ -20,12 +20,13 @@ func main() {
 		ADDR: ADDR,
 		AMQP: connection,
 		Services: Services{
-			Auth:   SERVICES.Auth,
-			Log:    SERVICES.Log,
-			Mail:   SERVICES.Mail,
-			Async:  SERVICES.Async,
-			LogRPC: SERVICES.LogRPC,
-			Models: dal.New(connection),
+			Auth:    SERVICES.Auth,
+			Log:     SERVICES.Log,
+			Mail:    SERVICES.Mail,
+			Async:   SERVICES.Async,
+			LogRPC:  SERVICES.LogRPC,
+			LogGRPC: SERVICES.LogGRPC,
+			Models:  dal.New(connection),
 		},
 	}
 
