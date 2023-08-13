@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package grpc;
+
+option go_package = "/grpc";
+
+message Log{
+    string name = 1;
+    string data = 2;
+}
+
+message LogRequest{
+    Log input = 1;
+}
+
+message LogResponse{
+    string result = 1;
+    bool error = 2;
+	string message = 3;
+	string data = 4;
+}
+
+
+
+service LogService{
+    rpc HandleLogGRPC(LogRequest) returns (LogResponse);
+}
