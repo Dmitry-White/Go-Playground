@@ -59,6 +59,16 @@ const SERVICES = {
       },
     },
   },
+  grpcBrokerBtn: {
+    url: `${BASE}${PROCESS}`,
+    payload: {
+      action: "LogGRPC",
+      logGRPC: {
+        name: "GRPC Test Name",
+        data: "GRPC Test Data",
+      },
+    },
+  },
 };
 
 const makeRequest = async (service) => {
