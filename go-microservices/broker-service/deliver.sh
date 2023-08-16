@@ -1,8 +1,9 @@
 #!/bin/bash
 
 ACCOUNT=$1
-NAME=$2:1.0.0
-TAG=$ACCOUNT/$NAME
+NAME=$2
+VERSION=$3
+TAG=$ACCOUNT/$NAME:$VERSION
 
 echo "Tag: $TAG"
 
