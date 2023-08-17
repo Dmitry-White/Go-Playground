@@ -1,8 +1,24 @@
 services:
+  reverse-proxy:
+    image: dmitrywhite/reverse-proxy:1.0.0
+    ports:
+      - 80:80
+      - 443:443
+    deploy:
+      mode: replicated
+      replicas: 1
+    volumes:
+      - ./reverse-proxy/dal/data/data:/data
+      - ./reverse-proxy/dal/data/config:/config
+
+  frontend-service:
+    image: dmitrywhite/frontend-service:1.0.0
+    deploy:
+      mode: replicated
+      replicas: 1
+
   broker-service:
     image: dmitrywhite/broker-service:1.0.0
-    ports:
-      - 8081:80
     deploy:
       mode: replicated
       replicas: 1
