@@ -7,6 +7,8 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+    environment:
+      MODE: local
 
   broker-service:
     build: ./broker-service
