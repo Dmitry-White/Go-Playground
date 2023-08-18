@@ -16,6 +16,8 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+    environment:
+      MODE: swarm
 
   broker-service:
     image: dmitrywhite/broker-service:1.0.0
