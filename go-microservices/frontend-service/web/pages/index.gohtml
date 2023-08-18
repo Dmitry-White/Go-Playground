@@ -33,6 +33,9 @@
 {{end}}
 
 {{define "js"}}
+    <script>
+        const mode = {{ .Mode }};
+    </script>
     <script src="js/core.js"></script>
     <script src="js/broker.js"></script>
 {{end}}

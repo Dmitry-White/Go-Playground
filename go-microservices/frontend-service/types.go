@@ -15,3 +15,7 @@ type Paths struct {
 	PAGES     string
 	TEMPLATES string
 }
+
+type Data struct {
+	Mode string
+}

@@ -1,6 +1,9 @@
 package main
 
-import "net/http"
+import (
+	"net/http"
+	"os"
+)
 
 func handleIndex(resw http.ResponseWriter, r *http.Request) {
 	tmpl, err := render("index.gohtml")
@@ -8,7 +11,11 @@ func handleIndex(resw http.ResponseWriter, r *http.Request) {
 		http.Error(resw, err.Error(), http.StatusInternalServerError)
 	}
 
-	err = tmpl.Execute(resw, nil)
+	data := Data{
+		Mode: os.Getenv("MODE"),
+	}
+
+	err = tmpl.Execute(resw, data)
 	if err != nil {
 		http.Error(resw, err.Error(), http.StatusInternalServerError)
 	}
