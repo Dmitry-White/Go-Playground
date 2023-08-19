@@ -1,4 +1,4 @@
-.PHONY: clean, start, stop
+.PHONY: clean, start, stop, prepare, summon, dismiss
 
 clean:
 	docker system prune -af
@@ -8,3 +8,12 @@ start:
 
 stop:
 	docker-compose down
+
+prepare:
+	./deliver.sh
+
+summon:
+	./deploy.sh
+
+dismiss:
+	./remove.sh
