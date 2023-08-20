@@ -17,3 +17,9 @@ summon:
 
 dismiss:
 	./remove.sh
+
+swarm_up:
+	./swarm.sh <AWS_PROFILE> up
+
+swarm_down:
+	./swarm.sh <AWS_PROFILE> down
