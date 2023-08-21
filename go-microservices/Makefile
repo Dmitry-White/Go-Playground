@@ -1,4 +1,4 @@
-.PHONY: clean, start, stop, prepare, summon, dismiss
+.PHONY: clean, start, stop, prepare, summon, dismiss, swarm_up, swarm_down
 
 clean:
 	docker system prune -af

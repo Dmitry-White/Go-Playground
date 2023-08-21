@@ -8,11 +8,19 @@ variable "instance_type" {
   default     = "t3.nano"
 }
 
+variable "ssh_key_path" {
+  type        = string
+  description = "SSH Key Path"
+  default     = "~/.ssh/id_rsa.pub"
+}
+
 variable "profile" {
   description = "AWS Profile to use"
 }
 
 locals {
+  sg_name = "Swarm node security group"
+  ssh_key = "swarm-node-key"
   configuration = [
     {
       name = "node-1"
