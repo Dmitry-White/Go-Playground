@@ -17,7 +17,7 @@ services:
       mode: replicated
       replicas: 1
     environment:
-      MODE: swarm
+      API_URL: http://backend:80
 
   broker-service:
     image: dmitrywhite/broker-service:1.0.0

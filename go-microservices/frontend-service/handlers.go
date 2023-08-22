@@ -12,7 +12,7 @@ func handleIndex(resw http.ResponseWriter, r *http.Request) {
 	}
 
 	data := Data{
-		Mode: os.Getenv("MODE"),
+		API_URL: os.Getenv("API_URL"),
 	}
 
 	err = tmpl.Execute(resw, data)

@@ -17,5 +17,5 @@ type Paths struct {
 }
 
 type Data struct {
-	Mode string
+	API_URL string
 }

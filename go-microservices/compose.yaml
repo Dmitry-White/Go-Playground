@@ -8,7 +8,7 @@ services:
       mode: replicated
       replicas: 1
     environment:
-      MODE: local
+      API_URL: http://localhost:8081
 
   broker-service:
     build: ./broker-service
