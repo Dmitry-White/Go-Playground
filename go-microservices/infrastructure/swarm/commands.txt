@@ -1,0 +1,9 @@
+# Update hostname on your nodes
+sudo hostnamectl set-hostname node-#
+
+# Update hosts file on your nodes
+sudo vi /etc/hosts
+
+```
+<NODE_#_IP_ADDRESS> node-#
+```

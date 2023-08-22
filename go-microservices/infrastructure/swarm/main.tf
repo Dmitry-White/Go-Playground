@@ -11,6 +11,8 @@ resource "aws_instance" "swarm_node" {
   key_name               = aws_key_pair.swarm_node_key.key_name
   vpc_security_group_ids = [aws_security_group.swarm_node_sg.id]
 
+  user_data = file("./user_data.sh")
+
   tags = {
     Name = each.value.name
   }
