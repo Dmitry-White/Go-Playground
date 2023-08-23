@@ -3,7 +3,6 @@
 AWS_PROFILE=$1
 MODE=$2
 
-cd ./infrastructure/swarm
 set -e
 
 echo "Running Terraform Init..."
@@ -27,5 +26,3 @@ else
     terraform apply -destroy -var="profile=$1"
     echo "Apply Destroy Successul!"
 fi
-
-cd ../../

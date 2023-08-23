@@ -29,3 +29,12 @@ sudo apt-get -y install \
     docker-buildx-plugin \
     docker-compose-plugin
 echo "Installation Successul!"
+
+echo "Preparing project folders..."
+mkdir \
+    ./reverse-proxy/dal/data/data \
+    ./reverse-proxy/dal/data/config \
+    ./authentication-service/dal/data \
+    ./logger-service/dal/data \
+    ./listener-service/dal/data 
+echo "Preparation Successul!"
