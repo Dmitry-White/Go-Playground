@@ -1,4 +1,4 @@
-.PHONY: clean, start, stop, prepare, summon, dismiss, swarm_up, swarm_down
+.PHONY: clean, start, stop, prepare, summon_local, summon_remote, dismiss, infra_swarm_up, infra_swarm_down
 
 clean:
 	docker system prune -af
@@ -12,14 +12,17 @@ stop:
 prepare:
 	./deliver.sh
 
-summon:
-	./deploy.sh
+summon_local:
+	./deploy.sh development
+
+summon_remote:
+	./deploy.sh production
 
 dismiss:
 	./remove.sh
 
-swarm_up:
-	./swarm.sh <AWS_PROFILE> up
+infra_swarm_up:
+	./infrastructure.sh DmitryPC swarm up
 
-swarm_down:
-	./swarm.sh <AWS_PROFILE> down
+infra_swarm_down:
+	./infrastructure.sh DmitryPC swarm down
