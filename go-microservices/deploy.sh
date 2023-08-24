@@ -1,6 +1,7 @@
 #!/bin/bash
 
-COMPOSE_FILE=swarm.yaml
+ENV=$1
+COMPOSE_FILE=swarm.$1.yaml
 STACK_NAME=go-microservices
 
 echo "Initialising Docker Swarm..."
