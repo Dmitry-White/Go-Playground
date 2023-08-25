@@ -1,0 +1,112 @@
+services:
+  reverse-proxy:
+    image: dmitrywhite/reverse-proxy:1.0.0
+    ports:
+      - 80:80
+      - 443:443
+    deploy:
+      mode: replicated
+      replicas: 1
+    volumes:
+      - ./reverse-proxy/dal/data/data:/data
+      - ./reverse-proxy/dal/data/config:/config
+
+  frontend-service:
+    image: dmitrywhite/frontend-service:1.0.0
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      API_URL: http://backend:80
+
+  broker-service:
+    image: dmitrywhite/broker-service:1.0.0
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      DSN: amqp://guest:guest@rabbitmq-amqp:5672
+      LOGGER_PORT_RPC: 5000
+      LOGGER_PORT_GRPC: 6000
+
+  authentication-service:
+    image: dmitrywhite/authentication-service:1.0.0
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      DSN: postgresql://postgres:password@postgres-db:5432/users?sslmode=disable&timezone=UTC&connect_timeout=5
+
+  logger-service:
+    image: dmitrywhite/logger-service:1.0.0
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      URI: mongodb://mongo-db:27017
+      Username: mongo
+      Password: password
+
+  mail-service:
+    image: dmitrywhite/mail-service:1.0.0
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      Host: mailhog-smtp
+      Port: 1025
+      Username: mailhog
+      Password: password
+      Encryption: none
+
+  listener-service:
+    image: dmitrywhite/listener-service:1.0.0
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      DSN: amqp://guest:guest@rabbitmq-amqp:5672
+
+  postgres-db:
+    image: postgres:14.2
+    ports:
+      - 5432:5432
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: users
+    volumes:
+      - ./authentication-service/dal/data:/var/lib/postgresql/data
+
+  mongo-db:
+    image: mongo:4.2.16-bionic
+    ports:
+      - 27017:27017
+    deploy:
+      mode: global
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: logs
+    volumes:
+      - ./logger-service/dal/data:/data/db
+
+  mailhog-smtp:
+    image: mailhog/mailhog:latest
+    ports:
+      - 1025:1025
+      - 8025:8025
+    deploy:
+      mode: global
+
+  rabbitmq-amqp:
+    image: rabbitmq:3.12-alpine
+    ports:
+      - 5672:5672
+    deploy:
+      mode: global
+    volumes:
+      - ./listener-service/dal/data:/var/lib/rabbitmq
