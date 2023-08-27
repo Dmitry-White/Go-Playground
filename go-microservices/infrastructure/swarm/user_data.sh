@@ -31,10 +31,10 @@ sudo apt-get -y install \
 echo "Installation Successul!"
 
 echo "Preparing project folders..."
-mkdir \
-    ./reverse-proxy/dal/data/data \
-    ./reverse-proxy/dal/data/config \
-    ./authentication-service/dal/data \
-    ./logger-service/dal/data \
-    ./listener-service/dal/data 
+sudo mkdir -p \
+    ${home_path}/reverse-proxy/dal/data/data \
+    ${home_path}/reverse-proxy/dal/data/config \
+    ${home_path}/authentication-service/dal/data \
+    ${home_path}/logger-service/dal/data \
+    ${home_path}/listener-service/dal/data
 echo "Preparation Successul!"
