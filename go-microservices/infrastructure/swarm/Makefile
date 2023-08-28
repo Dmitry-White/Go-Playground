@@ -1,10 +1,10 @@
-.PHONY: build, run, inside, kill, production
+.PHONY: summon, dismiss, inside
 
 summon:
-	./deploy.sh <AWS_PROFILE> up
+	./deploy.sh $(AWS_PROFILE) up
 
 dismiss:
-	./deploy.sh <AWS_PROFILE> down
+	./deploy.sh $(AWS_PROFILE) down
 
 inside:
-	ssh -i "~/.ssh/id_rsa" ubuntu@<IP>
+	ssh -i "~/.ssh/id_rsa" ubuntu@$(NODE_IP)
