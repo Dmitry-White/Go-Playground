@@ -1,3 +1,4 @@
 **/dal/data
 **/.terraform*
 **/*.tfstate*
+**/*tfplan*

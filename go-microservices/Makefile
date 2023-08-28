@@ -22,7 +22,7 @@ dismiss:
 	./remove.sh
 
 infra_swarm_up:
-	./infrastructure.sh <AWS_PROFILE> swarm up
+	./infrastructure.sh $(AWS_PROFILE) swarm up
 
 infra_swarm_down:
-	./infrastructure.sh <AWS_PROFILE> swarm down
+	./infrastructure.sh $(AWS_PROFILE) swarm down
