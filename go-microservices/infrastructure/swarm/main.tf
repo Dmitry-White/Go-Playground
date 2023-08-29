@@ -13,6 +13,10 @@ resource "aws_instance" "swarm_node" {
 
   user_data = data.cloudinit_config.swarm_node_config.rendered
 
+  metadata_options {
+    instance_metadata_tags = "enabled"
+  }
+
   tags = {
     Name = each.value.name
   }
