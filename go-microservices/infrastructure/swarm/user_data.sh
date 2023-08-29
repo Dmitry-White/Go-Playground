@@ -1,5 +1,7 @@
 #!/bin/bash
 
+METADATA_URL=http://169.254.169.254/latest/meta-data
+
 set -e
 
 echo "Setting up Docker's apt repository..."
@@ -19,7 +21,7 @@ echo \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" |
     sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
 sudo apt-get update
-echo "Set up Successul!"
+echo "Set up Successful!"
 
 echo "Installing the Docker packages..."
 sudo apt-get -y install \
@@ -28,13 +30,19 @@ sudo apt-get -y install \
     containerd.io \
     docker-buildx-plugin \
     docker-compose-plugin
-echo "Installation Successul!"
+echo "Installation Successful!"
 
 echo "Preparing project folders..."
 sudo mkdir -p \
-    ${home_path}/reverse-proxy/dal/data/data \
-    ${home_path}/reverse-proxy/dal/data/config \
-    ${home_path}/authentication-service/dal/data \
-    ${home_path}/logger-service/dal/data \
-    ${home_path}/listener-service/dal/data
-echo "Preparation Successul!"
+    ${tf_home_path}/reverse-proxy/dal/data/data \
+    ${tf_home_path}/reverse-proxy/dal/data/config \
+    ${tf_home_path}/authentication-service/dal/data \
+    ${tf_home_path}/logger-service/dal/data \
+    ${tf_home_path}/listener-service/dal/data
+echo "Preparation Successful!"
+
+echo "Configuring instance..."
+sudo usermod -aG docker ${tf_node_user}
+nodeName=$(curl -H "X-aws-ec2-metadata-token: $TOKEN" -v $METADATA_URL/tags/instance/Name)
+sudo hostnamectl set-hostname $nodeName
+echo "Configuration Successful!"

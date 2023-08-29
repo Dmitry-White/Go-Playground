@@ -1,7 +1,8 @@
 data "template_file" "user_data" {
   template = local.user_data_file_content
   vars = {
-    home_path = local.home_path
+    tf_node_user = local.node_user
+    tf_home_path = local.home_path
   }
 }
 

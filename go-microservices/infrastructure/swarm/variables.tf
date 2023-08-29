@@ -21,7 +21,8 @@ variable "profile" {
 locals {
   sg_name   = "Swarm node security group"
   ssh_key   = "swarm-node-key"
-  home_path = "/home/ubuntu"
+  node_user = "ubuntu"
+  home_path = "/home/${local.node_user}"
 
   user_data_file         = "user_data.sh"
   user_data_file_content = file("./${local.user_data_file}")
