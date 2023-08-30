@@ -9,6 +9,6 @@ set -e
 
 echo "Deploying Infrastructure..."
 ./deploy.sh $AWS_PROFILE $MODE
-echo "Deploy Successul!"
+echo "Deploy Successful!"
 
 cd ../../
