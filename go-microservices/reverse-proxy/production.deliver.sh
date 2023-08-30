@@ -9,12 +9,12 @@ echo "Tag: $TAG"
 
 echo "Logging in Docker Hub..."
 docker login
-echo "Logging in Successul!"
+echo "Logging in Successful!"
 
 echo "Building Docker image..."
 docker build -t $TAG .
-echo "Building Successul!"
+echo "Building Successful!"
 
 echo "Pushing Docker image..."
 docker push $TAG
-echo "Pushing Successul!"
+echo "Pushing Successful!"

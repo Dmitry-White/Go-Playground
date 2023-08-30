@@ -8,30 +8,30 @@ set -e
 
 echo "Running Terraform Init..."
 terraform init
-echo "Init Successul!"
+echo "Init Successful!"
 
 if [ $MODE == "up" ]; then
     echo "Running Terraform Plan..."
     terraform plan \
         -var="profile=$1" \
         -out=$PLAN_PATH
-    echo "Plan Successul!"
+    echo "Plan Successful!"
 
     echo "Running Terraform Apply..."
     terraform apply \
         $PLAN_PATH
-    echo "Apply Successul!"
+    echo "Apply Successful!"
 else
     echo "Running Terraform Plan Destroy..."
     terraform plan \
         -destroy \
         -var="profile=$1" \
         -out=$PLAN_PATH
-    echo "Plan Destroy Successul!"
+    echo "Plan Destroy Successful!"
 
     echo "Running Terraform Apply Destroy..."
     terraform apply \
         -destroy \
         $PLAN_PATH
-    echo "Apply Destroy Successul!"
+    echo "Apply Destroy Successful!"
 fi
