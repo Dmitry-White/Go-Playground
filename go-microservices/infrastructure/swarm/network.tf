@@ -26,6 +26,14 @@ resource "aws_security_group" "swarm_node_sg" {
   }
 
   ingress {
+    description = "Docker Swarm 2376 from the internet for Docker client communication"
+    from_port   = 2376
+    to_port     = 2376
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
     description = "Docker Swarm 2377 from the internet for cluster management"
     from_port   = 2377
     to_port     = 2377

@@ -9,8 +9,8 @@ sudo vi /etc/hosts
 ```
 
 # Init Swarm
-docker swarm init --advertise-addr <NODE_1_IP_ADDRESS>
-docker swarm join --token <SWARM_TOKEN> <NODE_1_IP_ADDRESS>:2377
+docker swarm init --advertise-addr <NODE_1_PRIVATE_IP_ADDRESS>
+docker swarm join --token <SWARM_TOKEN> <NODE_1_PRIVATE_IP_ADDRESS>:2377
 
 # Start Swarm
 docker stack deploy -c <SWARM_FILE> <APP_NAME>
