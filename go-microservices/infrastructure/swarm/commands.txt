@@ -14,3 +14,12 @@ docker swarm join --token <SWARM_TOKEN> <NODE_1_PRIVATE_IP_ADDRESS>:2377
 
 # Start Swarm
 docker stack deploy -c <SWARM_FILE> <APP_NAME>
+
+# Output Swarm nodes
+docker node ls
+
+# Output Swarm services
+docker service ls
+
+# Output current Swarm node services
+docker node ps
