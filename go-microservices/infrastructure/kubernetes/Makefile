@@ -1,4 +1,4 @@
-.PHONY: clean, init, start, stop, see
+.PHONY: clean, init, start, stop, see, summon, dismiss
 
 clean:
 	minikube delete
@@ -14,3 +14,9 @@ stop:
 
 see:
 	minikube dashboard
+
+summon:
+	./deploy.sh nil up
+
+dismiss:
+	./deploy.sh nil down
