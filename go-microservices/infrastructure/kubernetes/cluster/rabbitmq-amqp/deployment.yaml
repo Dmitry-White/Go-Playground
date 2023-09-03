@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-amqp
+
+spec:
+  selector:
+    matchLabels:
+      app: rabbitmq-amqp
+  template:
+    metadata:
+      labels:
+        app: rabbitmq-amqp
+    spec:
+      containers:
+        - name: rabbitmq-amqp
+          image: rabbitmq:3.12-alpine
+          resources:
+            requests:
+              memory: 128Mi
+              cpu: 250m
+            limits:
+              memory: 512Mi
+              cpu: 500m
+          ports:
+            - containerPort: 5672
