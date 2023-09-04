@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mail-service
+
+spec:
+  selector:
+    matchLabels:
+      app: mail-service
+  template:
+    metadata:
+      labels:
+        app: mail-service
+    spec:
+      containers:
+        - name: mail-service
+          image: dmitrywhite/mail-service:1.0.0
+          resources:
+            requests:
+              memory: 64Mi
+              cpu: 250m
+            limits:
+              memory: 128Mi
+              cpu: 500m
+          ports:
+            - containerPort: 80
+          env:
+            - name: Host
+              value: mailhog-smtp
+            - name: Port
+              value: "1025"
+            - name: Username
+              value: mailhog
+            - name: Password
+              value: password
+            - name: Encryption
+              value: none
