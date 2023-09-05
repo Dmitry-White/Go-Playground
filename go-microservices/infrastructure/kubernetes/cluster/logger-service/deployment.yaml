@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logger-service
+
+spec:
+  selector:
+    matchLabels:
+      app: logger-service
+  template:
+    metadata:
+      labels:
+        app: logger-service
+    spec:
+      containers:
+        - name: logger-service
+          image: dmitrywhite/logger-service:1.0.0
+          resources:
+            requests:
+              memory: 64Mi
+              cpu: 250m
+            limits:
+              memory: 128Mi
+              cpu: 500m
+          ports:
+            - containerPort: 80
+          env:
+            - name: URI
+              value: mongodb://mongo-db:27017
+            - name: Username
+              value: mongo
+            - name: Password
+              value: password
