@@ -1,0 +1,21 @@
+# Prepare cluster for deployment
+make init
+OR
+make start
+
+# Launch the Dashboard
+make see
+
+# Deploy the cluster
+make summon
+
+# Update hosts file on your target machine
+sudo vi /etc/hosts
+
+```
+127.0.0.1 frontend-service.info broker-service.info mailhog-smtp.info
+::1       frontend-service.info broker-service.info mailhog-smtp.info
+```
+
+# Start tunnelling inside the cluster
+make enter
