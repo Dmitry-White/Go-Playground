@@ -20,3 +20,12 @@ summon:
 
 dismiss:
 	./deploy.sh nil down
+
+enter:
+	minikube tunnel
+
+list:
+	kubectl get pods
+
+inspection:
+	kubectl logs $(POD)
