@@ -4,6 +4,7 @@ metadata:
   name: logger-service
 
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: logger-service

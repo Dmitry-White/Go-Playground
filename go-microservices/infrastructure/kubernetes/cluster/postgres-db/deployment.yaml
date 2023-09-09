@@ -4,6 +4,7 @@ metadata:
   name: postgres-db
 
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: postgres-db

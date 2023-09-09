@@ -4,6 +4,7 @@ metadata:
   name: mailhog-smtp
 
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: mailhog-smtp
